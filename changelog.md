@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 14/10/2026 — Task 490ec843 FECHADA (validação final v0.0.30)
+
+José revalidou ("Testei e funcionou"): aviso visível, abaixo do botão, com respiro. Loop de feedback encerrado; task concluída na versão a0ac0e2. Próxima: ACL d3e7d6da (plano autorizado, RED em andamento).
+
 ## 14/10/2026 — Respiro vertical do aviso (skip a0ac0e2)
 
 Aviso encostava no botão (flex-wrap sem gap vertical). gap-y-1 adicionado; verificado em produção (v0.0.30, ref a0ac0e2): folga de 4px entre botão e aviso.
