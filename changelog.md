@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 14/10/2026 — Task ea6db5dc CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou o cadastro único: abas Empresas (95) e Pessoas (11) com dados do backfill, cadastro funcionando, leads legados intactos. Quatro tasks concluídas na Fase 1 (20c86bd2, 490ec843, d3e7d6da, ea6db5dc). Próxima: IDENTIDADE (3b736d7d), que depende desta.
+
 ## 14/10/2026 — Task ea6db5dc implementada (skip 0083166)
 
-Cadastro único (SPEC-1-002, CA-1-002-01): migração 0012 (empresas, pessoas, pessoas_origens, bloqueios_contato, fusoes_cadastro com RLS só-admin + relations aditivas empresa/pessoa/migracao_origem_id em leads); backfill rastreável (93 leads vinculados, 95 empresas, 11 pessoas — sem fusão por nome, contato genérico não vira pessoa); serviço cadastro.ts com normalizações (e-mail/telefone/LinkedIn) e tela /cadastro (abas Empresas/Pessoas). RED confirmado (404 coleções inexistentes) → GREEN; regressão 11/11 backend + 7/7 regras. Publicada (ref 0083166). Aguardando teste humano.
+Cadastro único (SPEC-1-002, CA-1-002-01): migração 0012 (empresas, pessoas, pessoas_origens, bloqueios_contato, fusoes_cadastro com RLS só-admin + relations aditivas empresa/pessoa/migracao_origem_id em leads); backfill rastreável (93 leads vinculados, 95 empresas, 11 pessoas — sem fusão por nome, contato genérico não vira pessoa); serviço cadastro.ts com normalizações (e-mail/telefone/LinkedIn) e tela /cadastro (abas Empresas/Pessoas). RED confirmado (404 coleções inexistentes) → GREEN; regressão 11/11 backend + 7/7 regras. Publicada (ref 0083166).
 
 ## 14/10/2026 — Task d3e7d6da CONCLUÍDA (teste humano aprovado)
 
