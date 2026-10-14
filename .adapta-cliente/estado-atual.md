@@ -1,0 +1,21 @@
+# Estado atual — Adapta Cliente
+
+- schema_version: adapta-cliente-state/v2
+- task_id: 20c86bd2-acf1-4b98-8d39-709b17243c7e
+- executor: desconhecido
+- owner_informativo: desconhecido
+- spec: 04_fase-atual/specs/spec-fundacao-acessos-e-ambiente.md
+- analise: .adapta-cliente/analises/20c86bd2-acf1-4b98-8d39-709b17243c7e.md
+- etapa: aguardando_teste_humano
+- autorizacao_implementacao: confirmada 2026-10-14T14:37:00-03:00 ("Pode implementar este plano")
+- teste_humano: pendente
+- verificacao_automatica: passou (QA v0.0.19 88790b4: setup/static/build ok; test:rules 4/4; test:backend 1 pass + 4 skip sem backend local; RED documentado)
+- aprendizado: pendente
+- sistema: funil-mkt
+- skip_projeto: 50182
+- skip_versao: 88790b4
+- skip_publicacao: publicada:88790b4 em 2026-10-14T18:07:56Z
+- pendente_github: nao
+- ultima_acao: v0.0.19 publicada com prova (88790b4); funil e repo principal enviados ao GitHub; espelho parcial (Index.tsx/package.json/hooks) sobe no próximo envio
+- proxima_acao: aguardar teste humano do José/Evandro na URL de produção
+- atualizado_em: 2026-10-14T18:15:00-03:00

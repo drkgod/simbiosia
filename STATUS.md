@@ -1,11 +1,12 @@
 # Estado da construção
 
-Atualizado:14/10/2026 · Fase atual:1, planejada, execução não iniciada.
+Atualizado: 14/10/2026
+Fase atual: 1 — em execução (task 1 publicada, aguardando teste humano).
 
-P9: Fábrica e Funil são dois aplicativos/backends separados e sincronizados, ambos alvos ativos de construção. Fábrica mantém cadastro/listas/produtos/régua/notas; Funil mantém comercial/proteção. P8 unificação superada.
+Seis SPECs e 19 tasks abertas em 04_fase-atual/, com UUIDs preservados. Os cards continuam internos conforme retorno do portal; responsáveis/prazos não atribuídos por inferência.
 
-Sete SPECs com TDD e 22 tarefas abertas comUUIDs do portal. Campos/visibilidade interna preservados; responsáveis/prazos não inventados. Desenvolvimento coordenado nos dois repos, contrato antesconsumidores e prova/aceite antes sucessoras.
+Sistema único com Funil MKT como base; Fábrica como módulo de reuso. Task 20c86bd2 (SPEC-1-001) implementada e publicada no Skip (v0.0.19, ref 88790b4): migração 0008 (sistema_config + teste_despachos), despachos de IA instrumentados e neutralizados em TESTE, runners reais node:test, manifesto de versão e backup/restauração de fixtures sintéticas, selo AMBIENTE DE TESTE na UI.
 
-F1/2 contrato/projeções locais semHTTP; F3 conexão real; F5 entradaemoperação. Código/backend dos dois apps ainda não alterados nesta revisão. Validação realizada é documental.
+Repositório operacional privado: https://github.com/drkgod/simbiosia. Publicação autorizada pelo consultor em 14/10/2026. Os dois projetos de origem são referenciados como submódulos; usar clone com --recurse-submodules.
 
-Repositório privado: https://github.com/drkgod/simbiosia, branch main. Clonar --recurse-submodules. Próxima ação: confirmar os dois backends TESTE e iniciar fundação, testes e restauração dos doisapps conforme SPEC-1-001.
+Próxima ação: teste humano da task 20c86bd2 na URL de produção (badge TESTE, interceptação de IA com contador, prova de restauração). Uma task por vez, com prova e confirmação humana.

@@ -1,8 +1,8 @@
 # Histórico da construção
 
-## 14/10/2026 — P9: dois aplicativos separados
+## 14/10/2026 — Task 20c86bd2 implementada e publicada (skip 88790b4)
 
-Ambos os submódulos são alvos ativos. Escopo de execução revisado para sete SPECs e 22 tarefas; novo contrato/projeções/reconciliação local. IDs anteriores preservados, três novos cards; conexão real F3, mercadoF5. Nenhum código implementado ou backend migrado por esta revisão.
+Ambiente de demonstração preparado e provado: migração 0008 (sistema_config + teste_despachos), despachos de IA instrumentados e neutralizados em TESTE (portão + observador com contador por correlação), runners reais node:test (test:rules 4/4; test:backend com skips sem backend local), manifesto de versão e backup/restauração de fixtures sintéticas, selo AMBIENTE DE TESTE na UI. Publicada em https://funil-mkt-vendas-simbiosia-aa6fd.goskip.app (ref 88790b4). Aguardando teste humano.
 
 ## 14/10/2026 — Repositório operacional no GitHub
 
