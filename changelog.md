@@ -1,5 +1,13 @@
 # Histórico da construção
 
+## 14/10/2026 — Task 490ec843 CONCLUÍDA
+
+Teste humano aprovado pelo José (aviso visível, abaixo do botão, botão desabilitado). Task fechada. Próxima elegível: ACL d3e7d6da (depende dos gates SEM-EXTERNO aceitos — agora satisfeito).
+
+## 14/10/2026 — Posição do aviso corrigida (skip 05c0c50)
+
+José reportou: aviso aparecia ao lado direito e levemente acima do botão (contêiner flex flex-wrap). Corrigido com w-full (linha própria), verificado geometricamente em produção (v0.0.29, ref 05c0c50): abaixo do botão e na mesma coluna.
+
 ## 14/10/2026 — Ajuste pós-teste humano (skip 924fdac)
 
 José testou: botão desabilitado ok, mas o aviso (tooltip title) não aparecia ao passar o mouse. Trocado por aviso visível sob cada botão de IA ("Recurso desabilitado no ambiente de teste"), verificado em produção (v0.0.28, ref 924fdac). Lição: tooltip nativo não é feedback confiável — usar texto visível.
