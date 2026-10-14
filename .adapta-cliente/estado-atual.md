@@ -8,14 +8,14 @@
 - analise: .adapta-cliente/analises/20c86bd2-acf1-4b98-8d39-709b17243c7e.md
 - etapa: aguardando_teste_humano
 - autorizacao_implementacao: confirmada 2026-10-14T14:37:00-03:00 ("Pode implementar este plano")
-- teste_humano: pendente
-- verificacao_automatica: passou (QA v0.0.19 88790b4: setup/static/build ok; test:rules 4/4; test:backend 1 pass + 4 skip sem backend local; RED documentado)
+- teste_humano: primeira rodada reportou erros (selo ausente, botão de IA); correções aplicadas e verificadas; nova rodada pendente
+- verificacao_automatica: passou (QA v0.0.22 47d5170 verde; interceptação verificada em produção: resposta 0,06s com contador 0; controle positivo registrou correlação; selo TESTE visível na tela; capturas em artifacts/)
 - aprendizado: pendente
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 88790b4
-- skip_publicacao: publicada:88790b4 em 2026-10-14T18:07:56Z
+- skip_versao: 47d5170
+- skip_publicacao: publicada:47d5170 em 2026-10-14T18:41:52Z
 - pendente_github: nao
-- ultima_acao: v0.0.19 publicada com prova (88790b4); funil e repo principal enviados ao GitHub; espelho parcial (Index.tsx/package.json/hooks) sobe no próximo envio
-- proxima_acao: aguardar teste humano do José/Evandro na URL de produção
-- atualizado_em: 2026-10-14T18:15:00-03:00
+- ultima_acao: correção dos erros reportados pelo teste humano: migração dividida (0008/0009), bool/number sem required, recarga dos hooks; selo e interceptação verificados no navegador
+- proxima_acao: aguardar novo teste humano do José/Evandro (selo + botão de IA + celular)
+- atualizado_em: 2026-10-14T18:50:00-03:00
