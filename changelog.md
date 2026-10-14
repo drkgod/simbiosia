@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 14/10/2026 — Task 3b736d7d CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou a IDENTIDADE: duplicata recusada, fila de conflitos com decisão do admin, nada fundido automaticamente. Cinco tasks concluídas na Fase 1 (20c86bd2, 490ec843, d3e7d6da, ea6db5dc, 3b736d7d). Próxima: COORTE-PESSOA (f5668cd8), que depende desta.
+
 ## 14/10/2026 — Task 3b736d7d implementada (skip 02e2b6c)
 
-IDENTIDADE verde (SPEC-1-002, CA-1-002-02): migração 0013 (conflitos_cadastro, fila de revisão do admin); função pura resolverIdentidade no cadastro.ts (reusar/criar/conflito; e-mail genérico e "mesma empresa" nunca identificam pessoa); hook pessoas_identidade com correção CRÍTICA do guia 3.3 (record hook sem e.next() engolia a escrita em silêncio — toda via agora termina em e.next() ou throw); aba Conflitos em /cadastro (admin marca "pessoas distintas"; fusão fica para a FUSAO-REVERSIVEL). RED documentado: duplicata de telefone era aceita sem registro de conflito. GREEN: 14/14 backend, 11/11 regras. Publicada (ref 02e2b6c). Aguardando teste humano.
+IDENTIDADE verde (SPEC-1-002, CA-1-002-02): migração 0013 (conflitos_cadastro, fila de revisão do admin); função pura resolverIdentidade no cadastro.ts (reusar/criar/conflito; e-mail genérico e "mesma empresa" nunca identificam pessoa); hook pessoas_identidade com correção CRÍTICA do guia 3.3 (record hook sem e.next() engolia a escrita em silêncio — toda via agora termina em e.next() ou throw); aba Conflitos em /cadastro (admin marca "pessoas distintas"; fusão fica para a FUSAO-REVERSIVEL). RED documentado: duplicata de telefone era aceita sem registro de conflito. GREEN: 14/14 backend, 11/11 regras. Publicada (ref 02e2b6c).
 
 ## 14/10/2026 — Task ea6db5dc CONCLUÍDA (teste humano aprovado)
 
