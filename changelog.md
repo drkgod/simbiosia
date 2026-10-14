@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 14/10/2026 — Task d3e7d6da CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou: vendedor vê só a própria base, botões de IA desabilitados em TESTE, admin com acesso integral. Três primeiras tasks da SPEC-1-001 concluídas (20c86bd2, 490ec843, d3e7d6da). Próxima task da Fase 1 aguarda autorização para análise.
+
 ## 14/10/2026 — Task d3e7d6da implementada (skip f581d6f)
 
-ACL-NEGATIVA verde: migração 0010 (role imutável na autoedição com :changed, filhas pelo dono do lead pai, sistema_config/teste_despachos só-admin) + 0011 (owner imutável com :changed — a sintaxe @request.body.owner = owner não bloqueia) + verificação do dono do lead pai nos 3 hooks de IA (recusa 404 antes de expor dados). RED documentado: leitura cruzada aberta, auto-promoção a admin possível, rota de IA respondia a lead alheio. Lições: lista com regra negada no PocketBase pode voltar 200-vazio (asserção ajustada); contaminação de massa de teste (operador promovido em diagnóstico antigo) derrubava os testes — corrigida. Publicada (ref f581d6f). Aguardando teste humano.
+ACL-NEGATIVA verde: migração 0010 (role imutável na autoedição com :changed, filhas pelo dono do lead pai, sistema_config/teste_despachos só-admin) + 0011 (owner imutável com :changed — a sintaxe @request.body.owner = owner não bloqueia) + verificação do dono do lead pai nos 3 hooks de IA (recusa 404 antes de expor dados). RED documentado: leitura cruzada aberta, auto-promoção a admin possível, rota de IA respondia a lead alheio. Lições: lista com regra negada no PocketBase pode voltar 200-vazio (asserção ajustada); contaminação de massa de teste (operador promovido em diagnóstico antigo) derrubava os testes — corrigida. Publicada (ref f581d6f).
 
 ## 14/10/2026 — Task 490ec843 FECHADA (validação final v0.0.30)
 
