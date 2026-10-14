@@ -1,8 +1,8 @@
 # Histórico da construção
 
-## 14/10/2026 — Task 490ec843 CONCLUÍDA
+## 14/10/2026 — Respiro vertical do aviso (skip a0ac0e2)
 
-Teste humano aprovado pelo José (aviso visível, abaixo do botão, botão desabilitado). Task fechada. Próxima elegível: ACL d3e7d6da (depende dos gates SEM-EXTERNO aceitos — agora satisfeito).
+Aviso encostava no botão (flex-wrap sem gap vertical). gap-y-1 adicionado; verificado em produção (v0.0.30, ref a0ac0e2): folga de 4px entre botão e aviso.
 
 ## 14/10/2026 — Posição do aviso corrigida (skip 05c0c50)
 
