@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 14/10/2026 — Task 490ec843 implementada (skip 2fce7e3)
+
+Gates SEM-EXTERNO completos: função pura recursoHabilitado (falha fechada), botões de IA desabilitados na UI em ambiente de teste (com aviso), testes SEM-EXTERNO no test:backend (contador 0 nas 3 rotas como admin, controle positivo = 1 sem rede, PATCH de flags negado a não-admin, restore ok). RED→GREEN documentado (3 falhas por função inexistente; 2 falhas por hooks desatualizados — recarga forçada v0.0.27). Publicada em produção (ref 2fce7e3); gate de UI provado no navegador (botão disabled). Aguardando teste humano.
+
 ## 15/10/2026 — Task 20c86bd2 concluída
 
 Teste humano aprovado pelo José (selo TESTE visível, botão de IA respondendo interceptado, celular ok). Task fechada; próxima task da Fase 1 aguarda análise e autorização.
