@@ -1,24 +1,21 @@
-# SPECs — Fase 1
+# SPECs — Fase 1: dois aplicativos separados
 
-**Estado:** planejadas; nenhum código implementado ou teste de produto executado nesta preparação. Caminhos relativos desta pasta.
+Escopo v1.3/P9. Ambos os submódulos são alvos ativos; nenhuma implementação feita nesta revisão.
 
-| SPEC | Entrega | Arquivo | Tasks |
+| SPEC | Entrega | Alvos | Arquivo |
 |---|---|---|---|
-| SPEC-1-001 | Ambiente de demonstração, acessos e controles | [SPEC](spec-fundacao-acessos-e-ambiente.md) | 3 |
-| SPEC-1-002 | Cadastro único de empresas e contatos | [SPEC](spec-cadastro-unico-e-protecao.md) | 4 |
-| SPEC-1-003 | Importação das bases próprias com prévia e relatório | [SPEC](spec-importacao-das-bases.md) | 3 |
-| SPEC-1-004 | Produtos FAROL e critérios de pontuação editáveis | [SPEC](spec-produtos-e-reguas-editaveis.md) | 3 |
-| SPEC-1-005 | Pontuação por produto com motivos e histórico | [SPEC](spec-pontuacao-por-produto.md) | 3 |
-| SPEC-1-006 | Listas por coorte e produto no sistema unificado | [SPEC](spec-listas-unificadas-e-demonstracao.md) | 3 |
+| SPEC-1-001 | Ambiente de demonstração, acessos e controles | ambos | [SPEC](spec-fundacao-acessos-e-ambiente.md) |
+| SPEC-1-002 | Cadastro único de empresas e contatos | ambos | [SPEC](spec-cadastro-unico-e-protecao.md) |
+| SPEC-1-003 | Importação das bases próprias com prévia e relatório | Fábrica + projeção Funil | [SPEC](spec-importacao-das-bases.md) |
+| SPEC-1-004 | Produtos FAROL e critérios de pontuação editáveis | Fábrica + projeção Funil | [SPEC](spec-produtos-e-reguas-editaveis.md) |
+| SPEC-1-005 | Pontuação por produto com motivos e histórico | Fábrica + projeção Funil | [SPEC](spec-pontuacao-por-produto.md) |
+| SPEC-1-006 | Listas na Fábrica e visão comercial no Funil | ambos | [SPEC](spec-listas-unificadas-e-demonstracao.md) |
+| SPEC-1-007 | Identidade e projeções locais entre os dois aplicativos | ambos | [SPEC](spec-identidades-e-projecoes-entre-apps.md) |
 
-O alvo de construção é 07-sistemas/funil-mkt/. Fábrica é referência de reuso. Ler a fase atual e escolher uma task com pré-condições cumpridas; versões/testes/histórico fazem parte da entrega. Integração externa e operação comercial não são desta fase.
+## Ordem e trabalho coordenado
+
+Fundação/gates/ACL dos dois apps → primeira task SPEC-1-007 (contrato) → cadastro Fábrica/legado Funil → importação e catálogo em frentes locais → pontuação Fábrica → segunda/terceira tasks SPEC-1-007 (projeções/reconciliação) → listas/visões/demonstração dos dois apps. A ordem visual dos cards do portal não substitui pré-condições. Trabalho simultâneo nos repos usa contratos compatíveis e evidência/aceite antes de sucessoras; nenhuma task de código é executada nesta revisão.
 
 ## Fora desta fase
 
-Integrações externas, envio/contatos operacionais, IA externa, pagamento e uso de mercado. Fases 1–2 demonstráveis em teste; uso real somente após validação completa da fase 5.
-
-## Ordem de execução
-
-Na SPEC-1-001, preparação/instrumentação → bloqueio externo → ACL, independentemente da ordem visual dos cards do portal. Uma task só é elegível com suas pré-condições aceitas. Depois cadastro; importação/catálogo; pontuação; listas/demonstração.
-
-O portal reserializa a fonte canônica, mantendo IDs/descrições e sua ordem visual. As dependências nas descrições e SPECs determinam elegibilidade; as seções deste índice preservam os limites operacionais.
+HTTP entre apps, sincronização real de dados, fornecedores/canais/LLM, pagamento e mercado. Contratos/adaptadores/fixtures locais nas fases 1–2; conexão real a partir da F3 e operação após F5.

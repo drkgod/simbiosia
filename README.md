@@ -1,18 +1,18 @@
-# Simbiosia — construção
+# Simbiosia — dois aplicativos separados e sincronizados
 
-Pacote de construção preparado para a segunda consultoria de 14/10/2026.
+Pacote operacional privado em https://github.com/drkgod/simbiosia. Fase 1 revisada conforme escolha P9 de 14/10/2026.
 
-- Ler [fase atual](04_fase-atual/fase.md) e [SPECs](04_fase-atual/specs/00-INDICE.md).
-- Alvo de construção: 07-sistemas/funil-mkt/. Fábrica em 07-sistemas/fabrica-listas/ é referência de reuso; será incorporada ao Funil pelas tasks.
-- Seis SPECs e 19 tasks da fase 1, abertas; UUIDs e visibilidade interna do portal preservados. Código ainda não alterado pela preparação.
-- Escolher uma task elegível e sua SPEC; confirmar ambiente TESTE/acesso, produzir prova e receber teste humano antes da próxima.
-- APIs externas a partir da fase 3; operação após validação da fase 5. Não habilitar envio durante esta fundação.
-- Repositório operacional privado: https://github.com/drkgod/simbiosia. Contém somente a fase atual e os projetos de código, sem o plano privado ou fases futuras.
+- Ler [fase atual](04_fase-atual/fase.md) e [sete SPECs/TDD](04_fase-atual/specs/00-INDICE.md): 22 tarefas com IDs do portal preservados, nenhuma implementação concluída.
+- Alvo ativo [Fábrica](07-sistemas/fabrica-listas): cadastro/base/listas/importação, produtos/réguas e pontuação.
+- Alvo ativo [Funil](07-sistemas/funil-mkt): operação comercial/cadências/conversas, atribuição/aprovações, primeira abordagem e bloqueios globais.
+- Maestro desenvolve nos dois repositórios durante o mesmo ciclo, por frentes elegíveis e contratos compatíveis. Fábrica não é apenas referência e não será incorporada ao Funil. Cada app mantém seu backend/login.
+- SPEC-1-007 fecha IDs globais, autoridade por campo, projeções, revisões, mapeamento e reconciliação. Contrato/fixtures locais nas fases 1 e 2, sem HTTP entre apps; conexão real F3 e mercado após a fase 5.
+- Pré-condições/provas/aceite liberam sucessoras; nenhuma configuração/aprovação é inventada. Este repo contém somente fase atual, entregas/notas e projetos de código, sem plano privado ou fases futuras.
 
-## Obter o projeto completo
+## Clonar e trabalhar nos projetos
 
 ```sh
 git clone --recurse-submodules https://github.com/drkgod/simbiosia.git
 ```
 
-Os dois projetos em `07-sistemas/` são submódulos dos repositórios de origem. Em um clone já existente, execute `git submodule update --init --recursive`. A construção altera o Funil; a Fábrica permanece referência de reuso.
+Em clone existente: git submodule update --init --recursive. Fazer alterações dentro de cada submódulo; commitar/publicar cada projeto no seu remoto autorizado e depois atualizar as referências no repo operacional. Registrar SHA dos dois projetos nos testes; commit do pai não publica automaticamente o código dos filhos.

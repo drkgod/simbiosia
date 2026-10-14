@@ -2,16 +2,16 @@
 
 **Fase:** 1 · **Status:** planejada; não implementada/testada.
 **Dono:** Simbiosia; execução com Maestro; validação pelos sócios conforme a entrega. Responsável/prazo de card permanecem sem atribuição até combinação.
-**Origem:** RQ-001, RQ-006; DH-04; P7, P8; CL-005.
-**Degrau da solução:** reuso do Funil/Fábrica e backend nativo PocketBase; construção mínima dos contratos ausentes, sem trocar stack ou adicionar integração externa.
+**Origem:** RQ-001, RQ-006; DH-04; P7, P9; CL-005.
+**Degrau da solução:** reuso do Funil/Fábrica e backends nativos PocketBase; construção mínima dos contratos ausentes, sem trocar stack ou adicionar integração externa.
 
 ## Contexto e decisões fechadas
 
-**Estado atual:** Fábrica tem regras_icp gerais; Funil tem qualificação e score único. Não há catálogo/régua versionada por produto provados nos códigos lidos. Conservar a qualificação antiga e criar a configuração por produto no sistema único.
+**Estado atual:** Fábrica tem regras_icp gerais; Funil tem qualificação e score único. Não há catálogo/régua versionada por produto provados nos códigos lidos. Conservar a qualificação antiga e criar a configuração por produto na Fábrica. Funil recebe versão aprovada somente como projeção.
 
 **Estado desejado:** José cadastra produtos e sua régua no admin, define critérios, pesos/regras eliminatórias e faixas, versiona/aprova a configuração e altera sem pedir mudança de código. A entrevista do Maestro fornece dados de negócio, não valores inventados.
 
-**Arquitetura:** uma aplicação no Funil MKT e seu backend nativo; Fábrica como módulo. Fases 1–2 sem fornecedores/canais/LLM externos; uso operacional só após fase 5. Produto/régua e valores reais pertencem ao cliente. Esta SPEC prepara funcionalidades e provas, sem afirmar que o código já existe.
+**Arquitetura:** Dois aplicativos e backends nativos separados, Fábrica e Funil, ambos alvos ativos (P9 substitui P8). Fábrica mantém identidades, listas, produtos/réguas e notas; Funil mantém operação comercial, aprovação, primeira abordagem e bloqueios globais. Projeções são somente leitura por autoridade. Contrato local SPEC-1-007 governa identidade/versões, sem HTTP entre apps nas fases 1–2. APIs e transporte real somente F3; mercado somente após F5.
 
 **Bloqueios de acesso:** antes de alteração de backend, requer acesso autorizado ao projeto e ambiente de demonstração, comparação do schema implantado e backup/restauração. Ausência é ponto de parada, não autorização para outro backend. Acesso Git não comprova acesso ao backend.
 
@@ -22,9 +22,9 @@ José cadastra produtos e sua régua no admin, define critérios, pesos/regras e
 ## Limites e dependências
 
 - **Inclui:** exclusivamente a entrega descrita, com dados e provas abaixo.
-- **Fora desta fase:** API de captação/enriquecimento, Office 365/LinkedIn como extração automática, envio por e-mail/WhatsApp/LinkedIn, ativação de agente externo, pagamento e operação de mercado.
-- **Entradas:** source code em 07-sistemas/funil-mkt/ e contexto 07-sistemas/fabrica-listas/; acesso ao backend nativo em teste; fixtures sintéticas e configuração de teste.
-- **Superfícies:** Novas páginas Produtos e Régua em src/pages e rotas src/App.tsx/Layout; src/services/produtos.ts; collections produtos,regras_produto,campos_negocio e entrevista_produtos; validação backend; testes do editor.
+- **Fora desta fase:** HTTP entre aplicativos, API de captação/enriquecimento, Office 365/LinkedIn como extração automática, envio por e-mail/WhatsApp/LinkedIn, ativação de agente externo, pagamento e operação de mercado.
+- **Entradas:** os dois submódulos ativos, acesso separado aos backends TESTE e fixtures sintéticas; contratos no pacote da fase atual. Não requer HTTP entre os apps nesta fase.
+- **Superfícies:** Fábrica: páginas Produtos/Régua, serviços, collections produtos/regras_produto/campos_negocio/entrevista_produtos e validação backend. Funil: catálogo aprovado projetado em leitura pelo adaptador SPEC-1-007, sem editor concorrente.
 - **Permissões:** admin configura/valida; vendedor apenas entidades atribuídas. Backend deriva campos de segurança e não confia no payload.
 - **Plano B:** sem acesso/dado real, registrar pendência e demonstrar apenas o que pode ser provado com fixtures no ambiente autorizado; nunca marcar capacidade aceita sem a prova exigida.
 - **Rollback:** Arquivar nova versão e reativar versão anterior aprovada, preservando quem aprovou e o histórico. Não apagar produto usado em pontuação; inativar. Não sobrescrever versões de teste/reais.
@@ -44,6 +44,8 @@ Migrações usam o próximo ordinal livre verificado no Git e no backend, com sc
 
 ## Fluxo e regras
 
+**Autoridade:** edição/aprovação só na Fábrica. Funil não altera catálogo/régua; exibe snapshot aprovado com produto_global_id/versão/hash no adaptador local. Edição de preço/faixa/playbook em outro app é recusada, não last-write-wins. A publicação real entre backends só será F3.
+
 1. Entrevista de um produto por vez: dor/área, decisor, segmento/porte/idade/localização relevantes, campos disponíveis/fontes, critérios/operadores, pesos/pontos, eliminatórias, faixas, abordagem e aprovação. José confirma os valores reais; pendências ficam rascunho.
 2. Metodologia configurável por combinações de critérios/grupos/pesos/pontos/faixas e eliminatórias, como aprovado; não executar JavaScript do usuário. Se o cliente exigir uma operação que esse contrato não representa, registrar lacuna ao consultor antes de ampliar o motor.
 3. Admin cria/edita/aprova; operador só lê produto/configuração aprovada no contexto atribuído, sem preços/atributos de outros leads. Proteção deve existir no backend, não só no menu.
@@ -55,10 +57,10 @@ Migrações usam o próximo ordinal livre verificado no Git e no backend, com sc
 
 ## Instruções de execução para o Ethos
 
-1. Ler esta SPEC, o índice da fase e o código das superfícies indicadas em 07-sistemas/funil-mkt/; usar a Fábrica apenas como fonte de reuso. Não executar comando remoto ou mudança real nesta preparação.
-2. Selecionar somente uma task elegível. Conferir pré-condições e testes nomeados da tabela Tasks vinculadas. Não começar outra antes da prova e do aceite humano.
+1. Ler esta SPEC e o índice. Abrir os dois submódulos e identificar suas superfícies/autoridades. Ler spec-identidades-e-projecoes-entre-apps.md para o contrato comum; o texto completo desta fase basta para executar, sem plano privado.
+2. Coordenar as frentes elegíveis dos dois repos no mesmo ciclo. Uma entrega pode conter mudanças nos dois; nunca liberar sucessora antes da prova/aceite das dependências. Selecionar a task ou frente elegível. Conferir pré-condições e testes nomeados da tabela Tasks vinculadas. Não liberar task dependente antes da prova e do aceite humano; frentes independentes dos dois repos podem avançar em paralelo.
 3. Antes de migrar: comparar backend e Git, usar ordinal livre e restaurar backup em demonstração. Parar se acesso/ambiente não estiver confirmado ou surgir arquitetura/regra fora desta SPEC.
-4. Alterar somente as superfícies/entrega desta SPEC. Preservar IDs, conta/auth, histórico, versões e dados de outros lotes. Não mudar a aplicação de origem Fábrica nem ligar seu enviar-funil externo.
+4. Alterar somente as superfícies/entrega desta SPEC. Preservar IDs, conta/auth, histórico, versões e dados de outros lotes. Fábrica e Funil são alvos ativos; alterar somente os trechos atribuídos a cada app. Não ligar o enviar-funil legado nem HTTP entre os apps nesta fase.
 5. Implementar a prova RED nomeada antes do comportamento, produzir GREEN e regressão; registrar versão, caso, resultado e evidência sem segredo. Testes atuais que imprimem sucesso não provam nada.
 6. Manter sistema navegável, em pausa e sem saída externa ao parar. Pedir demonstração/teste humano da task e esperar confirmação explícita antes da seguinte. Falha mantém a task aberta.
 
@@ -80,7 +82,7 @@ Migrações usam o próximo ordinal livre verificado no Git e no backend, com sc
 
 ## TDD da SPEC
 
-As provas são construídas durante as tasks, não foram executadas nesta entrega documental. Rodar no diretório 07-sistemas/funil-mkt/. A primeira task da SPEC-1-001 cria runners reais com node:test; o placeholder npm test deve ser substituído/encaminhado a esses runners.
+As provas são construídas durante as tasks, não foram executadas nesta entrega documental. Rodar nos repositórios afetados indicados em Superfícies; no trabalho dos dois lados registrar ambos os SHAs, backend/ambiente e resultados separados. A primeira task da SPEC-1-001 cria runners reais com node:test nos dois apps; o placeholder npm test deve ser substituído/encaminhado a esses runners.
 
 | Caso | Aceite | Fixture e ação verificável | Resultado esperado |
 |---|---|---|---|
@@ -95,7 +97,7 @@ As provas são construídas durante as tasks, não foram executadas nesta entreg
 | GREEN | casos principal/negativos passam, com estado persistido conferido | mesmos runners; SDK/backend real de demonstração para ACL/persistência; UI conforme roteiro do caso | assertions e capturas/contagens ligadas ao CA |
 | REFACTOR/REGRESSÃO | repetir/reverter e executar coleção completa preservando login/dados e pausa | npm run test:rules; npm run test:backend; npm run lint; npm run build; roteiro de rollback | relatório de regressão, versões e aceite humano |
 
-**Massa de teste:** empresas/pessoas/produtos sintéticos identificados TESTE, admin/operador1/operador2 com contas de demonstração; não usar contatos ou senhas reais. Fixtures de cada caso são criadas com o runner ou pela UI e recebem IDs retornados pelo backend; não inventar IDs de collection/user. O test:backend recusa ambiente desconhecido e nunca imprime autenticação.
+**Massa de teste:** empresas/pessoas/produtos sintéticos identificados TESTE, admin/operador1/operador2 com contas de demonstração; não usar contatos ou senhas reais. Fixtures de cada caso são criadas com o runner ou pela UI e recebem IDs retornados pelo backend; não inventar IDs de collection/user. O test:backend de cada app recusa ambiente desconhecido e nunca imprime autenticação.
 
 **Cobertura mínima:** todos os CAs têm caso nomeado; erro, ausência, conflito, acesso negado e repetição entram conforme a tabela. Onde a prova for de UI, guardar condição inicial/ação/resultado; build verde sozinho não é aceite.
 
@@ -119,14 +121,14 @@ As provas são construídas durante as tasks, não foram executadas nesta entreg
 
 | ID | Task | SPEC | Critério | Casos TDD | Evidência esperada | Pré-condições |
 |---|---|---|---|---|---|---|
-| 7183cf59-4808-422d-9d5c-03600d4b73d3 | Cadastrar os produtos FAROL no painel | SPEC-1-004 | CA finais 01 | PRODUTO-ACL | relatório, assertion/captura e aceite humano | Controles e cadastro aceitos. Criar catálogo/rotas/serviços no Funil, com papéis e dados de demonstração explícitos. |
-| 46c0fd51-a13c-447c-b005-e598d9e0d38f | Registrar a entrevista de produtos e critérios | SPEC-1-004 | CA finais 03 | ENTREVISTA | relatório, assertion/captura e aceite humano | Catálogo demonstrado. Persistir roteiro, respostas, pendências e confirmação da entrevista; manter produto/régua inativos, cuja aprovação é da task seguinte. José fornece/valida dados reais quando disponível; fixture prova a funcionalidade. |
-| b0c25923-6d79-4a2c-a63a-ee1f5935e2d3 | Editar e aprovar a régua de cada produto | SPEC-1-004 | CA finais 02,04 | REGUA-VALIDACAO; REGUA-VERSAO | relatório, assertion/captura e aceite humano | Produtos/entrevista estruturados. Implementar validação, versões, hashes e aprovação; não executar código de usuário. |
+| 7183cf59-4808-422d-9d5c-03600d4b73d3 | Cadastrar os produtos FAROL no painel | SPEC-1-004 | CA finais 01 | PRODUTO-ACL | prova/manifesto/aceite humano | Controles e cadastro aceitos. Criar catálogo/rotas/serviços na Fábrica, com papéis e dados de demonstração explícitos. |
+| 46c0fd51-a13c-447c-b005-e598d9e0d38f | Registrar a entrevista de produtos e critérios | SPEC-1-004 | CA finais 03 | ENTREVISTA | prova/manifesto/aceite humano | Catálogo demonstrado. Persistir roteiro, respostas e pendências; impedir confirmação de entrevista incompleta e permitir a confirmação da entrevista completa em TESTE. Produto/régua permanecem inativos; aprovação efetiva pertence à task seguinte. José fornece/valida dados reais quando disponível, sem impedir teste da funcionalidade com fixture. |
+| b0c25923-6d79-4a2c-a63a-ee1f5935e2d3 | Editar e aprovar a régua de cada produto | SPEC-1-004 | CA finais 02,04 | REGUA-VALIDACAO; REGUA-VERSAO | prova/manifesto/aceite humano | Produtos/entrevista estruturados. Implementar validação, versões, hashes e aprovação; não executar código de usuário. |
 
-IDs recebidos do portal são preservados; na ausência de ID, vínculo por fase + título exato. Títulos/status/responsáveis/prazos só são editáveis no arquivo da fase; esta tabela não duplica status.
+UUIDs recebidos e preservados; editar status/responsável/prazo somente na fonte da fase. As descrições P9 da fonte detalham os alvos da entrega; nenhuma tabela duplica status.
 
 ## Emendas
 
 | Data | Sinal aprovado | Alteração e prova |
 |---|---|---|
-| — | Nenhuma emenda nesta geração | — |
+| 14/10/2026 | P9: dois apps separados e sincronizados | Supera alvo único de P8; superfícies/autoridades e provas dos dois lados revistas. Contrato local SPEC-1-007; transporte real F3 |
