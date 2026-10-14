@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 20c86bd2 concluída
+
+Teste humano aprovado pelo José (selo TESTE visível, botão de IA respondendo interceptado, celular ok). Task fechada; próxima task da Fase 1 aguarda análise e autorização.
+
 ## 14/10/2026 — Correção após teste humano (skip 47d5170)
 
 Erros reportados pelo José: selo não aparecia; botão de IA não encontrado. Causas: (1) migração 0008 com dois blocos migrate() no mesmo arquivo foi rejeitada pelo runtime — dividida em 0008 (sistema_config) e 0009 (teste_despachos); (2) campos bool/number com required rejeitam false/0 como blank — required removido; (3) hooks em execução estavam na versão antiga — recarga forçada (v0.0.22). Verificado em produção: selo visível, interceptação em 0,06s com contador 0, controle positivo registrou correlação no observador. Botão de IA existe por etapa (Qualificação: "Analisar com IA"). Aguardando novo teste humano.
