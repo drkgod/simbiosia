@@ -1,0 +1,6 @@
+[submodule "07-sistemas/funil-mkt"]
+	path = 07-sistemas/funil-mkt
+	url = https://github.com/evandromp70/funil-mkt---vendas-simbiosia-dmbzn8jh9.git
+[submodule "07-sistemas/fabrica-listas"]
+	path = 07-sistemas/fabrica-listas
+	url = https://github.com/evandromp70/f-brica-de-listas-de-leads-frios-simbiosia-new-ty9w50j9r.git
