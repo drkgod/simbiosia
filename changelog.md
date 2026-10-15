@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 15/10/2026 — Correção no teste humano da b0c25923 (skip 9107840)
+
+O botão Régua não aparecia na lista de produtos: o patch da UI tinha colocado o botão DENTRO do card condicional da entrevista (só visível depois de abrir uma entrevista). Movido para a tabela de ações, ao lado de Entrevista — verificado no DOM em produção (23 botões Régua, um por produto). v0.0.66 (9107840) publicada.
+
 ## 15/10/2026 — Task b0c25923 implementada (skip 718ad2f)
 
-REGUA-VALIDACAO + REGUA-VERSAO verdes (CA-1-004-02/04, fecha a SPEC-1-004): migração 0021 (regras_produto: produto rel, versao, status rascunho/aprovada/arquivada, metodo ponderado/pontos, criterios/regras_eliminatorias/faixas json, hash, aprovado_por/em, ambiente; índice único produto+versao+ambiente; RLS admin); hook regua_validar (lógica inline) — valida critérios (termo/grupo E-OU, peso no termo, filho sem peso, grupo não vazio, operador na lista, soma ponderada > 0 com peso individual zero permitido) e faixas (4, A-D, sem sobreposição/lacuna), recalcula hash no servidor, impõe versão = próxima livre, torna versão APROVADA imutável (mudança de conteúdo → 400), registra aprovado_por/em no servidor, delete só de rascunho; editor de régua na /produtos (método, termos/grupos, faixas A-D editáveis, aprovar/arquivar, tabela de versões com hash). TDD: backend 21/21 (REGUA-VERSAO de ponta a ponta), rules 57/57 (REGUA-VALIDACAO completa + hash estável/mudante). Ajustes: hook inline (scoping da VM); placeholder com aspas em expressão JSX; fixture de régua aprovada permanece no banco (histórico por design). Publicada (ref 718ad2f). Aguardando teste humano.
+REGUA-VALIDACAO + REGUA-VERSAO verdes (CA-1-004-02/04, fecha a SPEC-1-004): migração 0021 (regras_produto); hook regua_validar (lógica inline) — valida critérios e faixas, recalcula hash no servidor, impõe versão = próxima livre, torna versão APROVADA imutável, registra aprovado_por/em, delete só de rascunho; editor de régua na /produtos. TDD: backend 21/21, rules 57/57. Publicada (ref 718ad2f).
 
 ## 15/10/2026 — Task 46c0fd51 CONCLUÍDA (teste humano aprovado)
 
@@ -10,7 +14,7 @@ José testou e aprovou a entrevista de produtos. Décima segunda task concluída
 
 ## 15/10/2026 — Task 46c0fd51 implementada (skip 6a4b542)
 
-ENTREVISTA verde (CA-1-004-03): migração 0020 (entrevista_produtos); hook entrevista_validar — confirmação com pendência NEGADA no backend, autor/data no servidor, confirmação NÃO ativa produto; seção de entrevista na /produtos com roteiro fixo de 10 perguntas. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
+ENTREVISTA verde (CA-1-004-03): migração 0020; hook entrevista_validar; seção de entrevista na /produtos com roteiro fixo de 10 perguntas. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
 
 ## 15/10/2026 — Task 7183cf59 CONCLUÍDA (teste humano aprovado)
 
@@ -18,11 +22,11 @@ José testou e aprovou o catálogo de produtos FAROL. Décima primeira task conc
 
 ## 15/10/2026 — Task 7183cf59 implementada (skip 5e0fa0e)
 
-PRODUTO-ACL verde (CA-1-004-01): migração 0018 (coleção produtos) + 0019 (regras na coleção existente); hook produtos_validar; página /produtos. Produto novo nasce rascunho/inativo. TDD: backend 19/19, rules 43/43. Publicada (ref 5e0fa0e).
+PRODUTO-ACL verde (CA-1-004-01): migração 0018 + 0019; hook produtos_validar; página /produtos. TDD: backend 19/19, rules 43/43. Publicada (ref 5e0fa0e).
 
 ## 15/10/2026 — Task 899395c4 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a retomada e o desfazer de importação após as duas correções. DÉCIMA task concluída na Fase 1. SPEC-1-003 COMPLETA.
+José testou e aprovou a retomada e o desfazer de importação. DÉCIMA task concluída na Fase 1. SPEC-1-003 COMPLETA.
 
 ## 15/10/2026 — Correção 2 no teste humano da 899395c4 (skip e135610)
 
