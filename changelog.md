@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 15/10/2026 — Correção 2 no teste humano da 899395c4 (skip e135610)
+
+Reimportar um arquivo cujo lote foi DESFEITO falhava com erro genérico na confirmação: o lote revertido continuava dono da chave_lote (índice único) e o reenvio violava o índice. Correção em duas partes: migração 0017 troca o índice por um PARCIAL (só lotes vivos, status != revertida, o ocupam) e a busca por chave_lote agora FILTRA lotes revertidos (o lote vivo manda no reenvio). Novo teste de backend reproduz o caso do José de ponta a ponta (importar → reverter → reimportar → repetir devolve o relatório do lote ativo → reverter de novo → zero restos). Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
+
 ## 15/10/2026 — Correção no teste humano da 899395c4 (skip 2f1452a)
 
 Botão de confirmação do "Desfazer este lote" ficava esmaecido e sem resposta no 2º clique: o disabled incluía confirmandoReversao (o próprio estado de confirmação). Corrigido — botão habilitado no 2º clique (disabled só durante o processamento) + aviso visível explicando a confirmação. v0.0.52 (2f1452a) publicada.
