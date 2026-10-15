@@ -1,12 +1,16 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 899395c4 implementada (skip f66fd73)
+
+IMPORTACAO-RETOMADA verde (CA-1-003-03, fecha a SPEC-1-003): retomada no confirmar — lote status=processando NÃO devolve mais 409; o reenvio do mesmo arquivo devolve as linhas pendentes (nunca processadas ou checkpoint pendente) sem repetir linha aceita; nova rota POST /backend/v1/importacoes/reverter (só admin) — avaliação linha a linha (lead saiu da etapa lista, pessoa/empresa compartilhada com outros lotes, fusão posterior → revisão 409 sem alterar nada), reversão remove leads criados pelo lote (migracao_origem_id), membros de lista do lote, origens de coorte do lote e pessoa/empresa criadas pelo lote SEM outros vínculos; lote vira revertida com relatório preservado; UI /importar com botão Desfazer este lote (confirmação em dois cliques) e resultado da reversão. TDD: rules 43/43 (7 novos), backend 16/16. Provas funcionais: reversão de lote concluído removeu 2 leads/2 pessoas/3 empresas/2 origens com ZERO restos; re-reversão recusada (400); vendedor 403; retomada de lote interrompido devolveu numerosPendentes=[2] e aceitas=1. Publicada (ref f66fd73). Aguardando teste humano.
+
 ## 15/10/2026 — Task 0574671d CONCLUÍDA (teste humano aprovado)
 
 José testou e aprovou a importação com relatório por linha. Nona task concluída na Fase 1; CA-1-003-02 entregue.
 
 ## 15/10/2026 — Task 0574671d implementada (skip 825971e)
 
-IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes com chave_lote única, importacao_linhas com checkpoint por linha, lista_membros com índice único lista+lead+ambiente); hook POST /backend/v1/importacoes/confirmar (só admin) — processa linha a linha com checkpoint persistido, resolve identidade contra TODA a base do ambiente (reusar/criar/conflito), não inventa decisor (sem contato individual ou e-mail genérico → incompleta, empresa entra pendente de contato), repetir lote concluído devolve o relatório existente sem duplicar, lote em andamento → 409; UI /importar com confirmação (coorte/dono/lista/ambiente) e relatório por linha com totais reconciliados. TDD: rules 36/36 (8 novos), backend 16/16. Prova funcional da rota no ambiente de teste: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição devolveu o mesmo relatório, vendedor 403. Fixture de prova marcada e lotes marcados revertida (limpeza física fica para o rollback da 899395c4). Publicada (ref 825971e).
+IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes com chave_lote única, importacao_linhas com checkpoint por linha, lista_membros com índice único lista+lead+ambiente); hook POST /backend/v1/importacoes/confirmar (só admin) — processa linha a linha com checkpoint persistido, resolve identidade contra TODA a base do ambiente (reusar/criar/conflito), não inventa decisor (sem contato individual ou e-mail genérico → incompleta, empresa entra pendente de contato), repetir lote concluído devolve o relatório existente sem duplicar, lote em andamento → 409; UI /importar com confirmação (coorte/dono/lista/ambiente) e relatório por linha com totais reconciliados. TDD: rules 36/36 (8 novos), backend 16/16. Prova funcional da rota no ambiente de teste: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição devolveu o mesmo relatório, vendedor 403. Publicada (ref 825971e).
 
 ## 14/10/2026 — Task c7240db4 CONCLUÍDA (teste humano aprovado)
 
