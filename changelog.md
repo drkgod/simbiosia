@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 0574671d implementada (skip 825971e)
+
+IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes com chave_lote única, importacao_linhas com checkpoint por linha, lista_membros com índice único lista+lead+ambiente); hook POST /backend/v1/importacoes/confirmar (só admin) — processa linha a linha com checkpoint persistido, resolve identidade contra TODA a base do ambiente (reusar/criar/conflito), não inventa decisor (sem contato individual ou e-mail genérico → incompleta, empresa entra pendente de contato), repetir lote concluído devolve o relatório existente sem duplicar, lote em andamento → 409; UI /importar com confirmação (coorte/dono/lista/ambiente) e relatório por linha com totais reconciliados. TDD: rules 36/36 (8 novos), backend 16/16. Prova funcional da rota no ambiente de teste: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição devolveu o mesmo relatório, vendedor 403. Fixture de prova marcada e lotes marcados revertida (limpeza física fica para o rollback da 899395c4). Publicada (ref 825971e). Aguardando teste humano.
+
 ## 14/10/2026 — Task c7240db4 CONCLUÍDA (teste humano aprovado)
 
 José testou e aprovou a prévia da base. Oitava task concluída na Fase 1; primeira da SPEC-1-003.
