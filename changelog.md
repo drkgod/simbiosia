@@ -1,12 +1,16 @@
 # Histórico da construção
 
+## 15/10/2026 — Task b0c25923 CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou a régua por produto após as duas correções (botão Régua na tabela; campo Valor com parse seguro no blur). Décima terceira task concluída na Fase 1. SPEC-1-004 COMPLETA (CA-1-004-01/02/03/04).
+
 ## 15/10/2026 — Correção 2 no teste humano da b0c25923 (skip 7145c37)
 
-Digitar texto cru no campo Valor (ex.: industria) quebrava a página: o campo fazia JSON.parse a cada tecla e re-renderizava com stringify no meio da digitação (unexpected token / invalid JSON). Correção: o campo guarda TEXTO CRU enquanto se digita; o parse seguro (JSON válido → número/lista/bool; qualquer outra coisa → texto puro, NUNCA lança erro) acontece no blur ou Enter. Verificado em produção com o navegador: digitou industria, blur, página viva, valor mantido. v0.0.67 (7145c37) publicada.
+Digitar texto cru no campo Valor (ex.: industria) quebrava a página: o campo fazia JSON.parse a cada tecla. Correção: texto cru na digitação; parse seguro no blur/Enter (JSON válido → número/lista/bool; outra coisa → texto puro, nunca lança). Verificado em produção com navegador. v0.0.67 (7145c37) publicada.
 
 ## 15/10/2026 — Correção no teste humano da b0c25923 (skip 9107840)
 
-O botão Régua não aparecia na lista de produtos: o patch da UI tinha colocado o botão DENTRO do card condicional da entrevista. Movido para a tabela de ações, ao lado de Entrevista — verificado no DOM em produção. v0.0.66 (9107840) publicada.
+O botão Régua não aparecia na lista de produtos: estava dentro do card condicional da entrevista. Movido para a tabela de ações — verificado no DOM em produção. v0.0.66 (9107840) publicada.
 
 ## 15/10/2026 — Task b0c25923 implementada (skip 718ad2f)
 
