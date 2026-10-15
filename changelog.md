@@ -1,32 +1,36 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 3b93879f implementada (skip 2ccd3a4)
+
+SCORE-PRODUTO + SCORE-BORDAS verdes (CA-1-005-01/02, SPEC-1-005): motor puro scripts/domain/scoring-core.js (fonte única, sem rede/estado — ponderado 100×soma(peso×resultado)/soma(pesos) com 2 casas, pontos, eliminatória ANTES da soma com motivo, obrigatório ausente → pendente nomeado sem nota inventada, opcional ausente → falso com peso no denominador, grupos AND/OR com peso no grupo, faixas aprovadas com borda registrada); gerador scripts/gerar-scoring-core.mjs embute a fonte no hook (VM própria do Skip) e o teste SCORE-FONTE confere a correspondência; migração 0022 (pontuacoes idempotente por lead×produto×versao×dados_hash + leads.primeira_abordagem_em); hook POST /backend/v1/scoring/calcular (auth/papel/dono/ambiente, régua APROVADA mais recente — sem régua → pendente sem régua genérica, persiste snapshot idempotente); seção Pontuação por produto no LeadDetail (valor, faixa, motivos — a UI só exibe o retorno do backend). TDD: rules 65/65 (8 novos), backend 21/21. Prova funcional: fixture da SPEC — lead1×A=100/A, lead1×B=0/D, lead2×A=40/C, lead2×B=100/A, idempotência ok, sem régua pendente, vendedor 403 em lead alheio. Ajustes: comparação boolean/string no avaliador (bug real do motor achado pelo TDD); teste SCORE-FONTE alinhado ao gerador; régua nasce rascunho (aprovação explícita na prova). Publicada (ref 2ccd3a4). Aguardando teste humano.
+
 ## 15/10/2026 — Task b0c25923 CONCLUÍDA (teste humano aprovado)
 
 José testou e aprovou a régua por produto após as duas correções (botão Régua na tabela; campo Valor com parse seguro no blur). Décima terceira task concluída na Fase 1. SPEC-1-004 COMPLETA (CA-1-004-01/02/03/04).
 
 ## 15/10/2026 — Correção 2 no teste humano da b0c25923 (skip 7145c37)
 
-Digitar texto cru no campo Valor (ex.: industria) quebrava a página: o campo fazia JSON.parse a cada tecla. Correção: texto cru na digitação; parse seguro no blur/Enter (JSON válido → número/lista/bool; outra coisa → texto puro, nunca lança). Verificado em produção com navegador. v0.0.67 (7145c37) publicada.
+Digitar texto cru no campo Valor quebrava a página (JSON.parse a cada tecla). Correção: texto cru na digitação; parse seguro no blur/Enter. Verificado em produção. v0.0.67 (7145c37) publicada.
 
 ## 15/10/2026 — Correção no teste humano da b0c25923 (skip 9107840)
 
-O botão Régua não aparecia na lista de produtos: estava dentro do card condicional da entrevista. Movido para a tabela de ações — verificado no DOM em produção. v0.0.66 (9107840) publicada.
+Botão Régua não aparecia: estava dentro do card condicional da entrevista. Movido para a tabela de ações. v0.0.66 (9107840) publicada.
 
 ## 15/10/2026 — Task b0c25923 implementada (skip 718ad2f)
 
-REGUA-VALIDACAO + REGUA-VERSAO verdes (CA-1-004-02/04, fecha a SPEC-1-004): migração 0021 (regras_produto); hook regua_validar (lógica inline) — valida critérios e faixas, recalcula hash no servidor, impõe versão = próxima livre, torna versão APROVADA imutável, registra aprovado_por/em, delete só de rascunho; editor de régua na /produtos. TDD: backend 21/21, rules 57/57. Publicada (ref 718ad2f).
+REGUA-VALIDACAO + REGUA-VERSAO verdes (CA-1-004-02/04): migração 0021 (regras_produto); hook regua_validar — aprovada imutável, hash no servidor, versão próxima livre, delete só rascunho; editor na /produtos. TDD: backend 21/21, rules 57/57. Publicada (ref 718ad2f).
 
 ## 15/10/2026 — Task 46c0fd51 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a entrevista de produtos. Décima segunda task concluída na Fase 1; CA-1-004-03 entregue.
+José testou e aprovou a entrevista de produtos. Décima segunda task concluída na Fase 1.
 
 ## 15/10/2026 — Task 46c0fd51 implementada (skip 6a4b542)
 
-ENTREVISTA verde (CA-1-004-03): migração 0020; hook entrevista_validar; seção de entrevista na /produtos com roteiro fixo de 10 perguntas. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
+ENTREVISTA verde (CA-1-004-03): migração 0020; hook entrevista_validar; seção de entrevista com roteiro fixo. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
 
 ## 15/10/2026 — Task 7183cf59 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou o catálogo de produtos FAROL. Décima primeira task concluída na Fase 1; CA-1-004-01 entregue.
+José testou e aprovou o catálogo de produtos FAROL. Décima primeira task concluída na Fase 1.
 
 ## 15/10/2026 — Task 7183cf59 implementada (skip 5e0fa0e)
 
@@ -38,15 +42,15 @@ José testou e aprovou a retomada e o desfazer de importação. DÉCIMA task con
 
 ## 15/10/2026 — Correção 2 no teste humano da 899395c4 (skip e135610)
 
-Reimportar após desfazer falhava: lote revertido continuava dono da chave_lote. Correção: migração 0017 (índice parcial) + busca filtra revertidos. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
+Reimportar após desfazer falhava: lote revertido dono da chave_lote. Correção: migração 0017 (índice parcial) + busca filtra revertidos. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
 
 ## 15/10/2026 — Correção no teste humano da 899395c4 (skip 2f1452a)
 
-Botão de confirmação do desfazer ficava esmaecido no 2º clique. Corrigido + aviso visível. v0.0.52 (2f1452a) publicada.
+Botão de confirmação esmaecido no 2º clique. Corrigido + aviso visível. v0.0.52 (2f1452a) publicada.
 
 ## 15/10/2026 — Task 899395c4 implementada (skip f66fd73)
 
-IMPORTACAO-RETOMADA verde (CA-1-003-03): retomada no confirmar; rota reverter (só admin); UI desfazer. Rules 43/43, backend 16/16. Publicada (ref f66fd73).
+IMPORTACAO-RETOMADA verde (CA-1-003-03): retomada no confirmar; rota reverter; UI desfazer. Rules 43/43, backend 16/16. Publicada (ref f66fd73).
 
 ## 15/10/2026 — Task 0574671d CONCLUÍDA (teste humano aprovado)
 
