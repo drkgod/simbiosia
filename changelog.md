@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 7183cf59 CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou o catálogo de produtos FAROL. Décima primeira task concluída na Fase 1; CA-1-004-01 entregue.
+
 ## 15/10/2026 — Task 7183cf59 implementada (skip 5e0fa0e)
 
-PRODUTO-ACL verde (CA-1-004-01, SPEC-1-004): migração 0018 (coleção produtos: nome, degrau select free/essencial/mapa/executivo/empresa, área, dor, descrição, tipo_atendimento baixo_valor/consultivo, preço ≥0, faixa, icp/playbook/tom, ativo, ambiente; índice único nome+ambiente) + 0019 (regras aplicadas na coleção existente — leitura para autenticados, escrita só admin); hook produtos_validar (degrau/tipo/preço/nome no backend, motivo legível); página /produtos (formulário + catálogo com rascunho/ativo, editar, ativar/inativar) e link no menu. Produto novo nasce rascunho/inativo. TDD: backend 19/19 (2 novos: operador lê mas PATCH/DELETE negados; validação recusa degrau/tipo/preço/nome inválidos), rules 43/43. Publicada (ref 5e0fa0e). Aguardando teste humano.
+PRODUTO-ACL verde (CA-1-004-01, SPEC-1-004): migração 0018 (coleção produtos: nome, degrau select free/essencial/mapa/executivo/empresa, área, dor, descrição, tipo_atendimento baixo_valor/consultivo, preço ≥0, faixa, icp/playbook/tom, ativo, ambiente; índice único nome+ambiente) + 0019 (regras aplicadas na coleção existente — leitura para autenticados, escrita só admin); hook produtos_validar (degrau/tipo/preço/nome no backend, motivo legível); página /produtos (formulário + catálogo com rascunho/ativo, editar, ativar/inativar) e link no menu. Produto novo nasce rascunho/inativo. TDD: backend 19/19 (2 novos: operador lê mas PATCH/DELETE negados; validação recusa degrau/tipo/preço/nome inválidos), rules 43/43. Publicada (ref 5e0fa0e).
 
 ## 15/10/2026 — Task 899395c4 CONCLUÍDA (teste humano aprovado)
 
@@ -10,15 +14,15 @@ José testou e aprovou a retomada e o desfazer de importação após as duas cor
 
 ## 15/10/2026 — Correção 2 no teste humano da 899395c4 (skip e135610)
 
-Reimportar um arquivo cujo lote foi DESFEITO falhava com erro genérico na confirmação: o lote revertido continuava dono da chave_lote (índice único) e o reenvio violava o índice. Correção em duas partes: migração 0017 troca o índice por um PARCIAL (só lotes vivos, status != revertida, o ocupam) e a busca por chave_lote agora FILTRA lotes revertidos (o lote vivo manda no reenvio). Novo teste de backend reproduz o caso do José de ponta a ponta. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
+Reimportar um arquivo cujo lote foi DESFEITO falhava com erro genérico na confirmação: o lote revertido continuava dono da chave_lote (índice único) e o reenvio violava o índice. Correção: migração 0017 troca o índice por um PARCIAL (só lotes vivos o ocupam) e a busca por chave_lote FILTRA lotes revertidos (o lote vivo manda no reenvio). Novo teste de backend reproduz o caso do José de ponta a ponta. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
 
 ## 15/10/2026 — Correção no teste humano da 899395c4 (skip 2f1452a)
 
-Botão de confirmação do "Desfazer este lote" ficava esmaecido e sem resposta no 2º clique: o disabled incluía confirmandoReversao (o próprio estado de confirmação). Corrigido — botão habilitado no 2º clique (disabled só durante o processamento) + aviso visível explicando a confirmação. v0.0.52 (2f1452a) publicada.
+Botão de confirmação do "Desfazer este lote" ficava esmaecido e sem resposta no 2º clique: o disabled incluía confirmandoReversao (o próprio estado de confirmação). Corrigido — botão habilitado no 2º clique + aviso visível. v0.0.52 (2f1452a) publicada.
 
 ## 15/10/2026 — Task 899395c4 implementada (skip f66fd73)
 
-IMPORTACAO-RETOMADA verde (CA-1-003-03, fecha a SPEC-1-003): retomada no confirmar; nova rota POST /backend/v1/importacoes/reverter (só admin); UI /importar com botão Desfazer este lote. TDD: rules 43/43 (7 novos), backend 16/16. Provas funcionais: reversão com ZERO restos; re-reversão recusada (400); vendedor 403; retomada de lote interrompido ok. Publicada (ref f66fd73).
+IMPORTACAO-RETOMADA verde (CA-1-003-03, fecha a SPEC-1-003): retomada no confirmar; nova rota POST /backend/v1/importacoes/reverter (só admin); UI /importar com botão Desfazer este lote. TDD: rules 43/43 (7 novos), backend 16/16. Provas: reversão com ZERO restos; re-reversão recusada; vendedor 403; retomada ok. Publicada (ref f66fd73).
 
 ## 15/10/2026 — Task 0574671d CONCLUÍDA (teste humano aprovado)
 
@@ -26,7 +30,7 @@ José testou e aprovou a importação com relatório por linha. Nona task conclu
 
 ## 15/10/2026 — Task 0574671d implementada (skip 825971e)
 
-IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes/importacao_linhas/lista_membros); hook confirmar; UI com relatório por linha. TDD: rules 36/36 (8 novos), backend 16/16. Prova funcional: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição sem duplicar, vendedor 403. Publicada (ref 825971e).
+IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes/importacao_linhas/lista_membros); hook confirmar; UI com relatório por linha. TDD: rules 36/36 (8 novos), backend 16/16. Prova: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição sem duplicar, vendedor 403. Publicada (ref 825971e).
 
 ## 14/10/2026 — Task c7240db4 CONCLUÍDA (teste humano aprovado)
 
