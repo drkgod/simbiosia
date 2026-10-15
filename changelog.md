@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 14/10/2026 — Task c7240db4 CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou a prévia da base. Oitava task concluída na Fase 1; primeira da SPEC-1-003.
+
 ## 14/10/2026 — Task c7240db4 implementada (skip 6b91544)
 
 CSV-PREVIA + CSV-SEGURANCA verdes (SPEC-1-003, CA-1-003-01/04): módulo puro src/services/csv.ts — parser caracter a caracter (vírgula/ponto-e-vírgula, aspas escapadas, BOM, CRLF/LF, campo multilinha), detecção de separador fora de aspas, malformado e excedente de limite (1000 linhas/5 MB) recusados sem linhas, neutralização de fórmula (=,+,-,@ → apóstrofo). TDD achou e corrigiu 2 bugs reais do parser (aspas de fechamento reabriam campo; quebra após campo citado era rejeitada). Tela /importar: arquivo → prévia (separador, mapeamento automático das colunas, 5 primeiras linhas com fórmula neutralizada) → confirmação; nenhuma escrita antes. GREEN 28/28 regras. Publicada (ref 6b91544). Aguardando teste humano.
