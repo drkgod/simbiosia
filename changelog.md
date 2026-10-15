@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 14/10/2026 — Task 1b7f6fc7 CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou a FUSAO-REVERSIVEL com os dois ajustes de UX (seleção por nome, selo Fundida). SPEC-1-002 COMPLETA (CA-01/02/03/04). Sete tasks concluídas na Fase 1. Próxima: SPEC-1-003 (importação das bases próprias com prévia e relatório).
+
 ## 14/10/2026 — Selo Fundida na aba Pessoas (skip f534296)
 
-José observou: após fundir, as duas pessoas continuam listadas sem explicação. Comportamento correto (fusão nunca apaga — é o que permite reverter), mas faltava clareza. Selo "Fundida — ver aba Fusões" adicionado ao card da pessoa fundida; verificado em produção (v0.0.47, ref f534296).
+José observou: após fundir, as duas pessoas continuam listadas sem explicação. Comportamento correto (fusão nunca apaga — é o que permite reverter), mas faltava clareza. Selo "Fundida — ver aba Fusões" adicionado; verificado em produção (v0.0.47, ref f534296).
 
 ## 14/10/2026 — Fusão por seleção (skip 97da55c)
 
@@ -14,7 +18,7 @@ FUSAO-REVERSIVEL verde (SPEC-1-002, CA-1-002-04): migração 0015 (fundida_em); 
 
 ## 14/10/2026 — Task f5668cd8 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a COORTE-PESSOA. Seis tasks concluídas na Fase 1.
+José testou e aprovou a COORTE-PESSOA.
 
 ## 14/10/2026 — Task f5668cd8 implementada (skip 0b32a7c)
 
