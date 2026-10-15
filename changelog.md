@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 15/10/2026 — Correção no teste humano da 899395c4 (skip 2f1452a)
+
+Botão de confirmação do "Desfazer este lote" ficava esmaecido e sem resposta no 2º clique: o disabled incluía confirmandoReversao (o próprio estado de confirmação). Corrigido — botão habilitado no 2º clique (disabled só durante o processamento) + aviso visível explicando a confirmação. v0.0.52 (2f1452a) publicada.
+
 ## 15/10/2026 — Task 899395c4 implementada (skip f66fd73)
 
 IMPORTACAO-RETOMADA verde (CA-1-003-03, fecha a SPEC-1-003): retomada no confirmar — lote status=processando NÃO devolve mais 409; o reenvio do mesmo arquivo devolve as linhas pendentes (nunca processadas ou checkpoint pendente) sem repetir linha aceita; nova rota POST /backend/v1/importacoes/reverter (só admin) — avaliação linha a linha (lead saiu da etapa lista, pessoa/empresa compartilhada com outros lotes, fusão posterior → revisão 409 sem alterar nada), reversão remove leads criados pelo lote (migracao_origem_id), membros de lista do lote, origens de coorte do lote e pessoa/empresa criadas pelo lote SEM outros vínculos; lote vira revertida com relatório preservado; UI /importar com botão Desfazer este lote (confirmação em dois cliques) e resultado da reversão. TDD: rules 43/43 (7 novos), backend 16/16. Provas funcionais: reversão de lote concluído removeu 2 leads/2 pessoas/3 empresas/2 origens com ZERO restos; re-reversão recusada (400); vendedor 403; retomada de lote interrompido devolveu numerosPendentes=[2] e aceitas=1. Publicada (ref f66fd73). Aguardando teste humano.
