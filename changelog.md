@@ -1,12 +1,16 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 7183cf59 implementada (skip 5e0fa0e)
+
+PRODUTO-ACL verde (CA-1-004-01, SPEC-1-004): migração 0018 (coleção produtos: nome, degrau select free/essencial/mapa/executivo/empresa, área, dor, descrição, tipo_atendimento baixo_valor/consultivo, preço ≥0, faixa, icp/playbook/tom, ativo, ambiente; índice único nome+ambiente) + 0019 (regras aplicadas na coleção existente — leitura para autenticados, escrita só admin); hook produtos_validar (degrau/tipo/preço/nome no backend, motivo legível); página /produtos (formulário + catálogo com rascunho/ativo, editar, ativar/inativar) e link no menu. Produto novo nasce rascunho/inativo. TDD: backend 19/19 (2 novos: operador lê mas PATCH/DELETE negados; validação recusa degrau/tipo/preço/nome inválidos), rules 43/43. Publicada (ref 5e0fa0e). Aguardando teste humano.
+
 ## 15/10/2026 — Task 899395c4 CONCLUÍDA (teste humano aprovado)
 
 José testou e aprovou a retomada e o desfazer de importação após as duas correções (botão de confirmação; reimportar após reverter). DÉCIMA task concluída na Fase 1. SPEC-1-003 COMPLETA (CA-1-003-01/02/03/04).
 
 ## 15/10/2026 — Correção 2 no teste humano da 899395c4 (skip e135610)
 
-Reimportar um arquivo cujo lote foi DESFEITO falhava com erro genérico na confirmação: o lote revertido continuava dono da chave_lote (índice único) e o reenvio violava o índice. Correção em duas partes: migração 0017 troca o índice por um PARCIAL (só lotes vivos, status != revertida, o ocupam) e a busca por chave_lote agora FILTRA lotes revertidos (o lote vivo manda no reenvio). Novo teste de backend reproduz o caso do José de ponta a ponta (importar → reverter → reimportar → repetir devolve o relatório do lote ativo → reverter de novo → zero restos). Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
+Reimportar um arquivo cujo lote foi DESFEITO falhava com erro genérico na confirmação: o lote revertido continuava dono da chave_lote (índice único) e o reenvio violava o índice. Correção em duas partes: migração 0017 troca o índice por um PARCIAL (só lotes vivos, status != revertida, o ocupam) e a busca por chave_lote agora FILTRA lotes revertidos (o lote vivo manda no reenvio). Novo teste de backend reproduz o caso do José de ponta a ponta. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
 
 ## 15/10/2026 — Correção no teste humano da 899395c4 (skip 2f1452a)
 
@@ -14,7 +18,7 @@ Botão de confirmação do "Desfazer este lote" ficava esmaecido e sem resposta 
 
 ## 15/10/2026 — Task 899395c4 implementada (skip f66fd73)
 
-IMPORTACAO-RETOMADA verde (CA-1-003-03, fecha a SPEC-1-003): retomada no confirmar — lote status=processando NÃO devolve mais 409; o reenvio do mesmo arquivo devolve as linhas pendentes (nunca processadas ou checkpoint pendente) sem repetir linha aceita; nova rota POST /backend/v1/importacoes/reverter (só admin) — avaliação linha a linha (lead saiu da etapa lista, pessoa/empresa compartilhada com outros lotes, fusão posterior → revisão 409 sem alterar nada), reversão remove leads criados pelo lote (migracao_origem_id), membros de lista do lote, origens de coorte do lote e pessoa/empresa criadas pelo lote SEM outros vínculos; lote vira revertida com relatório preservado; UI /importar com botão Desfazer este lote (confirmação em dois cliques) e resultado da reversão. TDD: rules 43/43 (7 novos), backend 16/16. Provas funcionais: reversão de lote concluído removeu 2 leads/2 pessoas/3 empresas/2 origens com ZERO restos; re-reversão recusada (400); vendedor 403; retomada de lote interrompido devolveu numerosPendentes=[2] e aceitas=1. Publicada (ref f66fd73).
+IMPORTACAO-RETOMADA verde (CA-1-003-03, fecha a SPEC-1-003): retomada no confirmar; nova rota POST /backend/v1/importacoes/reverter (só admin); UI /importar com botão Desfazer este lote. TDD: rules 43/43 (7 novos), backend 16/16. Provas funcionais: reversão com ZERO restos; re-reversão recusada (400); vendedor 403; retomada de lote interrompido ok. Publicada (ref f66fd73).
 
 ## 15/10/2026 — Task 0574671d CONCLUÍDA (teste humano aprovado)
 
@@ -22,7 +26,7 @@ José testou e aprovou a importação com relatório por linha. Nona task conclu
 
 ## 15/10/2026 — Task 0574671d implementada (skip 825971e)
 
-IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes com chave_lote única, importacao_linhas com checkpoint por linha, lista_membros com índice único lista+lead+ambiente); hook POST /backend/v1/importacoes/confirmar (só admin) — processa linha a linha com checkpoint persistido, resolve identidade contra TODA a base do ambiente (reusar/criar/conflito), não inventa decisor (sem contato individual ou e-mail genérico → incompleta, empresa entra pendente de contato), repetir lote concluído devolve o relatório existente sem duplicar, lote em andamento → 409; UI /importar com confirmação (coorte/dono/lista/ambiente) e relatório por linha com totais reconciliados. TDD: rules 36/36 (8 novos), backend 16/16. Prova funcional da rota no ambiente de teste: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição devolveu o mesmo relatório, vendedor 403. Publicada (ref 825971e).
+IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016 (importacoes/importacao_linhas/lista_membros); hook confirmar; UI com relatório por linha. TDD: rules 36/36 (8 novos), backend 16/16. Prova funcional: 6 linhas → 1 nova/2 repetidas/2 incompletas/1 erro, reconciliação ok, repetição sem duplicar, vendedor 403. Publicada (ref 825971e).
 
 ## 14/10/2026 — Task c7240db4 CONCLUÍDA (teste humano aprovado)
 
@@ -30,15 +34,15 @@ José testou e aprovou a prévia da base. Oitava task concluída na Fase 1; prim
 
 ## 14/10/2026 — Task c7240db4 implementada (skip 6b91544)
 
-CSV-PREVIA + CSV-SEGURANCA verdes (SPEC-1-003, CA-1-003-01/04): módulo puro src/services/csv.ts — parser caracter a caracter (vírgula/ponto-e-vírgula, aspas escapadas, BOM, CRLF/LF, campo multilinha), detecção de separador fora de aspas, malformado e excedente de limite (1000 linhas/5 MB) recusados sem linhas, neutralização de fórmula (=,+,-,@ → apóstrofo). TDD achou e corrigiu 2 bugs reais do parser (aspas de fechamento reabriam campo; quebra após campo citado era rejeitada). Tela /importar: arquivo → prévia (separador, mapeamento automático das colunas, 5 primeiras linhas com fórmula neutralizada) → confirmação; nenhuma escrita antes. GREEN 28/28 regras. Publicada (ref 6b91544).
+CSV-PREVIA + CSV-SEGURANCA verdes (SPEC-1-003, CA-1-003-01/04): módulo puro src/services/csv.ts — parser caracter a caracter, detecção de separador, malformado e excedente de limite recusados sem linhas, neutralização de fórmula. TDD achou e corrigiu 2 bugs reais do parser. Tela /importar com prévia. GREEN 28/28 regras. Publicada (ref 6b91544).
 
 ## 14/10/2026 — Task 1b7f6fc7 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a FUSAO-REVERSIVEL com os dois ajustes de UX (seleção por nome, selo Fundida). SPEC-1-002 COMPLETA (CA-01/02/03/04).
+José testou e aprovou a FUSAO-REVERSIVEL com os dois ajustes de UX. SPEC-1-002 COMPLETA (CA-01/02/03/04).
 
 ## 14/10/2026 — Selo Fundida na aba Pessoas (skip f534296)
 
-Pessoas fundidas continuam listadas de propósito (reversibilidade) — agora com selo "Fundida — ver aba Fusões" (v0.0.47).
+Pessoas fundidas continuam listadas de propósito (reversibilidade) — agora com selo (v0.0.47).
 
 ## 14/10/2026 — Fusão por seleção (skip 97da55c)
 
@@ -46,7 +50,7 @@ Dropdowns de seleção (nome + e-mail) no lugar de campos de ID cru (v0.0.46). L
 
 ## 14/10/2026 — Task 1b7f6fc7 implementada (skip 9d985f7)
 
-FUSAO-REVERSIVEL verde (CA-1-002-04): migração 0015 (fundida_em); rotas fundir/reverter-fusao (só admin, snapshot, 409 revisão); avaliarReversao; aba Fusões. GREEN: 16/16 backend, 20/20 regras. Publicada (ref 9d985f7).
+FUSAO-REVERSIVEL verde (CA-1-002-04): migração 0015; rotas fundir/reverter-fusao; avaliarReversao; aba Fusões. GREEN: 16/16 backend, 20/20 regras. Publicada (ref 9d985f7).
 
 ## 14/10/2026 — Task f5668cd8 CONCLUÍDA (teste humano aprovado)
 
