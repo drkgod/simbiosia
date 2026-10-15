@@ -1,20 +1,24 @@
 # Histórico da construção
 
+## 14/10/2026 — Task f5668cd8 CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou a COORTE-PESSOA: status de fria na aba Pessoas, pedido de saída bloqueando, protegidas nunca elegíveis. Seis tasks concluídas na Fase 1 (20c86bd2, 490ec843, d3e7d6da, ea6db5dc, 3b736d7d, f5668cd8). Próxima: FUSAO-REVERSIVEL (1b7f6fc7), que depende desta.
+
 ## 14/10/2026 — Task f5668cd8 implementada (skip 0b32a7c)
 
-COORTE-PESSOA verde (SPEC-1-002, CA-1-002-03): função pura elegibilidadeFria (pedido de saída vence tudo; relacionamento conhecido exclui da fria; mesma empresa NÃO protege); migração 0014 (índices únicos de origens e bloqueios — reimportação cria nova origem, nunca duplica bloqueio); hook pessoas_origens_coorte (entrada fria não apaga relacionamento anterior, guia 3.3 com e.next()); aba Pessoas mostra status (Protegida/Elegível/Bloqueada) + botão pedido de saída. RED documentado (5 falhas de função inexistente). GREEN: 15/15 backend, 16/16 regras. Publicada (ref 0b32a7c). Aguardando teste humano.
+COORTE-PESSOA verde (SPEC-1-002, CA-1-002-03): função pura elegibilidadeFria (pedido de saída vence tudo; relacionamento conhecido exclui da fria; mesma empresa NÃO protege); migração 0014 (índices únicos de origens e bloqueios — reimportação cria nova origem, nunca duplica bloqueio); hook pessoas_origens_coorte (entrada fria não apaga relacionamento anterior, guia 3.3 com e.next()); aba Pessoas mostra status (Protegida/Elegível/Bloqueada) + botão pedido de saída. RED documentado (5 falhas de função inexistente). GREEN: 15/15 backend, 16/16 regras. Publicada (ref 0b32a7c).
 
 ## 14/10/2026 — Task 3b736d7d CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a IDENTIDADE: duplicata recusada, fila de conflitos com decisão do admin, nada fundido automaticamente. Cinco tasks concluídas na Fase 1 (20c86bd2, 490ec843, d3e7d6da, ea6db5dc, 3b736d7d). Próxima: COORTE-PESSOA (f5668cd8), que depende desta.
+José testou e aprovou a IDENTIDADE: duplicata recusada, fila de conflitos com decisão do admin, nada fundido automaticamente. Cinco tasks concluídas na Fase 1. Próxima: COORTE-PESSOA (f5668cd8).
 
 ## 14/10/2026 — Task 3b736d7d implementada (skip 02e2b6c)
 
-IDENTIDADE verde (SPEC-1-002, CA-1-002-02): migração 0013 (conflitos_cadastro, fila de revisão do admin); função pura resolverIdentidade no cadastro.ts (reusar/criar/conflito; e-mail genérico e "mesma empresa" nunca identificam pessoa); hook pessoas_identidade com correção CRÍTICA do guia 3.3 (record hook sem e.next() engolia a escrita em silêncio); aba Conflitos em /cadastro. RED documentado: duplicata de telefone era aceita sem registro de conflito. GREEN: 14/14 backend, 11/11 regras. Publicada (ref 02e2b6c).
+IDENTIDADE verde (SPEC-1-002, CA-1-002-02): migração 0013 (conflitos_cadastro); função pura resolverIdentidade (reusar/criar/conflito; e-mail genérico e "mesma empresa" nunca identificam pessoa); hook pessoas_identidade com correção CRÍTICA do guia 3.3 (record hook sem e.next() engolia a escrita em silêncio); aba Conflitos em /cadastro. RED documentado. GREEN: 14/14 backend, 11/11 regras. Publicada (ref 02e2b6c).
 
 ## 14/10/2026 — Task ea6db5dc CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou o cadastro único: abas Empresas (95) e Pessoas (11) com dados do backfill, cadastro funcionando, leads legados intactos.
+José testou e aprovou o cadastro único: abas Empresas e Pessoas com dados do backfill, cadastro funcionando, leads legados intactos.
 
 ## 14/10/2026 — Task ea6db5dc implementada (skip 0083166)
 
