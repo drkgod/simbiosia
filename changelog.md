@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 15/10/2026 — Task 46c0fd51 CONCLUÍDA (teste humano aprovado)
+
+José testou e aprovou a entrevista de produtos. Décima segunda task concluída na Fase 1; CA-1-004-03 entregue.
+
 ## 15/10/2026 — Task 46c0fd51 implementada (skip 6a4b542)
 
-ENTREVISTA verde (CA-1-004-03, SPEC-1-004): migração 0020 (entrevista_produtos: produto rel required, roteiro/respostas/pendencias json, status rascunho/confirmada, confirmada_por/em, ambiente; índice único produto+ambiente; RLS admin); hook entrevista_validar — confirmação com pendência é NEGADA no backend (400 com as pendências listadas), autor e data de confirmação registrados no servidor (não confia no payload), confirmação NÃO ativa produto; seção de entrevista na página /produtos: roteiro fixo de 10 perguntas (dor/área, decisor, segmento/porte, localização, campos/fontes, critérios, pesos, eliminatórias, faixas, abordagem), respostas parciais salvas como rascunho com pendências, botão Confirmar desabilitado enquanto houver pendência. TDD: backend 20/20 (ENTREVISTA), rules 47/47 (roteiro + completude). Ajustes: hook com lógica inline (scoping da VM de callbacks); teste do roteiro completo corrigido (10 respostas). Publicada (ref 6a4b542). Aguardando teste humano.
+ENTREVISTA verde (CA-1-004-03, SPEC-1-004): migração 0020 (entrevista_produtos: produto rel required, roteiro/respostas/pendencias json, status rascunho/confirmada, confirmada_por/em, ambiente; índice único produto+ambiente; RLS admin); hook entrevista_validar — confirmação com pendência é NEGADA no backend (400 com as pendências listadas), autor e data de confirmação registrados no servidor, confirmação NÃO ativa produto; seção de entrevista na página /produtos: roteiro fixo de 10 perguntas, respostas parciais salvas como rascunho com pendências, botão Confirmar desabilitado enquanto houver pendência. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
 
 ## 15/10/2026 — Task 7183cf59 CONCLUÍDA (teste humano aprovado)
 
