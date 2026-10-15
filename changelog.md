@@ -1,20 +1,24 @@
 # Histórico da construção
 
+## 14/10/2026 — Task c7240db4 implementada (skip 6b91544)
+
+CSV-PREVIA + CSV-SEGURANCA verdes (SPEC-1-003, CA-1-003-01/04): módulo puro src/services/csv.ts — parser caracter a caracter (vírgula/ponto-e-vírgula, aspas escapadas, BOM, CRLF/LF, campo multilinha), detecção de separador fora de aspas, malformado e excedente de limite (1000 linhas/5 MB) recusados sem linhas, neutralização de fórmula (=,+,-,@ → apóstrofo). TDD achou e corrigiu 2 bugs reais do parser (aspas de fechamento reabriam campo; quebra após campo citado era rejeitada). Tela /importar: arquivo → prévia (separador, mapeamento automático das colunas, 5 primeiras linhas com fórmula neutralizada) → confirmação; nenhuma escrita antes. GREEN 28/28 regras. Publicada (ref 6b91544). Aguardando teste humano.
+
 ## 14/10/2026 — Task 1b7f6fc7 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a FUSAO-REVERSIVEL com os dois ajustes de UX (seleção por nome, selo Fundida). SPEC-1-002 COMPLETA (CA-01/02/03/04). Sete tasks concluídas na Fase 1. Próxima: SPEC-1-003 (importação das bases próprias com prévia e relatório).
+José testou e aprovou a FUSAO-REVERSIVEL com os dois ajustes de UX (seleção por nome, selo Fundida). SPEC-1-002 COMPLETA (CA-01/02/03/04). Sete tasks concluídas na Fase 1.
 
 ## 14/10/2026 — Selo Fundida na aba Pessoas (skip f534296)
 
-José observou: após fundir, as duas pessoas continuam listadas sem explicação. Comportamento correto (fusão nunca apaga — é o que permite reverter), mas faltava clareza. Selo "Fundida — ver aba Fusões" adicionado; verificado em produção (v0.0.47, ref f534296).
+Pessoas fundidas continuam listadas de propósito (reversibilidade) — agora com selo "Fundida — ver aba Fusões" (v0.0.47).
 
 ## 14/10/2026 — Fusão por seleção (skip 97da55c)
 
-José tentou fundir colando o NOME nos campos de ID — erro 404 correto da rota, mas UX errada da tela. Trocado por dois dropdowns de seleção (nome + e-mail). Verificado em produção (v0.0.46, ref 97da55c). Lição: nunca pedir ID interno ao usuário.
+Dropdowns de seleção (nome + e-mail) no lugar de campos de ID cru (v0.0.46). Lição: nunca pedir ID interno ao usuário.
 
 ## 14/10/2026 — Task 1b7f6fc7 implementada (skip 9d985f7)
 
-FUSAO-REVERSIVEL verde (SPEC-1-002, CA-1-002-04): migração 0015 (fundida_em); rotas fundir/reverter-fusao (só admin, snapshot, 409 revisão com alteração posterior); avaliarReversao; aba Fusões em /cadastro. Correção no meio: e.auth.getString("role") em vez de e.auth.role. GREEN: 16/16 backend, 20/20 regras. Publicada (ref 9d985f7).
+FUSAO-REVERSIVEL verde (CA-1-002-04): migração 0015 (fundida_em); rotas fundir/reverter-fusao (só admin, snapshot, 409 revisão); avaliarReversao; aba Fusões. GREEN: 16/16 backend, 20/20 regras. Publicada (ref 9d985f7).
 
 ## 14/10/2026 — Task f5668cd8 CONCLUÍDA (teste humano aprovado)
 
