@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 15/10/2026 — Correção 2 no teste humano da b0c25923 (skip 7145c37)
+
+Digitar texto cru no campo Valor (ex.: industria) quebrava a página: o campo fazia JSON.parse a cada tecla e re-renderizava com stringify no meio da digitação (unexpected token / invalid JSON). Correção: o campo guarda TEXTO CRU enquanto se digita; o parse seguro (JSON válido → número/lista/bool; qualquer outra coisa → texto puro, NUNCA lança erro) acontece no blur ou Enter. Verificado em produção com o navegador: digitou industria, blur, página viva, valor mantido. v0.0.67 (7145c37) publicada.
+
 ## 15/10/2026 — Correção no teste humano da b0c25923 (skip 9107840)
 
-O botão Régua não aparecia na lista de produtos: o patch da UI tinha colocado o botão DENTRO do card condicional da entrevista (só visível depois de abrir uma entrevista). Movido para a tabela de ações, ao lado de Entrevista — verificado no DOM em produção (23 botões Régua, um por produto). v0.0.66 (9107840) publicada.
+O botão Régua não aparecia na lista de produtos: o patch da UI tinha colocado o botão DENTRO do card condicional da entrevista. Movido para a tabela de ações, ao lado de Entrevista — verificado no DOM em produção. v0.0.66 (9107840) publicada.
 
 ## 15/10/2026 — Task b0c25923 implementada (skip 718ad2f)
 
