@@ -1,12 +1,16 @@
 # Histórico da construção
 
+## 15/10/2026 — Task b0c25923 implementada (skip 718ad2f)
+
+REGUA-VALIDACAO + REGUA-VERSAO verdes (CA-1-004-02/04, fecha a SPEC-1-004): migração 0021 (regras_produto: produto rel, versao, status rascunho/aprovada/arquivada, metodo ponderado/pontos, criterios/regras_eliminatorias/faixas json, hash, aprovado_por/em, ambiente; índice único produto+versao+ambiente; RLS admin); hook regua_validar (lógica inline) — valida critérios (termo/grupo E-OU, peso no termo, filho sem peso, grupo não vazio, operador na lista, soma ponderada > 0 com peso individual zero permitido) e faixas (4, A-D, sem sobreposição/lacuna), recalcula hash no servidor, impõe versão = próxima livre, torna versão APROVADA imutável (mudança de conteúdo → 400), registra aprovado_por/em no servidor, delete só de rascunho; editor de régua na /produtos (método, termos/grupos, faixas A-D editáveis, aprovar/arquivar, tabela de versões com hash). TDD: backend 21/21 (REGUA-VERSAO de ponta a ponta), rules 57/57 (REGUA-VALIDACAO completa + hash estável/mudante). Ajustes: hook inline (scoping da VM); placeholder com aspas em expressão JSX; fixture de régua aprovada permanece no banco (histórico por design). Publicada (ref 718ad2f). Aguardando teste humano.
+
 ## 15/10/2026 — Task 46c0fd51 CONCLUÍDA (teste humano aprovado)
 
 José testou e aprovou a entrevista de produtos. Décima segunda task concluída na Fase 1; CA-1-004-03 entregue.
 
 ## 15/10/2026 — Task 46c0fd51 implementada (skip 6a4b542)
 
-ENTREVISTA verde (CA-1-004-03, SPEC-1-004): migração 0020 (entrevista_produtos: produto rel required, roteiro/respostas/pendencias json, status rascunho/confirmada, confirmada_por/em, ambiente; índice único produto+ambiente; RLS admin); hook entrevista_validar — confirmação com pendência é NEGADA no backend (400 com as pendências listadas), autor e data de confirmação registrados no servidor, confirmação NÃO ativa produto; seção de entrevista na página /produtos: roteiro fixo de 10 perguntas, respostas parciais salvas como rascunho com pendências, botão Confirmar desabilitado enquanto houver pendência. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
+ENTREVISTA verde (CA-1-004-03): migração 0020 (entrevista_produtos); hook entrevista_validar — confirmação com pendência NEGADA no backend, autor/data no servidor, confirmação NÃO ativa produto; seção de entrevista na /produtos com roteiro fixo de 10 perguntas. TDD: backend 20/20, rules 47/47. Publicada (ref 6a4b542).
 
 ## 15/10/2026 — Task 7183cf59 CONCLUÍDA (teste humano aprovado)
 
@@ -14,23 +18,23 @@ José testou e aprovou o catálogo de produtos FAROL. Décima primeira task conc
 
 ## 15/10/2026 — Task 7183cf59 implementada (skip 5e0fa0e)
 
-PRODUTO-ACL verde (CA-1-004-01, SPEC-1-004): migração 0018 (coleção produtos) + 0019 (regras aplicadas na coleção existente — leitura para autenticados, escrita só admin); hook produtos_validar; página /produtos. Produto novo nasce rascunho/inativo. TDD: backend 19/19, rules 43/43. Publicada (ref 5e0fa0e).
+PRODUTO-ACL verde (CA-1-004-01): migração 0018 (coleção produtos) + 0019 (regras na coleção existente); hook produtos_validar; página /produtos. Produto novo nasce rascunho/inativo. TDD: backend 19/19, rules 43/43. Publicada (ref 5e0fa0e).
 
 ## 15/10/2026 — Task 899395c4 CONCLUÍDA (teste humano aprovado)
 
-José testou e aprovou a retomada e o desfazer de importação após as duas correções. DÉCIMA task concluída na Fase 1. SPEC-1-003 COMPLETA (CA-1-003-01/02/03/04).
+José testou e aprovou a retomada e o desfazer de importação após as duas correções. DÉCIMA task concluída na Fase 1. SPEC-1-003 COMPLETA.
 
 ## 15/10/2026 — Correção 2 no teste humano da 899395c4 (skip e135610)
 
-Reimportar um arquivo cujo lote foi DESFEITO falhava com erro genérico: o lote revertido continuava dono da chave_lote. Correção: migração 0017 (índice parcial — só lotes vivos ocupam a chave) + busca por chave_lote FILTRA lotes revertidos. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
+Reimportar após desfazer falhava: lote revertido continuava dono da chave_lote. Correção: migração 0017 (índice parcial) + busca filtra revertidos. Backend 17/17, rules 43/43. v0.0.55 (e135610) publicada.
 
 ## 15/10/2026 — Correção no teste humano da 899395c4 (skip 2f1452a)
 
-Botão de confirmação do "Desfazer este lote" ficava esmaecido no 2º clique (disabled incluía o próprio estado de confirmação). Corrigido + aviso visível. v0.0.52 (2f1452a) publicada.
+Botão de confirmação do desfazer ficava esmaecido no 2º clique. Corrigido + aviso visível. v0.0.52 (2f1452a) publicada.
 
 ## 15/10/2026 — Task 899395c4 implementada (skip f66fd73)
 
-IMPORTACAO-RETOMADA verde (CA-1-003-03): retomada no confirmar; rota reverter (só admin); UI desfazer. Rules 43/43, backend 16/16. Provas: reversão com ZERO restos; re-reversão recusada; vendedor 403; retomada ok. Publicada (ref f66fd73).
+IMPORTACAO-RETOMADA verde (CA-1-003-03): retomada no confirmar; rota reverter (só admin); UI desfazer. Rules 43/43, backend 16/16. Publicada (ref f66fd73).
 
 ## 15/10/2026 — Task 0574671d CONCLUÍDA (teste humano aprovado)
 
@@ -38,7 +42,7 @@ José testou e aprovou a importação com relatório por linha. Nona task conclu
 
 ## 15/10/2026 — Task 0574671d implementada (skip 825971e)
 
-IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016; hook confirmar; UI com relatório por linha. Rules 36/36, backend 16/16. Prova: 6 linhas classificadas, reconciliação ok, repetição sem duplicar, vendedor 403. Publicada (ref 825971e).
+IMPORTACAO-RELATORIO verde (CA-1-003-02): migração 0016; hook confirmar; UI com relatório por linha. Rules 36/36, backend 16/16. Publicada (ref 825971e).
 
 ## 14/10/2026 — Task c7240db4 CONCLUÍDA (teste humano aprovado)
 
@@ -46,7 +50,7 @@ José testou e aprovou a prévia da base. Oitava task concluída na Fase 1.
 
 ## 14/10/2026 — Task c7240db4 implementada (skip 6b91544)
 
-CSV-PREVIA + CSV-SEGURANCA verdes: módulo puro csv.ts (parser completo, 2 bugs corrigidos pelo TDD) + tela /importar com prévia. GREEN 28/28 regras. Publicada (ref 6b91544).
+CSV-PREVIA + CSV-SEGURANCA verdes: módulo puro csv.ts (2 bugs corrigidos pelo TDD) + tela /importar com prévia. GREEN 28/28 regras. Publicada (ref 6b91544).
 
 ## 14/10/2026 — Task 1b7f6fc7 CONCLUÍDA (teste humano aprovado)
 
