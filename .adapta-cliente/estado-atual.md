@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — correção 2 do bug "Salvando…"
+- task_id: edicao-lead (edição direto no detalhe) — correção 3 (causa raiz fechada)
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano (correção 2)
+- etapa: aguardando_teste_humano (correção 3)
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente (1º teste: botão preso em "Salvando…"; correção 1 não destravou no navegador dele — bundle em cache)
-- verificacao_automatica: passou (QA v0.0.82 9975459 verde; backend 26/26; rules 65/65; correção 2 provada no navegador: Salvar → botão volta a Salvar, editor fecha, PATCH gravado no banco 200)
-- aprendizado: registrado (promise do SDK pendura no navegador enquanto fetch cru responde 200 — correção definitiva é fetch direto com token; guarda-tempo não dispara em aba background — throttling do Chrome; bundle pode ficar em cache no navegador do usuário mesmo após publicação)
+- teste_humano: pendente (1º e 2º testes: botão preso em "Salvando…")
+- verificacao_automatica: passou (QA v0.0.83 d1694ff verde; backend 26/26; rules 65/65; causa raiz fechada: bundle embutia host INTERNO shrd00 — não navegável do navegador; correção: PATCH via window.location.origin; asset novo conferido por curl)
+- aprendizado: registrado (VITE_POCKETBASE_URL aponta para o host interno — o frontend em produção DEVE usar window.location.origin para chamadas de API; fetch para shrd00 pendura do lado de fora sem erro)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 9975459 (v0.0.82)
-- skip_publicacao: publicada:9975459 em 2026-10-16T16:30:55Z
+- skip_versao: d1694ff (v0.0.83)
+- skip_publicacao: publicada:d1694ff em 2026-10-16T16:40:32Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: correção 2 (v0.0.82): PATCH via fetch direto com token, provado no navegador
-- proxima_acao: revalidação do José (Ctrl+Shift+R e salvar edição)
-- atualizado_em: 2026-10-16T13:36:00-03:00
+- ultima_acao: correção 3 (v0.0.83): PATCH na mesma origem; asset novo no ar (index-B_rMdgop.js)
+- proxima_acao: revalidação do José (Ctrl+Shift+R → editar → salvar)
+- atualizado_em: 2026-10-16T13:45:00-03:00
