@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — v0.0.88 publicada, aguardando teste humano
+- task_id: edicao-lead (edição direto no detalhe) — v0.0.90 publicada, causa raiz corrigida e provada, aguardando teste humano
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano (v0.0.88 — salvar em dupla via + destrava 15s + marcador de build)
+- etapa: aguardando_teste_humano (v0.0.90)
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente (José: Ctrl+Shift+R, conferir rodapé "build v0.0.88-dupla-via", editar → Salvar)
-- verificacao_automatica: passou (backend 29/29 incluindo 3 novos LEADS-EDITAR-ROTA; rules 65/65; prova de gravação da rota OK via node e via fetch do navegador 200 em 14ms; QA v0.0.85–88 verde)
-- aprendizado: registrado (logs do backend provaram que o POST da edição nunca chegava ao servidor — nem PATCH nem via UI; POST scoring chegava em 12ms; solução: rota própria POST /backend/v1/leads/editar + Salvar em DUPLA VIA (pb.send + fetch cru em corrida) + destrava independente 15s + marcador de build no rodapé)
+- teste_humano: pendente (José: janela anônima, conferir rodapé "build v0.0.89-salvar-corrigido", editar → Salvar)
+- verificacao_automatica: passou (backend 29/29; rules 65/65; prova de UI de ponta a ponta no navegador: Salvar → POST /backend/v1/leads/editar 200 em 3,3ms → gravação no banco → "Lead atualizado." + editor fechou)
+- aprendizado: registrado (patch da dupla via tinha apagado estourar e usado setErro — ReferenceError antes da rede, botão preso sem mensagem; QA do Skip não pega ReferenceError em runtime — toda mudança de UI precisa de prova de clique em navegador antes de publicar)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 34b3253 (v0.0.88)
-- skip_publicacao: publicada:34b3253 em 2026-10-16T22:10:57Z
+- skip_versao: 67d363c (v0.0.90)
+- skip_publicacao: publicada:67d363c em 2026-10-16T22:28:23Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: v0.0.85 rota própria POST /backend/v1/leads/editar (hook leads_editar.js: ACL admin/dono, empresa exclusiva, whitelist, owner/etapa/score imutáveis); v0.0.87 Salvar em DUPLA VIA (pb.send + fetch cru em corrida, destrava 15s com mensagem clara); v0.0.88 marcador "v0.0.88-dupla-via" no rodapé (confirmado no bundle index-BiniaaXJ.js)
-- proxima_acao: teste humano do José; se ainda travar, o destrava 15s mostra mensagem e o rodapé identifica a versão — próximo passo seria instrumentar o pb.send (interceptor) para ver o que acontece na chamada do SDK no ambiente do José
-- atualizado_em: 2026-10-16T19:15:00-03:00
+- ultima_acao: v0.0.89 (a2acc55) restaura estourar + corrige setErro→setError — causa raiz real do travamento; provado em UI de ponta a ponta (POST 200 em 3,3ms, gravação confirmada, "Lead atualizado."); v0.0.90 (67d363c) marcador do rodapé "v0.0.89-salvar-corrigido"
+- proxima_acao: teste humano do José na janela anônima (rodapé v0.0.89-salvar-corrigido); se aprovado, task edicao-lead fecha (16/19) e a próxima elegível é 2faac03b (job de repontuação), que fecha a SPEC-1-005
+- atualizado_em: 2026-10-16T19:30:00-03:00
