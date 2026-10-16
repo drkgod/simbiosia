@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — CONCLUÍDA (teste humano aprovado pelo José em 16/10 19:37: "Funcionou")
+- task_id: 2faac03b (repontuar não abordados) — IMPLEMENTADA (v0.0.94/d8ac80d publicada 16/10 23:15), aguardando teste humano
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
-- spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
-- analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: concluida
-- autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: aprovado pelo José (16/10 19:37, "Funcionou")
-- verificacao_automatica: passou (backend 29/29; rules 65/65; prova de UI de ponta a ponta no navegador: Salvar → POST /backend/v1/leads/editar 200 em 3,3ms → gravação no banco → "Lead atualizado." + editor fechou)
-- aprendizado: registrado (patch da dupla via tinha apagado estourar e usado setErro — ReferenceError antes da rede, botão preso sem mensagem; QA do Skip não pega ReferenceError em runtime — toda mudança de UI precisa de prova de clique em navegador antes de publicar)
+- spec: 04_fase-atual/specs/spec-pontuacao-por-produto.md (SPEC-1-005, CA-1-005-04)
+- analise: .adapta-cliente/analises/2faac03b-repontuacao-job.md
+- etapa: aguardando_teste_humano
+- autorizacao_implementacao: confirmada 2026-10-16T19:45:00-03:00 ("Pode", após relatório de análise)
+- teste_humano: pendente (roteiro: Produtos > Régua > aprovar v2 > seção Repontuação > Executar > conferir contadores > Reverter)
+- verificacao_automatica: passou (QA Skip verde; regras 66/66; backend 33/33 — JOB-CRIACAO, JOB-EXECUCAO+REVERSAO, JOB-ACL, SCORE-PONTEIRO verdes contra o backend de teste)
+- aprendizado: registrado (publicarPonteiro e hashDe INLINE no callback — scoping da VM do PocketBase, peguei pelo QA; listRule filtra em vez de rejeitar; JSON fields do SDK chegam como objeto)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 67d363c (v0.0.90)
-- skip_publicacao: publicada:67d363c em 2026-10-16T22:28:23Z
-- pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: task edicao-lead FECHADA com aceite humano; 16/19 tasks da Fase 1
-- proxima_acao: 2faac03b (job de repontuação dos não abordados) — fecha a SPEC-1-005; aguardando autorização para análise
-- atualizado_em: 2026-10-16T19:40:00-03:00
+- skip_versao: d8ac80d (v0.0.94)
+- skip_publicacao: publicada:d8ac80d em 2026-10-16T23:15:27Z
+- pendente_github: espelho parcial do submódulo funil-mkt (commit local feito; push direto falhou por auth — sobe no próximo envio)
+- ultima_acao: 2faac03b implementada: migração 0026 (jobs_pontuacao + notas_atuais em leads), hook scoring/repontuar (executar/reverter, régua fixada, guardas por lead), job criado na aprovação da régua (regua_validar), ponteiro notas_atuais no calcular, UI Repontuação em Produtos. Pendente de polimento (fora do CA): marcador "(atual)" no histórico do LeadDetail
+- proxima_acao: aguardar teste humano do José
+- atualizado_em: 2026-10-16T23:20:00-03:00
