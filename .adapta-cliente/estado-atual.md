@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe; task extra decidida pelo José em 16/10/2026)
+- task_id: edicao-lead (edição direto no detalhe) — correção 1 do bug "Salvando…"
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano
+- etapa: aguardando_teste_humano (correção 1)
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente
-- verificacao_automatica: passou (QA v0.0.80 96994d7 verde; backend 26/26 — EDITAR-ACL (vendedor edita lead/empresa exclusiva própria; alheio/compartilhada negado; admin tudo) e EDITAR-EFEITO (mudar setor → linha nova no histórico); rules 65/65)
-- aprendizado: registrado (model hook onRecordUpdate NÃO tem e.auth — proteção de escrita por papel usa REQUEST hook onRecordUpdateRequest; migração não re-executa: mudança de regra em coleção existente pede ordinal novo)
+- teste_humano: pendente (bug reportado no 1º teste: botão preso em "Salvando…")
+- verificacao_automatica: passou (QA v0.0.81 ebf0294 verde; backend 26/26 — EDITAR-ACL + EDITAR-EFEITO; rules 65/65; PATCH manual via API 200 em lead/empresa/recargas ~13ms; bundle novo no ar com guarda-tempo)
+- aprendizado: registrado (model hook não tem e.auth → request hook; migração não re-executa → ordinal novo; bug "Salvando…": promise do SDK pendura no navegador enquanto fetch cru responde 200 — guarda-tempo destrava e expõe o erro real)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 96994d7
-- skip_publicacao: publicada:96994d7 em 2026-10-16T14:30:12Z
+- skip_versao: ebf0294 (v0.0.81)
+- skip_publicacao: publicada:ebf0294 em 2026-10-16T16:17:41Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: edicao-lead implementada e publicada; registros locais atualizados
-- proxima_acao: teste humano do José (editar lead e ver linha nova no histórico)
-- atualizado_em: 2026-10-16T11:32:00-03:00
+- ultima_acao: correção 1 (v0.0.81): guarda-tempo 15s por etapa + recarga em segundo plano; diagnóstico completo em artifacts/diagnostico-edicao-lead.md
+- proxima_acao: José testar salvar e aguardar ~15s — guarda-tempo destrava o botão e mostra o erro real (ou "Lead atualizado"); se o erro persistir, trocar updateLead/update da empresa por fetch direto com token (padrão que já responde 200)
+- atualizado_em: 2026-10-16T13:25:00-03:00
