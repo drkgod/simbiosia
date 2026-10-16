@@ -1,21 +1,20 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: 3b93879f (pontuação por produto, SPEC-1-005, CA-1-005-01/02) — CONCLUÍDA
+- task_id: 77a1aa6e (proteger cálculo e histórico, SPEC-1-005, CA-1-005-03/05)
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: 04_fase-atual/specs/spec-pontuacao-por-produto.md (SPEC-1-005)
-- analise: .adapta-cliente/analises/3b93879f-score-produto.md
-- etapa: concluida
-- autorizacao_implementacao: confirmada 2026-10-15T17:02:00-03:00 ("Sim" — 3b93879f)
-- teste_humano: aprovado 2026-10-15T17:36:00-03:00 ("Funcionou — pode fechar a task" — após correção 1 0986c2f)
-- verificacao_automatica: passou (QA v0.0.70 0986c2f verde; rules 65/65; backend 21/21; prova funcional da rota com a fixture da SPEC: 100/A, 0/D, 40/C, 100/A, idempotência ok, sem régua → pendente, vendedor 403 em lead alheio; prova da correção: create rascunho ok, update aprovada ok, create já aprovada segue 400)
-- aprendizado: registrado (lição 3b93879f: testar fluxo de UI contra o contrato do hook, não só o hook sozinho)
+- analise: .adapta-cliente/analises/77a1aa6e-proteger-calculo-historico.md
+- etapa: aguardando_teste_humano
+- autorizacao_implementacao: confirmada 2026-10-15T17:41:00-03:00 ("Sim" — 77a1aa6e)
+- verificacao_automatica: passou (QA v0.0.72 5eb62a2 verde; rules 65/65; backend 24/24 — SCORE-AUTORIZACAO (PATCH/CREATE forjado 403, vendedor não lê pontuação alheia) e SCORE-HISTORICO (score legado preservado, qualificação manual consultável, histórico por produto sem mistura); prova funcional da rota ok)
+- aprendizado: pendente
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 0986c2f
-- skip_publicacao: publicada:0986c2f em 2026-10-15T20:24:59Z
-- pendente_github: espelho parcial no submódulo (commit local e2a6336; sobe no próximo envio)
-- ultima_acao: task 3b93879f fechada com aceite humano; registros e evidência atualizados
-- proxima_acao: aguardar autorização para analisar 77a1aa6e (proteger cálculo e histórico)
-- atualizado_em: 2026-10-15T17:38:00-03:00
+- skip_versao: 5eb62a2
+- skip_publicacao: publicada:5eb62a2 em 2026-10-15T20:53:37Z
+- pendente_github: espelho do submódulo atualizado localmente (commit pendente de push via MCP)
+- ultima_acao: 77a1aa6e implementada e publicada; espelho atualizado
+- proxima_acao: teste humano do José (histórico das notas no lead; PATCH forjado negado já provado)
+- atualizado_em: 2026-10-16T10:52:00-03:00
