@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — correção 4 publicada, pendente propagação de CDN
+- task_id: edicao-lead (edição direto no detalhe) — v0.0.88 publicada, aguardando teste humano
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano (correção 4 — v0.0.84 publicada 16:53Z; CDN ainda servindo bundle antigo)
+- etapa: aguardando_teste_humano (v0.0.88 — salvar em dupla via + destrava 15s + marcador de build)
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente (3 testes do José com botão preso em "Salvando…")
-- verificacao_automatica: passou (QA v0.0.84 ed03784 verde; backend 26/26; rules 65/65; provas do navegador: PATCH no host interno da API → 200 em 12ms; PATCH na mesma origem .goskip.app → 405 do nginx; fluxo completo 8× 200; bundle antigo ainda na CDN — index-DhcT86AI.js)
-- aprendizado: registrado (a produção .goskip.app só serve o frontend — /api devolve 405/HTML do nginx; o host interno shrd00 É navegável do navegador do usuário com CORS ok (PATCH 200); o travamento original era a promise do SDK; CDN de borda pode servir bundle antigo mesmo após publicação — conferir por curl antes de pedir reteste)
+- teste_humano: pendente (José: Ctrl+Shift+R, conferir rodapé "build v0.0.88-dupla-via", editar → Salvar)
+- verificacao_automatica: passou (backend 29/29 incluindo 3 novos LEADS-EDITAR-ROTA; rules 65/65; prova de gravação da rota OK via node e via fetch do navegador 200 em 14ms; QA v0.0.85–88 verde)
+- aprendizado: registrado (logs do backend provaram que o POST da edição nunca chegava ao servidor — nem PATCH nem via UI; POST scoring chegava em 12ms; solução: rota própria POST /backend/v1/leads/editar + Salvar em DUPLA VIA (pb.send + fetch cru em corrida) + destrava independente 15s + marcador de build no rodapé)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: ed03784 (v0.0.84)
-- skip_publicacao: publicada:ed03784 em 2026-10-16T16:53:32Z
+- skip_versao: 34b3253 (v0.0.88)
+- skip_publicacao: publicada:34b3253 em 2026-10-16T22:10:57Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: correção 4 (v0.0.84): fetch direto no host da API (mecanismo certo); CDN ainda serve bundle antigo — conferir propagação antes do reteste
-- proxima_acao: conferir propagação da CDN (curl do index → hash do asset deve mudar); quando o bundle novo (base interna + fetch direto) estiver sendo servido, pedir reteste do José
-- atualizado_em: 2026-10-16T14:05:00-03:00
+- ultima_acao: v0.0.85 rota própria POST /backend/v1/leads/editar (hook leads_editar.js: ACL admin/dono, empresa exclusiva, whitelist, owner/etapa/score imutáveis); v0.0.87 Salvar em DUPLA VIA (pb.send + fetch cru em corrida, destrava 15s com mensagem clara); v0.0.88 marcador "v0.0.88-dupla-via" no rodapé (confirmado no bundle index-BiniaaXJ.js)
+- proxima_acao: teste humano do José; se ainda travar, o destrava 15s mostra mensagem e o rodapé identifica a versão — próximo passo seria instrumentar o pb.send (interceptor) para ver o que acontece na chamada do SDK no ambiente do José
+- atualizado_em: 2026-10-16T19:15:00-03:00
