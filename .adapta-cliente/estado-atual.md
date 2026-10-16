@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — correção 1 do bug "Salvando…"
+- task_id: edicao-lead (edição direto no detalhe) — correção 2 do bug "Salvando…"
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano (correção 1)
+- etapa: aguardando_teste_humano (correção 2)
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente (bug reportado no 1º teste: botão preso em "Salvando…")
-- verificacao_automatica: passou (QA v0.0.81 ebf0294 verde; backend 26/26 — EDITAR-ACL + EDITAR-EFEITO; rules 65/65; PATCH manual via API 200 em lead/empresa/recargas ~13ms; bundle novo no ar com guarda-tempo)
-- aprendizado: registrado (model hook não tem e.auth → request hook; migração não re-executa → ordinal novo; bug "Salvando…": promise do SDK pendura no navegador enquanto fetch cru responde 200 — guarda-tempo destrava e expõe o erro real)
+- teste_humano: pendente (1º teste: botão preso em "Salvando…"; correção 1 não destravou no navegador dele — bundle em cache)
+- verificacao_automatica: passou (QA v0.0.82 9975459 verde; backend 26/26; rules 65/65; correção 2 provada no navegador: Salvar → botão volta a Salvar, editor fecha, PATCH gravado no banco 200)
+- aprendizado: registrado (promise do SDK pendura no navegador enquanto fetch cru responde 200 — correção definitiva é fetch direto com token; guarda-tempo não dispara em aba background — throttling do Chrome; bundle pode ficar em cache no navegador do usuário mesmo após publicação)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: ebf0294 (v0.0.81)
-- skip_publicacao: publicada:ebf0294 em 2026-10-16T16:17:41Z
+- skip_versao: 9975459 (v0.0.82)
+- skip_publicacao: publicada:9975459 em 2026-10-16T16:30:55Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: correção 1 (v0.0.81): guarda-tempo 15s por etapa + recarga em segundo plano; diagnóstico completo em artifacts/diagnostico-edicao-lead.md
-- proxima_acao: José testar salvar e aguardar ~15s — guarda-tempo destrava o botão e mostra o erro real (ou "Lead atualizado"); se o erro persistir, trocar updateLead/update da empresa por fetch direto com token (padrão que já responde 200)
-- atualizado_em: 2026-10-16T13:25:00-03:00
+- ultima_acao: correção 2 (v0.0.82): PATCH via fetch direto com token, provado no navegador
+- proxima_acao: revalidação do José (Ctrl+Shift+R e salvar edição)
+- atualizado_em: 2026-10-16T13:36:00-03:00
