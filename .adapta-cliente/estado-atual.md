@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — correção 3 (causa raiz fechada)
+- task_id: edicao-lead (edição direto no detalhe) — correção 4 publicada, pendente propagação de CDN
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano (correção 3)
+- etapa: aguardando_teste_humano (correção 4 — v0.0.84 publicada 16:53Z; CDN ainda servindo bundle antigo)
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente (1º e 2º testes: botão preso em "Salvando…")
-- verificacao_automatica: passou (QA v0.0.83 d1694ff verde; backend 26/26; rules 65/65; causa raiz fechada: bundle embutia host INTERNO shrd00 — não navegável do navegador; correção: PATCH via window.location.origin; asset novo conferido por curl)
-- aprendizado: registrado (VITE_POCKETBASE_URL aponta para o host interno — o frontend em produção DEVE usar window.location.origin para chamadas de API; fetch para shrd00 pendura do lado de fora sem erro)
+- teste_humano: pendente (3 testes do José com botão preso em "Salvando…")
+- verificacao_automatica: passou (QA v0.0.84 ed03784 verde; backend 26/26; rules 65/65; provas do navegador: PATCH no host interno da API → 200 em 12ms; PATCH na mesma origem .goskip.app → 405 do nginx; fluxo completo 8× 200; bundle antigo ainda na CDN — index-DhcT86AI.js)
+- aprendizado: registrado (a produção .goskip.app só serve o frontend — /api devolve 405/HTML do nginx; o host interno shrd00 É navegável do navegador do usuário com CORS ok (PATCH 200); o travamento original era a promise do SDK; CDN de borda pode servir bundle antigo mesmo após publicação — conferir por curl antes de pedir reteste)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: d1694ff (v0.0.83)
-- skip_publicacao: publicada:d1694ff em 2026-10-16T16:40:32Z
+- skip_versao: ed03784 (v0.0.84)
+- skip_publicacao: publicada:ed03784 em 2026-10-16T16:53:32Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: correção 3 (v0.0.83): PATCH na mesma origem; asset novo no ar (index-B_rMdgop.js)
-- proxima_acao: revalidação do José (Ctrl+Shift+R → editar → salvar)
-- atualizado_em: 2026-10-16T13:45:00-03:00
+- ultima_acao: correção 4 (v0.0.84): fetch direto no host da API (mecanismo certo); CDN ainda serve bundle antigo — conferir propagação antes do reteste
+- proxima_acao: conferir propagação da CDN (curl do index → hash do asset deve mudar); quando o bundle novo (base interna + fetch direto) estiver sendo servido, pedir reteste do José
+- atualizado_em: 2026-10-16T14:05:00-03:00
