@@ -1,21 +1,21 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: 77a1aa6e (proteger cálculo e histórico, SPEC-1-005, CA-1-005-03/05) — CONCLUÍDA
+- task_id: edicao-lead (edição direto no detalhe; task extra decidida pelo José em 16/10/2026)
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
-- spec: 04_fase-atual/specs/spec-pontuacao-por-produto.md (SPEC-1-005)
-- analise: .adapta-cliente/analises/77a1aa6e-proteger-calculo-historico.md
-- etapa: concluida
-- autorizacao_implementacao: confirmada 2026-10-15T17:41:00-03:00 ("Sim" — 77a1aa6e)
-- teste_humano: aprovado 2026-10-16T11:04:00-03:00 ("Calculei e funcionou" — idempotência do histórico confirmada como design)
-- verificacao_automatica: passou (QA v0.0.72 5eb62a2 verde; rules 65/65; backend 24/24; prova funcional: PATCH/CREATE forjado 403, score legado preservado, histórico por produto sem mistura; prova de idempotência 1→1→2→3 linhas)
-- aprendizado: registrado (idempotência lead×produto×versao×dados_hash é snapshot, não log de cliques; roteiro de teste deve pedir mudança de dado/régua p/ gerar linha nova)
+- spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
+- analise: .adapta-cliente/analises/edicao-lead.md
+- etapa: aguardando_teste_humano
+- autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
+- teste_humano: pendente
+- verificacao_automatica: passou (QA v0.0.80 96994d7 verde; backend 26/26 — EDITAR-ACL (vendedor edita lead/empresa exclusiva própria; alheio/compartilhada negado; admin tudo) e EDITAR-EFEITO (mudar setor → linha nova no histórico); rules 65/65)
+- aprendizado: registrado (model hook onRecordUpdate NÃO tem e.auth — proteção de escrita por papel usa REQUEST hook onRecordUpdateRequest; migração não re-executa: mudança de regra em coleção existente pede ordinal novo)
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: 5eb62a2
-- skip_publicacao: publicada:5eb62a2 em 2026-10-15T20:53:37Z
-- pendente_github: espelho do submódulo atualizado localmente (sobe no próximo push via MCP)
-- ultima_acao: 77a1aa6e fechada com aceite humano (15/19); decisões do José para nova task: edição de lead direto no detalhe; admin tudo, vendedor só o dele
-- proxima_acao: abrir task de edição de lead (plano p/ autorização); 2faac03b segue elegível na SPEC-1-005
-- atualizado_em: 2026-10-16T11:08:00-03:00
+- skip_versao: 96994d7
+- skip_publicacao: publicada:96994d7 em 2026-10-16T14:30:12Z
+- pendente_github: espelho do submódulo parcial (sobe no próximo push)
+- ultima_acao: edicao-lead implementada e publicada; registros locais atualizados
+- proxima_acao: teste humano do José (editar lead e ver linha nova no histórico)
+- atualizado_em: 2026-10-16T11:32:00-03:00
