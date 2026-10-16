@@ -1,8 +1,12 @@
 # Histórico da construção
 
+## 16/10/2026 19:37 — Task edicao-lead FECHADA
+
+Teste humano do José aprovado ("Funcionou" — salvar de lead gravou e tela atualizou). 16/19 tasks da Fase 1. Próxima elegível: 2faac03b (job de repontuação dos não abordados), que fecha a SPEC-1-005.
+
 ## 16/10/2026 (noite) — CAUSA RAIZ REAL do travamento encontrada e corrigida (skip v0.0.89–90)
 
-O teste do José na janela anônima (rodapé v0.0.88 correto) continuou preso em "Salvando…" — e o meu navegador reproduziu o mesmo sintoma. Investigação pelo bundle publicado revelou a causa raiz de verdade: o patch da dupla via (v0.0.87) tinha APAGADO a função estourar (guarda-tempo) e deixado a chamada órfã; e o código chamava setErro, mas o estado real é setError — a chamada lançava ReferenceError ANTES da rede, o finally nunca rodava, o botão ficava preso em "Salvando…" sem rede nem mensagem, em qualquer navegador. O Vite não faz type-check, então o QA passou. Correção v0.0.89 (a2acc55): estourar restaurado + setError. PROVA DE PONTA A PONTA no navegador: Salvar → POST /backend/v1/leads/editar 200 em 3,3ms → gravação no banco (cidade "Rio de Janeiro") → "Lead atualizado." + editor fechou. v0.0.90 (67d363c): marcador de rodapé "v0.0.89-salvar-corrigido". Lição: QA do Skip não pega ReferenceError em runtime — toda mudança de UI precisa de prova de clique em navegador antes de publicar.
+O teste do José na janela anônima (rodapé v0.0.88 correto) continuou preso em "Salvando…" — e o meu navegador reproduziu o mesmo sintoma. Investigação pelo bundle publicado revelou a causa raiz de verdade: o patch da dupla via (v0.0.87) tinha APAGADO a função estourar (guarda-tempo) and a chamada ficou órfã; e o código chamava setErro, mas o estado real é setError — a chamada lançava ReferenceError ANTES da rede, o finally nunca rodava, o botão ficava preso em "Salvando…" sem rede nem mensagem, em qualquer navegador. O Vite não faz type-check, então o QA passou. Correção v0.0.89 (a2acc55): estourar restaurado + setError. PROVA DE PONTA A PONTA no navegador: Salvar → POST /backend/v1/leads/editar 200 em 3,3ms → gravação no banco (cidade "Rio de Janeiro") → "Lead atualizado." + editor fechou. v0.0.90 (67d363c): marcador de rodapé "v0.0.89-salvar-corrigido". Lição: QA do Skip não pega ReferenceError em runtime — toda mudança de UI precisa de prova de clique em navegador antes de publicar.
 
 ## 16/10/2026 — Rota própria de edição + salvar em dupla via (skip v0.0.85–88)
 

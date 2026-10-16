@@ -1,14 +1,14 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: edicao-lead (edição direto no detalhe) — v0.0.90 publicada, causa raiz corrigida e provada, aguardando teste humano
+- task_id: edicao-lead (edição direto no detalhe) — CONCLUÍDA (teste humano aprovado pelo José em 16/10 19:37: "Funcionou")
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: task extra (decisões do José: editar direto no lead; admin tudo, vendedor só o dele; etapa fora do editor)
 - analise: .adapta-cliente/analises/edicao-lead.md
-- etapa: aguardando_teste_humano (v0.0.90)
+- etapa: concluida
 - autorizacao_implementacao: confirmada 2026-10-16T11:06:00-03:00 ("Sim, vamos prosseguir desse modo")
-- teste_humano: pendente (José: janela anônima, conferir rodapé "build v0.0.89-salvar-corrigido", editar → Salvar)
+- teste_humano: aprovado pelo José (16/10 19:37, "Funcionou")
 - verificacao_automatica: passou (backend 29/29; rules 65/65; prova de UI de ponta a ponta no navegador: Salvar → POST /backend/v1/leads/editar 200 em 3,3ms → gravação no banco → "Lead atualizado." + editor fechou)
 - aprendizado: registrado (patch da dupla via tinha apagado estourar e usado setErro — ReferenceError antes da rede, botão preso sem mensagem; QA do Skip não pega ReferenceError em runtime — toda mudança de UI precisa de prova de clique em navegador antes de publicar)
 - sistema: funil-mkt
@@ -16,6 +16,6 @@
 - skip_versao: 67d363c (v0.0.90)
 - skip_publicacao: publicada:67d363c em 2026-10-16T22:28:23Z
 - pendente_github: espelho do submódulo parcial (sobe no próximo push)
-- ultima_acao: v0.0.89 (a2acc55) restaura estourar + corrige setErro→setError — causa raiz real do travamento; provado em UI de ponta a ponta (POST 200 em 3,3ms, gravação confirmada, "Lead atualizado."); v0.0.90 (67d363c) marcador do rodapé "v0.0.89-salvar-corrigido"
-- proxima_acao: teste humano do José na janela anônima (rodapé v0.0.89-salvar-corrigido); se aprovado, task edicao-lead fecha (16/19) e a próxima elegível é 2faac03b (job de repontuação), que fecha a SPEC-1-005
-- atualizado_em: 2026-10-16T19:30:00-03:00
+- ultima_acao: task edicao-lead FECHADA com aceite humano; 16/19 tasks da Fase 1
+- proxima_acao: 2faac03b (job de repontuação dos não abordados) — fecha a SPEC-1-005; aguardando autorização para análise
+- atualizado_em: 2026-10-16T19:40:00-03:00
