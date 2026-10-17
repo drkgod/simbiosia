@@ -1,22 +1,20 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: 2faac03b (repontuar não abordados) — IMPLEMENTADA (v0.0.95/f462d3e publicada 16/10 23:20), aguardando teste humano
+- task_id: 2faac03b (repontuar não abordados) — FECHADA com aceite humano ("Funcionou", 16/10 ~21:55). SPEC-1-005 COMPLETA (5/5 CAs)
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
 - spec: 04_fase-atual/specs/spec-pontuacao-por-produto.md (SPEC-1-005, CA-1-005-04)
 - analise: .adapta-cliente/analises/2faac03b-repontuacao-job.md
-- etapa: aguardando_teste_humano
-- autorizacao_implementacao: confirmada 2026-10-16T19:45:00-03:00 ("Pode", após relatório de análise)
-- teste_humano: pendente (roteiro: Produtos > Régua > aprovar v2 > seção Repontuação > Executar > conferir contadores > Reverter)
-- teste_humano_extra: opcional — abrir um lead com pontuação e conferir o marcador "(atual)" no histórico
-- verificacao_automatica: passou (QA Skip verde; regras 66/66; backend 33/33 — JOB-CRIACAO, JOB-EXECUCAO+REVERSAO, JOB-ACL, SCORE-PONTEIRO verdes contra o backend de teste)
-- aprendizado: registrado (publicarPonteiro e hashDe INLINE no callback — scoping da VM do PocketBase, peguei pelo QA; listRule filtra em vez de rejeitar; JSON fields do SDK chegam como objeto)
+- etapa: fechada
+- teste_humano: aprovado pelo José ("Funcionou" — régua v2 aprovada, job executado, marcador (atual) no histórico; reteste após correção do parse JSON também ok)
+- verificacao_automatica: passou (QA Skip verde; regras 66/66; backend 33/33 — JOB-CRIACAO, JOB-EXECUCAO+REVERSAO, JOB-ACL, SCORE-PONTEIRO)
+- aprendizado: registrado (publicarPonteiro e hashDe INLINE no callback — scoping da VM do PocketBase; listRule filtra em vez de rejeitar; JSON fields do SDK chegam como objeto — causa do "[object Object] is not valid JSON")
 - sistema: funil-mkt
 - skip_projeto: 50182
-- skip_versao: f462d3e (v0.0.95)
-- skip_publicacao: publicada:f462d3e em 2026-10-16T23:20:17Z
+- skip_versao: 0041c7b (v0.0.96)
+- skip_publicacao: publicada:0041c7b em 2026-10-16T23:42:47Z
 - pendente_github: espelho parcial do submódulo funil-mkt (commit local feito; push direto falhou por auth — sobe no próximo envio)
-- ultima_acao: 2faac03b completa: migração 0026 (jobs_pontuacao + notas_atuais em leads), hook scoring/repontuar (executar/reverter, régua fixada, guardas por lead), job criado na aprovação da régua (regua_validar), ponteiro notas_atuais no calcular, UI Repontuação em Produtos, marcador "(atual)" no histórico do LeadDetail (prova de clique OK: "v1 (atual) — 100 (faixa A)")
-- proxima_acao: aguardar teste humano do José
-- atualizado_em: 2026-10-16T23:25:00-03:00
+- ultima_acao: 2faac03b fechada com aceite humano. Fase 1 completa: 19/19 tasks fechadas com aceite. SPEC-1-001/1-002/1-003/1-004/1-005 completas.
+- proxima_acao: Fase 1 completa (19/19) — próxima fase aguarda autorização do José
+- atualizado_em: 2026-10-16T21:55:00-03:00 (fechamento)
