@@ -1,11 +1,15 @@
 # Histórico da construção
 
-## 21/10/2026 19:35 — Task 199009b0 (CONTRATO-V1) implementada nos DOIS apps (Fase 2 aberta)
+## 21/10/2026 19:44 — Task 199009b0 (CONTRATO-V1) COMPLETA nos dois apps — ciclo de projeção provado
 
-Contrato comum v1: fonte pura scripts/domain/simbiosia-v1.js IDÊNTICA byte a byte nos dois repos (validação de envelope, hash determinístico por oráculos literais, identidade global FAB:..., autoridade por domínio, máquina de decisão do inbox, alias de fusão); golden fixture idêntica; testes contrato.test.mjs 8/8 nos dois repos. Fábrica (50248): fundação SPEC-1-001 levada lá — migração 0005 (sistema_config em pausa + teste_despachos), gate nos 4 hooks (enviar-funil SEMPRE bloqueado nesta fase — zero HTTP entre apps), 0006 (sync_inbox/sync_mapeamentos/aliases_identidade), 0007 (sync_global_id em empresas), hook sync_aplicar. Funil (50182): 0028/0029 + sync_aplicar (projeção cria empresa do cadastro único). Lições: (1) scoping da JSVM — declarações top-level não visíveis nos callbacks; (2) auth.role é undefined no JSVM — usar auth.getString('role'); (3) hooks podem ficar desatualizados na instância (recarga com apply). Prova funcional da rota: pendente (sem mapeamento, sem owner fallback), duplicado (mesmo evento), rejeitado (autoridade: funil não emite cadastro_upsert) — todos corretos. Publicadas: Fábrica v0.0.22 (044ceff), Funil v0.0.105 (e345972).
+Correção da reavaliação de recibo (SPEC fluxo 3) aplicada nos dois hooks sync_aplicar: recibo pendente/rejeitado/atrasado é REAVALIADO com o mesmo evento_id; só aplicado/duplicado/conflito trava a redecisão. Ciclo completo provado no Funil: evento sem mapeamento → pendente (sem owner fallback); mapeamento aprovado → MESMO evento reavaliado → aplicar; projeção criada (empresa "DEMO Indústria Ltda" com sync_global_id=FAB:teste:empresa:EMP-DEMO-0001); repetição → duplicado (não duplica). Publicadas: Fábrica v0.0.23 (c133bdf), Funil v0.0.106 (a0a7c0a).
 
-PENDÊNCIA DA TASK: reavaliação de recibo pendente (SPEC fluxo 3) — o recibo "pendente" trava a redecisão e o caminho "aplicar" (com mapeamento) devolve "duplicado" em vez de aplicar; patch não aplicado (âncora divergente). Corrigir, reprovar e pedir teste humano do José.
+Resíduo para limpeza: 1 empresa projetada + 1 mapeamento + recibos de teste 0001-0004 (delete via API deu 403 — limpar via UI admin no próximo ciclo).
+
+## 21/10/2026 19:35 — Task 199009b0 implementada nos DOIS apps (Fase 2 aberta)
+
+Contrato comum v1: fonte pura idêntica byte a byte nos dois repos; testes 8/8 nos dois; Fábrica recebeu fundação SPEC-1-001 (gates; enviar-funil sempre bloqueado); coleções sync_inbox/sync_mapeamentos/aliases_identidade; rota sync/aplicar-fixture. Lições: JSVM (fonte inline no callback; role via getString; hooks desatualizados → recarga com apply).
 
 ## 21/10/2026 14:41 — FASE 1 ENCERRADA — DEMO-F1 aprovada pelo José ("Funcionou")
 
-Demonstração guiada em 8 etapas aprovada. Fase 1: 22/22 tasks. Defeitos corrigidos na demo: marcador de build (v0.0.100), card Nova lista (v0.0.101), mensagem de vínculo duplicado (v0.0.102). Pendências pós-fase confirmadas: cadastro→lead e limpeza (152 conflitos + fixtures TESTE).
+Demonstração guiada em 8 etapas aprovada. Fase 1: 22/22 tasks. Pendências pós-fase confirmadas: cadastro→lead e limpeza (152 conflitos + fixtures TESTE).
