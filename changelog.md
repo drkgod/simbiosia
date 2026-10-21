@@ -1,13 +1,9 @@
 # Histórico da construção
 
-## 17/10/2026 18:20 — DEMO-F1 (196f75e2) PREPARADA — roteiro + relatório de provas
+## 21/10/2026 14:41 — FASE 1 ENCERRADA — DEMO-F1 aprovada pelo José ("Funcionou")
 
-Roteiro guiado em 8 etapas (roteiro-demo-fase1.md) cobrindo as 5 SPECs da Fase 1: cadastro único, importação com relatório, produtos/régua, pontuação/repontuação, listas unificadas, filtros, acessos e restauração/gates. Relatório de provas consolidado (relatorio-provas-fase1.md): rules 66/66, backend 35/35, 15 tasks fechadas com aceite humano. Fase 1 encerra com a execução guiada + aceite de José (produtos/régua) e Evandro (construção/acessos).
+Demonstração guiada em 8 etapas aprovada: cadastro único (duplicata negada + conflito registrado), importação com relatório por linha, produtos/régua (v1 aprovada com hash), pontuação/repontuação (v2 "(atual)"), listas unificadas, filtros por coorte/produto com nota por membro, restauração (contagens iguais) e gates (envio bloqueado), acessos (vendedor não vê dados do admin). Fase 1: 22/22 tasks.
 
-## 17/10/2026 ~15:05 — Task bf09d372 FECHADA — aceite humano do José ("Funcionou")
+Defeitos encontrados e corrigidos durante a demo: marcador de build congelado (v0.0.100/35c6f20), card "Nova lista" perdido no JSX (v0.0.101/9d78da9), mensagem genérica de vínculo duplicado (v0.0.102/cdff5b7 — hook lista_membros_unico + checagem prévia).
 
-Filtros por coorte e produto aprovados. SPEC-1-006: 2/3 tasks fechadas.
-
-## 17/10/2026 18:04 — Task bf09d372 (filtros por coorte e produto) IMPLEMENTADA (skip v0.0.99)
-
-Card Filtros (coorte + produto-alvo — só produtos ativos), coluna Membros com contagens, coluna "Nota — {produto}" nos membros. Provas: rules 66/66; backend 35/35. Lição: scoring/calcular exige régua aprovada. Publicada 9c3ac61.
+Pendências pós-fase confirmadas pelo José: (1) cadastro→lead ("criar lead a partir da pessoa"); (2) limpeza de 152 conflitos antigos + fixtures "TESTE". Sessão do Evandro (construção/acessos) pendente — sugerida para a reunião semanal. Próxima fase aguarda autorização.
