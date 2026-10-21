@@ -1,20 +1,19 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: 196f75e2 (DEMO-F1) — FECHADA com aceite humano do José ("Funcionou", 21/10 14:41). FASE 1 ENCERRADA: 22/22 tasks. Próxima fase aguarda autorização do José
+- task_id: 199009b0 (CONTRATO-V1, SPEC-1-007) — IMPLEMENTADA EM 2 APPS (Fábrica v0.0.22/044ceff + Funil v0.0.105/e345972, publicadas 21/10 19:35), aguardando 1 correção de reavaliação de recibo pendente + teste humano
 - executor: Jarbas (assistente)
 - owner_informativo: José Aquino
-- spec: 04_fase-atual/specs/spec-listas-unificadas-e-demonstracao.md (SPEC-1-006 completa)
-- analise: 06_notas/evidencias/fase-1/spec-1-006/196f75e2-aceite.md
-- etapa: fase_1_encerrada_aguardando_autorizacao_fase_2
-- teste_humano: DEMO-F1 APROVADO pelo José (8/8 etapas, 21/10 14:41). Sessão do Evandro (construção/acessos) pendente — sugerida para a reunião semanal
-- verificacao_automatica: passou (rules 66/66; backend 35/35; AMBIENTE-RESTORE re-executado 21/10; gates SEM-EXTERNO = 0)
-- aprendizado: 3 defeitos pegos na demo humana que os testes não cobrem — marcador de build manual, card perdido em patch de UI, mensagem de erro genérica de índice único (corrigidos: v0.0.100/101/102)
-- sistema: funil-mkt
-- skip_projeto: 50182
-- skip_versao: cdff5b7 (v0.0.102)
-- skip_publicacao: publicada:cdff5b7 em 2026-10-21T17:19:42Z
-- pendente_github: espelho do submódulo funil-mkt (push direto falha por auth; sobe no próximo envio)
-- ultima_acao: DEMO-F1 executada e aprovada (8 etapas). Pendências pós-fase confirmadas pelo José: (1) cadastro→lead, (2) limpeza de 152 conflitos antigos + fixtures TESTE
-- proxima_acao: aguardar autorização do José para a Fase 2; não esquecer as 2 pendências (cadastro→lead; limpeza)
-- atualizado_em: 2026-10-21T14:45:00-03:00 (FASE 1 ENCERRADA)
+- spec: 04_fase-atual/specs/spec-identidades-e-projecoes-entre-apps.md (SPEC-1-007, CA-1-007-01)
+- analise: 06_notas/evidencias/fase-1/spec-1-007/ (a criar no próximo ciclo)
+- etapa: fase_2_em_execucao (199009b0)
+- teste_humano: pendente — após correção da reavaliação de recibo pendente
+- verificacao_automatica: passou (contrato.test.mjs 8/8 nos DOIS repos; fonte e fixture idênticas byte a byte; prova funcional da rota: pendente/duplicado/rejeitado corretos)
+- aprendizado: JSVM — declarações top-level não visíveis em callbacks (fonte inline no callback); auth.role é undefined no JSVM (usar getString('role')); hooks podem ficar desatualizados na instância (recarga com apply)
+- sistema: funil-mkt + fabrica-listas
+- skip_projeto: 50182 (v0.0.105) + 50248 (v0.0.22)
+- skip_publicacao: fábrica publicada:044ceff 2026-10-21T19:35:50Z; funil publicada:e345972 2026-10-21T19:35:56Z
+- pendente_github: espelho dos submódulos (push direto falha por auth; sobe no próximo envio)
+- ultima_acao: 199009b0 implementada nos 2 apps (contrato v1 + fundação da Fábrica + coleções sync + rota aplicar-fixture). Prova funcional: pendente/duplicado/rejeitado corretos
+- proxima_acao: (1) CORRIGIR reavaliação de recibo pendente no sync_aplicar (SPEC fluxo 3 — hoje recibo pendente trava e caminho aplicar devolve duplicado); (2) reprovar caminho aplicar com mapeamento; (3) teste humano do José; (4) pendências pós-Fase 1: cadastro→lead e limpeza
+- atualizado_em: 2026-10-21T19:40:00-03:00 (199009b0 implementada em 2 apps)
