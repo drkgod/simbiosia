@@ -1,8 +1,24 @@
 # Histórico da construção
 
+## 21/10/2026 21:45 — Task 0cda0d05 (PROJECAO-LOCAL) FECHADA com aceite do José ("Funcionou", 18:41)
+
+Teste humano aprovado: selo "Projetado da Fábrica · somente leitura" visível, edição negada conforme esperado. CA-1-007-02 satisfeito nos dois lados (12/12 Funil + 9/9 Fábrica). Versões finais: Funil v0.0.111 (996d643), Fábrica v0.0.26 (3064db4). Provas: 06_notas/evidencias/fase-1/spec-1-007/0cda0d05-provas.md. SPEC-1-007: 2/3 tasks fechadas; resta acc7d79f (CONTRATO-RECONCILIACAO).
+
+## 21/10/2026 21:40 — Task 0cda0d05 corr.6: dica "somente leitura" visível no selo
+
+José: o title (hover) não conta como dica visível. Selo agora exibe "Projetado da Fábrica · somente leitura". Publicado Funil v0.0.111 (996d643, 21:40Z).
+
+## 21/10/2026 21:31 — Task 0cda0d05 corr.5: produto projetado é SÓ LEITURA na UI (defeito de UX pegado no teste humano)
+
+José testou editar o "Produto A (projetado)": formulário abria, salvamento era negado corretamente, mas a mensagem era jargão de banco ("Only superusers can perform this action"). Correção: produto com sync_global_id nem oferece edição — botões Editar/Entrevista/Régua/Ativar escondidos, selo "Projetado da Fábrica" no lugar; guarda no editar() com mensagem em português. Tipo Produto ganhou sync_global_id. Publicado Funil v0.0.110 (5411305, 21:31Z). Lição: trava de autoridade sem UI adequada vira experiência quebrada — o teste humano pegou o que o teste de API não cobre.
+
+## 21/10/2026 21:23 — Task 0cda0d05 corr.4: projeções ficam NO AR para o teste humano
+
+José não encontrou o "Produto A (projetado)" na página de Produtos: a prova automatizada APAGAVA as projeções na limpeza final (comportamento padrão de teste) e ele abriu a página depois da corrida. Corrigido: teste mantém as projeções no ar; reaplicado e publicado (Funil v0.0.109/292eec4). Confirmado no banco: "Produto A (projetado)" inativo + nota 100/A visíveis.
+
 ## 21/10/2026 20:44 — Task 0cda0d05 (PROJECAO-LOCAL) COMPLETA — 12/12 Funil + 9/9 Fábrica
 
-Causa raiz do 400 na Fábrica encontrada e corrigida: a Fábrica (template original) NUNCA teve o campo role em users — a migração 0009 (regras) era inócua sem ele; a 0010 cria o select role (admin/vendedor) e semeia admin para usuários sem role (jose@: undefined → admin, confirmado). Prova da Fábrica 9/9: estado_comercial projeta primeira_abordagem_em literal + revisão 2; protecao_global projeta bloqueio/motivo; repetição = duplicado; PATCH direto na projeção NEGADO. Ajuste de asserção: PocketBase normaliza data para "2026-10-14 15:00:00.000Z". Publicada Fábrica v0.0.26 (3064db4, 20:44Z). CA-1-007-02 satisfeito nos dois lados. Falta: teste humano → fechar task → acc7d79f.
+Causa raiz do 400 na Fábrica encontrada e corrigida: a Fábrica (template original) NUNCA teve o campo role em users — a migração 0009 (regras) era inócua sem ele; a 0010 cria o select role (admin/vendedor) e semeia admin para usuários sem role (jose@: undefined → admin, confirmado). Prova da Fábrica 9/9: estado_comercial projeta primeira_abordagem_em literal + revisão 2; protecao_global projeta bloqueio/motivo; repetição = duplicado; PATCH direto na projeção NEGADO. Ajuste de asserção: PocketBase normaliza data para "2026-10-14 15:00:00.000Z". Publicada Fábrica v0.0.26 (3064db4, 20:44Z). CA-1-007-02 satisfeito nos dois lados.
 
 ## 21/10/2026 20:21 — Task 0cda0d05 (PROJECAO-LOCAL) implementada nos 2 apps — Funil provado 12/12, Fábrica com impedimento mapeado
 
