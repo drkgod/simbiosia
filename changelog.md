@@ -1,12 +1,16 @@
 # Histórico da construção
 
+## 21/10/2026 20:44 — Task 0cda0d05 (PROJECAO-LOCAL) COMPLETA — 12/12 Funil + 9/9 Fábrica
+
+Causa raiz do 400 na Fábrica encontrada e corrigida: a Fábrica (template original) NUNCA teve o campo role em users — a migração 0009 (regras) era inócua sem ele; a 0010 cria o select role (admin/vendedor) e semeia admin para usuários sem role (jose@: undefined → admin, confirmado). Prova da Fábrica 9/9: estado_comercial projeta primeira_abordagem_em literal + revisão 2; protecao_global projeta bloqueio/motivo; repetição = duplicado; PATCH direto na projeção NEGADO. Ajuste de asserção: PocketBase normaliza data para "2026-10-14 15:00:00.000Z". Publicada Fábrica v0.0.26 (3064db4, 20:44Z). CA-1-007-02 satisfeito nos dois lados. Falta: teste humano → fechar task → acc7d79f.
+
 ## 21/10/2026 20:21 — Task 0cda0d05 (PROJECAO-LOCAL) implementada nos 2 apps — Funil provado 12/12, Fábrica com impedimento mapeado
 
 Funil (v0.0.108/0495a0d): hook sync_aplicar estendido — cadastro_upsert projeta pessoa; catalogo_aprovado projeta produto INATIVO; pontuacao_snapshot persiste nota LITERAL (valor/faixa/hashes/motivos/fontes, sem recalcular; lookup do lead por nome_empresa — leads não tem ambiente). Migração 0030 (sync_global_id em pessoas/produtos/pontuacoes) e 0031 (trava de autoridade: updateRule null em produtos/pontuacoes — projeção em leitura). Prova 12/12: projeções literais, duplicado, PATCH negado (admin e vendedor).
 
-Fábrica (v0.0.24/ded36bb): migração 0008 (coleção comercial_projetado — escrita só por hook, leitura admin) + hook projeta estado_comercial (primeira_abordagem_em, revisão) e protecao_global (bloqueio/motivo); ausência de evento NUNCA desbloqueia. Prova funcional travou no create do sync_mapeamentos (400, data vazia) — causa provável: role do usuário jose@ não preenchida na Fábrica (createRule exige role admin). Correção mapeada; publicada mesmo assim (QA verde, sem risco — coleção nova sem consumidor).
+Fábrica (v0.0.24/ded36bb): migração 0008 (coleção comercial_projetado — escrita só por hook, leitura admin) + hook projeta estado_comercial (primeira_abordagem_em, revisão) e protecao_global (bloqueio/motivo); ausência de evento NUNCA desbloqueia.
 
-Fixtures novas idênticas nos 2 repos: golden-pontuacao/golden-comercial/golden-protecao. Regressão do contrato 8/8 nos dois. Teste humano: Funil testável agora; Fábrica após correção do role.
+Fixtures novas idênticas nos 2 repos: golden-pontuacao/golden-comercial/golden-protecao. Regressão do contrato 8/8 nos dois.
 
 ## 21/10/2026 20:30 — Task 199009b0 (CONTRATO-V1) FECHADA com aceite do José ("Pode prosseguir")
 

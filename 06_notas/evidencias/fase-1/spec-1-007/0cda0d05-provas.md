@@ -1,26 +1,30 @@
 # Provas — Task 0cda0d05 (PROJECAO-LOCAL, SPEC-1-007, CA-1-007-02)
 
-**Data:** 21/10/2026 · **Executor:** Jarbas · **Status:** PARCIAL — lado Fábrica com impedimento documentado
+**Data:** 21/10/2026 · **Executor:** Jarbas · **Status:** COMPLETA — 12/12 Funil + 9/9 Fábrica
 
-## Funil (50182) — PASSOU 12/12
+## Funil (50182, v0.0.108/0495a0d) — PASSOU 12/12
 
-Roda contra o backend interno do Funil (v0.0.108/0495a0d): cadastro_upsert empresa projeta; cadastro_upsert pessoa (Ana) projeta; catalogo_aprovado projeta produto INATIVO; pontuacao_snapshot aplica com valores LITERAIS da golden fixture (valor=100, faixa=A, versão=1 — sem recalcular); repetição = duplicado; PATCH de produto PROJETADO negado até para admin (trava de autoridade, migração 0031: updateRule null em produtos/pontuacoes); vendedor não edita produto projetado. Teste: tests/projecao-local.test.mjs.
+cadastro_upsert empresa projeta; cadastro_upsert pessoa (Ana) projeta; catalogo_aprovado projeta produto INATIVO; pontuacao_snapshot aplica com valores LITERAIS (valor=100, faixa=A, versão=1 — sem recalcular); repetição = duplicado; PATCH de produto PROJETADO negado até para admin (trava 0031: updateRule null em produtos/pontuacoes); vendedor não edita produto projetado. Teste: tests/projecao-local.test.mjs.
 
-## Fábrica (50248) — IMPEDIMENTO (correção mapeada)
+## Fábrica (50248, v0.0.26/3064db4) — PASSOU 9/9
 
-Hook publicado (v0.0.24/ded36bb) com a projeção de estado_comercial/protecao_global na coleção comercial_projetado (migração 0008: escrita só por hook, leitura admin). A prova funcional (tests/projecao-local.test.mjs, roda do funil-mkt com PB_URL da Fábrica) travou no CREATE do sync_mapeamentos: 400 com data vazia. Causa provável: o usuário jose@simbiosia.com.br na Fábrica pode não ter role='admin' preenchida (createRule exige @request.auth.role = 'admin') — o login autentica, mas a regra nega. Correção mapeada para o próximo ciclo: conferir/preencher o role do usuário na Fábrica (migração seed ou painel) e reexecutar a prova.
+estado_comercial aplica (primeira_abordagem_em literal 2026-10-14 15:00:00 UTC, revisão comercial 2); protecao_global aplica (Bruno bloqueado, motivo pedido_saida preservado); repetição = duplicado; PATCH direto em comercial_projetado NEGADO (só o Funil desbloqueia, por evento). Teste: tests/projecao-local-fabrica.test.mjs (roda do funil-mkt com PB_URL da Fábrica).
 
-## Versões no ar (publicadas 21/10/2026 20:21)
+## Causa raiz corrigida no ciclo
 
-- Funil (Skip 50182): v0.0.108 (0495a0d)
-- Fábrica (Skip 50248): v0.0.24 (ded36bb)
+Fábrica nunca teve campo `role` em users (template original, sem a fundação de roles). Migrações 0009 (regras sync — inócua sem o campo) e 0010 (cria select role admin/vendedor + seed admin para usuários sem role). Confirmado: jose@ passou de role=undefined para admin; create de mapeamento funcionou.
 
-## Fixtures novas (idênticas nos 2 repos)
+## Versões no ar (21/10/2026)
 
-golden-pontuacao.json (md5 1f761bda), golden-comercial.json (27f99f3c), golden-protecao.json (7cf2a641). Fonte do contrato NÃO mudou (v1 fechada).
+- Funil: v0.0.108 (0495a0d), publicada 20:21Z
+- Fábrica: v0.0.26 (3064db4), publicada 20:44Z
+
+## Fixtures (idênticas nos 2 repos — md5 conferidos)
+
+golden-cadastro (e7207512), golden-pontuacao (1f761bda), golden-comercial (27f99f3c), golden-protecao (7cf2a641). Fonte do contrato v1 NÃO mudou.
 
 ## Pendências
 
-1. Corrigir role do usuário na Fábrica e provar o lado Funil→Fábrica (estado_comercial rev2 + protecao_global + PATCH negado).
-2. Espelhar hooks/migrações/testes novos nos submódulos do GitHub (fonte executável é o Skip).
-3. Limpeza: fixtures de prova no banco (sync_inbox/empresas são append-only — resíduo registrado).
+1. Teste humano (José/Evandro) nos dois ambientes TESTE.
+2. Espelho dos hooks/migrações/testes nos submódulos do GitHub (fim da SPEC).
+3. Limpeza: resíduo de fixtures de prova (append-only) — UI admin.
