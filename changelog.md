@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 22/10/2026 09:40 — LIMPEZA PÓS-SPEC-1-007 executada e verificada (pendência #2 resolvida)
+
+Inventário: 100% do dado de negócio dos 2 apps era sintético (demo/prova — ADAPTA começa em nov). Backup JSON completo no workspace (work/limpeza-pos-fase2/). Execução via hook temporário admin (Funil v0.0.119–122, Fábrica v0.0.30–32), removido após uso (rota 401 confirmada). Resultado: Funil 4.777→0, Fábrica 249→0. Preservados: users, sistema_config, metas. Guarda da régua ajustada: fixtures em ambiente teste podem ser apagadas (produção mantém "só rascunho"). Health 200 nos 2 apps. Pendência restante: cadastro→lead.
+
 ## 22/10/2026 09:05 — Task acc7d79f (CONTRATO-RECONCILIACAO) FECHADA com aceite do José ("Funcionou") — SPEC-1-007 COMPLETA
 
 Teste humano aprovado (22/10, 09:01). CA-1-007-03 satisfeito: 14/14 Funil + 12/12 Fábrica. FASE 2 ENCERRADA — SPEC-1-007 3/3 tasks fechadas com aceite humano. Versões finais: Funil v0.0.118 (58773c6), Fábrica v0.0.29 (c603535). Espelho dos submódulos atualizado (fonte pura da reconciliação nos 2 repos; hooks/migrações/testes no clone local). Pendências pós-fase: limpeza de fixtures (UI admin); 152 conflitos; cadastro→lead.
