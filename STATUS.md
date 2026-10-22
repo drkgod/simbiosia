@@ -1,11 +1,14 @@
 # Estado da construção
 
 Atualizado: 22/10/2026
-Fase atual: FASE 2 ENCERRADA — SPEC-1-007 COMPLETA (3/3 tasks com aceite humano).
+Fase atual: FASE 2 ENCERRADA — SPEC-1-007 COMPLETA (3/3 tasks com aceite humano). Pendências pós-fase ZERADAS.
 
-199009b0 (CONTRATO-V1, CA-01) FECHADA com aceite (21/10). 0cda0d05 (PROJECAO-LOCAL, CA-02) FECHADA com aceite ("Funcionou", 21/10 18:41). acc7d79f (CONTRATO-RECONCILIACAO, CA-03) FECHADA com aceite ("Funcionou", 22/10 09:01) — 14/14 Funil + 12/12 Fábrica. Versões finais: Funil v0.0.122 (860907b), Fábrica v0.0.32 (d69cbcb). Provas: 06_notas/evidencias/fase-1/spec-1-007/ (199009b0-provas.md, 0cda0d05-provas.md, acc7d79f-provas.md).
+SPEC-1-007: 199009b0 (CONTRATO-V1) fechada com aceite 21/10; 0cda0d05 (PROJECAO-LOCAL) fechada com aceite 21/10 18:41; acc7d79f (CONTRATO-RECONCILIACAO) fechada com aceite 22/10 09:01 (14/14 Funil + 12/12 Fábrica). Provas: 06_notas/evidencias/fase-1/spec-1-007/.
 
-Pendências pós-fase: LIMPEZA FEITA (22/10 — Funil 4.777→0, Fábrica 249→0, backup JSON no workspace em work/limpeza-pos-fase2/; hook temporário admin usado e removido, rota 401 confirmada; guarda da régua liberada APENAS em ambiente teste — produção mantém "só rascunho pode ser apagado"). Preservados: users, sistema_config, metas. Restante: cadastro→lead (criar lead a partir da pessoa).
+Pós-fase (22/10):
+- LIMPEZA: Funil 4.777→0, Fábrica 249→0 (100% do dado era sintético; backup JSON em work/limpeza-pos-fase2/ + artifacts/; hooks temporários usados e removidos — rotas 401; guarda da régua liberada APENAS em ambiente teste). Versões: Funil v0.0.122, Fábrica v0.0.32.
+- CADASTRO→LEAD: hook POST /backend/v1/cadastro/gerar-lead + botão "Gerar lead" com seletor de empresa na UI (etapa lista; idempotente — repetição não duplica; pedido de saída bloqueia 403; rastro migracao_origem_id = cadastro:<pessoaId>). Prova automatizada 5/5 + prova de clique no navegador (aviso "Lead criado a partir do cadastro (etapa: lista)" + lead no banco). Funil v0.0.125/17075f0, produção publicada. AGUARDANDO TESTE HUMANO do José.
+- Estado de teste no ar: pessoa "Ana Demo" + empresa "Demo Comércio Ltda" + lead gerado (rastro cadastro:).
 
 Histórico da Fase 1 (22/22): SPEC-1-001 a SPEC-1-006 completas com aceite. Task extra "edição de lead" fechada (16/10).
 
