@@ -34,21 +34,21 @@ Todos os critérios permanecem abertos. Construir RED → GREEN → regressão n
 | RETORNO-ABORDAGEM | CA-2-005-01 | Ana com IDs locais distintos e mesmo global; confirmação simulada literal 2026-10-27T13:00:00Z, rev comercial 2; aplicar na Fábrica e repetir. | Fábrica mostra exatamente data/revisão/ambiente TESTE; primeira data estável; cadastro/nota iguais; nenhuma rede cruzada. |
 | RETORNO-PROTECAO | CA-2-005-02 | Bloqueio rev2, depois rev1; cadastro rev10, comercial rev2; reimportar e testar Bruno da mesma empresa. | Rev velha não libera; domínios independentes; proteção da pessoa preservada; Bruno não herda relacionamento por empresa. |
 | RETORNO-CONFLITO-ACL | CA-2-005-03 | Hash conflitante; sem mapeamento e depois corrigido; PATCH do fato na Fábrica; alias revogado e evento antigo. | Conflito/pendência visíveis, aplicação única após mapa, edição negada e alias antigo não reativa; histórico comercial intacto. |
+| RETORNO-UI-E2E | CA-2-005-01 | Navegador automatizado confirma toque TESTE no Funil, exporta fixture local e aplica no próprio TESTE da Fábrica; conferir origem, data/revisão e edição proibida. | Mesma identidade global e data literal nos dois apps; projeção somente leitura e zero HTTP entre backends; estado canônico não é alterado. |
 
 ## Execução, erro e recuperação
 
 Conferir backend/Git, backup e runner conforme regras comuns antes de migrar. Executar casos nomeados e negativos com usuário/ambiente autorizado; falha, acesso negado, ausência, concorrência e repetição devem deixar recibo/motivo verificável, sem apagar histórico. Pausar e restaurar somente fixtures da execução quando necessário; nenhuma correção pode liberar operação real. Versionar no repo certo e conferir aplicado/publicado.
 
-## Teste humano e evidência
+## Verificação automatizada pelo Maestro
 
-Demonstrar o resultado observável e os negativos da task na UI de TESTE para o sócio pertinente, pedir confirmação explícita e registrá-la. José valida regra/jornada; Evandro valida construção/acessos. Não atribuir card/prazo por inferência. Guardar manifesto e resultados em 06_notas/evidencias/fase-2/spec-2-005/ com versões dos dois apps e os CAs/casos abaixo; sem credenciais ou dados reais. Silêncio, build verde ou o pedido de liberar a fase não são aceite de produto.
+O Maestro implementa e executa os casos nomeados, incluindo o cenário de interface abaixo por navegador automatizado, com usuários e dados sintéticos. Usar assertions de elementos/estados, consultas ao próprio backend e resultados literais; salvar relatório, logs e capturas/trace como apoio. Executar rules/contrato/backend, teste E2E aplicável, lint e build; falha de assertion retorna saída não zero. Não exigir clique, demonstração, sessão ou confirmação do cliente para concluir a task. Guardar manifesto em 06_notas/evidencias/fase-2/spec-2-005/ com versões dos dois apps e resultado por CA. Teste não executado, screenshot isolado ou placeholder não contam como aprovação. Registrar dúvidas/decisões em [pendências finais](../../06_notas/pendencias-finais-fase-2.md), sem perguntar entre tarefas; seguir nas independentes e apresentar uma única lista ao encerrar a fase.
 
 ## Tarefas vinculadas
 
-| Chave local | Tarefa | Depende de prova e aceite | CA finais | Casos TDD |
+| Chave local | Tarefa | Depende de provas automatizadas aprovadas | CA finais | Casos TDD |
 |---|---|---|---|---|
-| F2-T12 | Mostrar a primeira abordagem de teste na Fábrica | F2-T05, F2-T07 | 01 | RETORNO-ABORDAGEM |
+| F2-T12 | Mostrar a primeira abordagem de teste na Fábrica | F2-T05, F2-T07 | 01 | RETORNO-ABORDAGEM; RETORNO-UI-E2E |
 | F2-T13 | Preservar a proteção e reconciliar o retorno local | F2-T10, F2-T12 | 02,03 | RETORNO-PROTECAO; RETORNO-CONFLITO-ACL |
 
 As chaves F2-TNN são rastreabilidade; o portal atribui UUID aos novos cards. Status, responsável, prazo e UUID ficam na fonte da fase; não duplicar status na tabela.
-

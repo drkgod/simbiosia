@@ -35,21 +35,21 @@ Todos os critérios permanecem abertos. Construir RED → GREEN → regressão n
 | EVENTO-IDEMPOTENTE | CA-2-003-02 | Aplicar, repetir, alterar hash do mesmo ID; falhar entre efeito/recibo; corrigir mapa pendente. | Um efeito; conflito sem sobrescrita; nenhuma meia transação; mesmo evento pendente pode aplicar uma vez. |
 | CONTEXTO-ACOES | CA-2-003-03 | Fixture de contexto permitido; solicitar campo/ação alheio, produto sem playbook e comando fora da allowlist. | Contexto mínimo; ação arbitrária negada; ausência pendente; resumo/decisão esperados são literais. |
 | SEM-EXTERNO-F2 | CA-2-003-04 | Invocar rotas finais com wrappers locais; controle positivo tenta despachar só no wrapper interceptado. | Rotas finais: zero tentativa; controle positivo: contador 1 e assertion RED, sem rede em ambos; modo real sempre recusado. |
+| CONTEXTO-UI-E2E | CA-2-003-03 | Abrir contexto/decisão de fixture, conferir produto/coorte/ações exibidas e tentar ação fora da allowlist por UI e requisição direta. | Valores literais e decisão determinística conferidos; ação indevida negada; contexto alheio não aparece. |
 
 ## Execução, erro e recuperação
 
 Conferir backend/Git, backup e runner conforme regras comuns antes de migrar. Executar casos nomeados e negativos com usuário/ambiente autorizado; falha, acesso negado, ausência, concorrência e repetição devem deixar recibo/motivo verificável, sem apagar histórico. Pausar e restaurar somente fixtures da execução quando necessário; nenhuma correção pode liberar operação real. Versionar no repo certo e conferir aplicado/publicado.
 
-## Teste humano e evidência
+## Verificação automatizada pelo Maestro
 
-Demonstrar o resultado observável e os negativos da task na UI de TESTE para o sócio pertinente, pedir confirmação explícita e registrá-la. José valida regra/jornada; Evandro valida construção/acessos. Não atribuir card/prazo por inferência. Guardar manifesto e resultados em 06_notas/evidencias/fase-2/spec-2-003/ com versões dos dois apps e os CAs/casos abaixo; sem credenciais ou dados reais. Silêncio, build verde ou o pedido de liberar a fase não são aceite de produto.
+O Maestro implementa e executa os casos nomeados, incluindo o cenário de interface abaixo por navegador automatizado, com usuários e dados sintéticos. Usar assertions de elementos/estados, consultas ao próprio backend e resultados literais; salvar relatório, logs e capturas/trace como apoio. Executar rules/contrato/backend, teste E2E aplicável, lint e build; falha de assertion retorna saída não zero. Não exigir clique, demonstração, sessão ou confirmação do cliente para concluir a task. Guardar manifesto em 06_notas/evidencias/fase-2/spec-2-003/ com versões dos dois apps e resultado por CA. Teste não executado, screenshot isolado ou placeholder não contam como aprovação. Registrar dúvidas/decisões em [pendências finais](../../06_notas/pendencias-finais-fase-2.md), sem perguntar entre tarefas; seguir nas independentes e apresentar uma única lista ao encerrar a fase.
 
 ## Tarefas vinculadas
 
-| Chave local | Tarefa | Depende de prova e aceite | CA finais | Casos TDD |
+| Chave local | Tarefa | Depende de provas automatizadas aprovadas | CA finais | Casos TDD |
 |---|---|---|---|---|
 | F2-T07 | Validar eventos e adaptadores locais de teste | F2-T01 | 01,02,04 | EVENTO-TESTE-AUTH; EVENTO-IDEMPOTENTE; SEM-EXTERNO-F2 |
-| F2-T08 | Preparar o contexto e o registro de decisões do agente | F2-T02, F2-T07 | 03 | CONTEXTO-ACOES |
+| F2-T08 | Preparar o contexto e o registro de decisões do agente | F2-T02, F2-T07 | 03 | CONTEXTO-ACOES; CONTEXTO-UI-E2E |
 
 As chaves F2-TNN são rastreabilidade; o portal atribui UUID aos novos cards. Status, responsável, prazo e UUID ficam na fonte da fase; não duplicar status na tabela.
-

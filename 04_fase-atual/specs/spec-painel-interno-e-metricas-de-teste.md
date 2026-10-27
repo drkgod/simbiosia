@@ -32,21 +32,21 @@ Todos os critérios permanecem abertos. Construir RED → GREEN → regressão n
 | METRICA-CONFIG | CA-2-006-01 | Definição ausente, fixture de definição explícita e custo ausente; zero oportunidades. | Não configurada/não disponível; nenhuma resposta vira oportunidade por suposição; nenhuma divisão por zero. |
 | PAINEL-FILTROS-ACL | CA-2-006-02 | Fixture literal: 2 contextos TESTE do operador A e 1 do B, produtos/coortes distintos; combinar filtros e tentar owner alheio. | Contagens exatas e permitidas, conjunto vazio=0; nenhuma linha/total do outro dono. |
 | TESTE-NAO-MERCADO | CA-2-006-03 | Repetir evento TESTE qualificado; solicitar indicador REAL e trocar ambiente no payload. | Uma ocorrência TESTE; zero incremento REAL; filtro/payload não contornam separação. |
+| PAINEL-UI-E2E | CA-2-006-02 | Navegador automatizado filtra produto/coorte/canal/dono e troca usuário; tenta forçar ambiente REAL e confere cenário sem configuração. | Contagens literais, acesso por dono e separação de ambiente conferidos; ausências mostram não configurada/não disponível. |
 
 ## Execução, erro e recuperação
 
 Conferir backend/Git, backup e runner conforme regras comuns antes de migrar. Executar casos nomeados e negativos com usuário/ambiente autorizado; falha, acesso negado, ausência, concorrência e repetição devem deixar recibo/motivo verificável, sem apagar histórico. Pausar e restaurar somente fixtures da execução quando necessário; nenhuma correção pode liberar operação real. Versionar no repo certo e conferir aplicado/publicado.
 
-## Teste humano e evidência
+## Verificação automatizada pelo Maestro
 
-Demonstrar o resultado observável e os negativos da task na UI de TESTE para o sócio pertinente, pedir confirmação explícita e registrá-la. José valida regra/jornada; Evandro valida construção/acessos. Não atribuir card/prazo por inferência. Guardar manifesto e resultados em 06_notas/evidencias/fase-2/spec-2-006/ com versões dos dois apps e os CAs/casos abaixo; sem credenciais ou dados reais. Silêncio, build verde ou o pedido de liberar a fase não são aceite de produto.
+O Maestro implementa e executa os casos nomeados, incluindo o cenário de interface abaixo por navegador automatizado, com usuários e dados sintéticos. Usar assertions de elementos/estados, consultas ao próprio backend e resultados literais; salvar relatório, logs e capturas/trace como apoio. Executar rules/contrato/backend, teste E2E aplicável, lint e build; falha de assertion retorna saída não zero. Não exigir clique, demonstração, sessão ou confirmação do cliente para concluir a task. Guardar manifesto em 06_notas/evidencias/fase-2/spec-2-006/ com versões dos dois apps e resultado por CA. Teste não executado, screenshot isolado ou placeholder não contam como aprovação. Registrar dúvidas/decisões em [pendências finais](../../06_notas/pendencias-finais-fase-2.md), sem perguntar entre tarefas; seguir nas independentes e apresentar uma única lista ao encerrar a fase.
 
 ## Tarefas vinculadas
 
-| Chave local | Tarefa | Depende de prova e aceite | CA finais | Casos TDD |
+| Chave local | Tarefa | Depende de provas automatizadas aprovadas | CA finais | Casos TDD |
 |---|---|---|---|---|
 | F2-T14 | Configurar a métrica de oportunidade e os custos de teste | F2-T02, F2-T07, F2-T08 | 01 | METRICA-CONFIG |
-| F2-T15 | Mostrar o painel interno com filtros e acesso por dono | F2-T11, F2-T13, F2-T14 | 02,03 | PAINEL-FILTROS-ACL; TESTE-NAO-MERCADO |
+| F2-T15 | Mostrar o painel interno com filtros e acesso por dono | F2-T11, F2-T13, F2-T14 | 02,03 | PAINEL-FILTROS-ACL; TESTE-NAO-MERCADO; PAINEL-UI-E2E |
 
 As chaves F2-TNN são rastreabilidade; o portal atribui UUID aos novos cards. Status, responsável, prazo e UUID ficam na fonte da fase; não duplicar status na tabela.
-

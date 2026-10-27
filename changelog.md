@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 27/10/2026 — Maestro testa e avança; perguntas somente no final
+
+Direção explícita do consultor: remover teste humano obrigatório da construção F2. Sete SPECs/18 tarefas, AGENTS e regras comuns agora aprovam tarefas por testes automatizados executados pelo Maestro (regras/contrato/backend, navegador E2E, negativos, regressão, lint/build). Cadastro→lead e acessos passam a provas automatizadas; F2-T18 gera jornada E2E/relatório final. Dúvidas/decisões são acumuladas e apresentadas em uma única lista final; tarefas independentes seguem. Aprovações comerciais continuam como comportamento do produto testado por atores sintéticos. Histórico F1 preservado; nenhuma implementação/teste de produto executado por esta revisão.
+
 ## 27/10/2026 — Fase 2 liberada para construção pelo consultor
 
 Análise reconciliou o rótulo histórico “fase 2 encerrada”: SPEC-1-007 pertence à fundação/contratos da fase 1. Publicadas sete SPECs, regras comuns e 18 tarefas comerciais F2, com dependências, CAs/TDD e gate de teste humano. Primeira elegível F2-T01: baseline/Git/Skip, fontes/testes, restore e runners nos dois apps. Nenhuma implementação/prova de produto nova nesta liberação; todas as 18 tarefas abertas.
@@ -31,4 +35,3 @@ Fonte pura idêntica, testes 8/8 nos 2 repos, ciclo pendente→aplicar→projeç
 ## 21/10/2026 14:41 — FASE 1 ENCERRADA — DEMO-F1 aprovada pelo José ("Funcionou")
 
 Demonstração guiada em 8 etapas aprovada. Fase 1: 22/22 tasks.
-

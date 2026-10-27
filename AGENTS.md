@@ -1,26 +1,21 @@
-# Construção Simbiosia
+# Construção Simbiosia — fase 2
 
-## Alvos ativos
+## Alvos e autoridade
 
-Trabalhar em ambos os submódulos de 07-sistemas: fabrica-listas e funil-mkt. São apps/backends separados, não módulo incorporado ou fonte apenas de leitura. Coordene as frentes no mesmo ciclo e registre versões de ambos.
+Trabalhar nos dois submódulos 07-sistemas/fabrica-listas e 07-sistemas/funil-mkt, apps/backends separados, sem copiar código entre apps ou para o pai. Fábrica é autoridade de identidade/cadastro/listas/produtos/régua/pontuação; Funil de comercial/atribuição/cadências/conversas/aprovação/primeira abordagem/bloqueios globais. Projeções são somente leitura. Herdar identidade/ambiente/revisão/hash da SPEC-1-007; IDs PocketBase e usuários são locais, sem dono por fallback.
 
-Fábrica é autoridade de identidade/cadastro/listas/produtos/régua/pontuação. Funil é autoridade comercial/atribuição/cadências/conversas/aprovação/primeira abordagem/bloqueios globais. Projeções no outro app não são editáveis por usuário de negócio. Contrato completo:04_fase-atual/specs/spec-identidades-e-projecoes-entre-apps.md.
+## Execução autônoma — direção do consultor de 27/10/2026
 
-## Execução
+Ler 04_fase-atual/fase.md, specs/00-INDICE.md, regras-comuns-fase-2.md e a SPEC da task. Sete SPECs/18 tasks, primeira F2-T01 (baseline/acesso TESTE/Git/Skip/fontes/testes/restore nos dois apps). F2-T07 fecha eventos antes de consumidores. Uma task elegível por vez; após todos os seus testes automatizados passarem, concluir e seguir a próxima sem pedir teste humano, autorização ou confirmação por task.
 
-Ler fase.md, índice e SPEC da entrega. Confirmar acesso ao backend TESTE de cada app, comparação com Git e restore antes de migrar. Contrato antes de consumidores; frentes independentes podem evoluir coordenadamente, sem liberar sucessora antes de prova e teste humano. Não inventar produtos/ICP/limites/donos/aceite: entrevistar/confirmar na fase pertinente.
+Maestro implementa/executa rules/contrato/backend e E2E de navegador com contas e fixtures sintéticas, assertions de UI e persistência, negativos/idempotência/concorrência e regressão conforme CA, mais lint/build. Evidenciar versões aplicadas/publicadas e resultados. Placeholder, build sozinho ou prova não executada não aprovam uma tarefa. Cadastro→lead e a antiga sessão técnica são cobertos pelas provas automatizadas de cadastro, ACL/ambiente e restore.
 
-Fases 1 e 2: adaptadores/fixtures locais, sem HTTP entre apps/fornecedor/canal/LLM. Rota enviar-funil legada desligada. Sincronização real F3, uso de mercado somente após validar a fase 5. Não usar npm test placeholder como prova.
+Concentrar perguntas no final da fase: consultar contexto primeiro, decidir detalhes técnicos reversíveis e usar fixtures TESTE declaradas para valores de negócio ausentes, sem transformar suposição em política real. Registrar dúvidas/impedimentos em 06_notas/pendencias-finais-fase-2.md; não perguntar entre etapas. Falha ou falta de acesso mantém apenas o recorte afetado aberto e permite seguir tarefas independentes. Ao encerrar o trabalho executável, apresentar todas as questões deduplicadas junto do relatório final. Não fingir teste/aceite para avançar.
 
-IDs PocketBase/usuários são locais; IDs globais e mapeamentos obedecem contrato, sem atribuição de dono por fallback. Pendência/conflito/proteção desatualizada impede toque. Preservar origem/legado/bloqueios e todas as versões; fusão/rollback não apagam comercial.
+Fases 1–2: somente adaptadores/fixtures locais; sem HTTP entre apps/fornecedor/canal/LLM, rota enviar-funil legada desligada e sem mercado. Confirmação de teste sintético não aprova valores reais, desliga bloqueio ou ativa operação real. Aprovação de mensagem e retomada humana são comportamentos do produto, testados por atores sintéticos; não exigem participação do cliente na construção.
 
-## Git
+## Git e preservação
 
-Submódulos preservam seus remotos. Código de cada filho é commitado/publicado no repo correspondente quando autorizado; em seguida atualizar referências no pai. Não enviar código do filho ao pai como cópia, nem inferir que push do pai publicou os filhos. Manter fase-format:2, IDs/status/responsável/prazo/descrições/visibilidade; task concluída somente após prova e teste humano. Nenhum plano privado ou fase futura deve ser copiado para este repo.
+Código/fontes/testes de cada filho permanecem no repo correspondente e são publicados no destino autorizado; depois atualizar gitlinks do pai. Não inferir que push do pai publicou apps. Preservar fase-format:2, IDs/status/responsável/prazo/descrições/visibilidade; UUIDs novos vêm do portal. Preservar legado, bloqueios, versões e auditoria; fusão/rollback não apagam comercial. Não copiar plano privado ou fases futuras para este repo. Snapshot F1 e 22 UUIDs ficam em 06_notas/historico/fase-1/.
 
-## Fase atual — liberação de 27/10/2026
-
-Fase 2 é a jornada comercial em ambiente controlado, não apenas SPEC-1-007. Ler 04_fase-atual/specs/00-INDICE.md, regras-comuns-fase-2.md e a SPEC da task. Sete SPECs, 18 tarefas novas; F2-T01 é primeira elegível. Provar acesso TESTE, baseline/Git/Skip, fontes/testes e restore dos dois apps antes de mudanças dependentes. F2-T07 fecha eventos antes de consumidores. Uma task elegível por vez, prova e aceite humano antes da sucessora.
-
-Snapshot da fase 1 conserva os 22 UUIDs em 06_notas/historico/fase-1/. Novas chaves F2-TNN são rastreabilidade, não UUID do portal; não inventar UUID, responsável ou prazo. Cadastro→lead e sessão técnica do Evandro continuam pendentes até confirmação observável. A liberação documental não é aceite nem execução da nova fase. Repos atuais são espelhos parciais; recuperar e publicar fontes/testes no repo correto, não no pai, antes do critério de reprodução.
-
+Esta direção explícita substitui qualquer gate de teste humano/espera de confirmação em instrução ou SPEC herdada usado na F2. Histórico não foi reescrito; ele não rege o fluxo atual. A nova política de verificação não afirma que testes de produto já rodaram.

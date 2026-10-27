@@ -35,22 +35,22 @@ Todos os critérios permanecem abertos. Construir RED → GREEN → regressão n
 | SAIDA-GLOBAL | CA-2-004-02 | Saída explícita, reimportação e novo produto/alias; evento antigo sem bloqueio. | Bloqueio permanece em todos os contextos; nenhum toque/reativação; revisão antiga não desfaz proteção. |
 | PASSAGEM-TETO-ACL | CA-2-004-03 | Teto sintético 1 com duas passagens, dono ausente e operador alheio; repetir evento. | Uma ativa e outra aguardando, sem perda; dono ausente pendente; acesso alheio negado; sem duplicação. |
 | RETOMADA-HUMANA | CA-2-004-04 | Tentar retomar por timer/operador alheio; depois comando humano autorizado com motivo; tentar em opt-out. | Só comando permitido, elegível e auditado retoma; bloqueio e aprovação continuam exigidos; histórico intacto. |
+| PASSAGEM-UI-E2E | CA-2-004-03 | Simular resposta, abrir fila com sócio sintético, assumir/devolver com motivo, conferir excedente e tentar acesso por outro usuário. | Pausa e uma passagem visíveis, teto preservado, comando auditado; excedente não desaparece e acesso alheio é negado. |
 
 ## Execução, erro e recuperação
 
 Conferir backend/Git, backup e runner conforme regras comuns antes de migrar. Executar casos nomeados e negativos com usuário/ambiente autorizado; falha, acesso negado, ausência, concorrência e repetição devem deixar recibo/motivo verificável, sem apagar histórico. Pausar e restaurar somente fixtures da execução quando necessário; nenhuma correção pode liberar operação real. Versionar no repo certo e conferir aplicado/publicado.
 
-## Teste humano e evidência
+## Verificação automatizada pelo Maestro
 
-Demonstrar o resultado observável e os negativos da task na UI de TESTE para o sócio pertinente, pedir confirmação explícita e registrá-la. José valida regra/jornada; Evandro valida construção/acessos. Não atribuir card/prazo por inferência. Guardar manifesto e resultados em 06_notas/evidencias/fase-2/spec-2-004/ com versões dos dois apps e os CAs/casos abaixo; sem credenciais ou dados reais. Silêncio, build verde ou o pedido de liberar a fase não são aceite de produto.
+O Maestro implementa e executa os casos nomeados, incluindo o cenário de interface abaixo por navegador automatizado, com usuários e dados sintéticos. Usar assertions de elementos/estados, consultas ao próprio backend e resultados literais; salvar relatório, logs e capturas/trace como apoio. Executar rules/contrato/backend, teste E2E aplicável, lint e build; falha de assertion retorna saída não zero. Não exigir clique, demonstração, sessão ou confirmação do cliente para concluir a task. Guardar manifesto em 06_notas/evidencias/fase-2/spec-2-004/ com versões dos dois apps e resultado por CA. Teste não executado, screenshot isolado ou placeholder não contam como aprovação. Registrar dúvidas/decisões em [pendências finais](../../06_notas/pendencias-finais-fase-2.md), sem perguntar entre tarefas; seguir nas independentes e apresentar uma única lista ao encerrar a fase.
 
 ## Tarefas vinculadas
 
-| Chave local | Tarefa | Depende de prova e aceite | CA finais | Casos TDD |
+| Chave local | Tarefa | Depende de provas automatizadas aprovadas | CA finais | Casos TDD |
 |---|---|---|---|---|
 | F2-T09 | Pausar a cadência e registrar a resposta | F2-T05, F2-T07, F2-T08 | 01 | RESPOSTA-PAUSA |
 | F2-T10 | Bloquear globalmente quem pedir saída | F2-T07, F2-T09 | 02 | SAIDA-GLOBAL |
-| F2-T11 | Organizar a fila dos sócios e a continuidade humana | F2-T06, F2-T09, F2-T10 | 03,04 | PASSAGEM-TETO-ACL; RETOMADA-HUMANA |
+| F2-T11 | Organizar a fila dos sócios e a continuidade humana | F2-T06, F2-T09, F2-T10 | 03,04 | PASSAGEM-TETO-ACL; RETOMADA-HUMANA; PASSAGEM-UI-E2E |
 
 As chaves F2-TNN são rastreabilidade; o portal atribui UUID aos novos cards. Status, responsável, prazo e UUID ficam na fonte da fase; não duplicar status na tabela.
-

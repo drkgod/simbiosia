@@ -21,7 +21,7 @@ Aplicar integralmente as [regras comuns](regras-comuns-fase-2.md). Construção 
 
 5. Vendedor lê/altera apenas o que lhe é atribuído, inclusive registros filhos; role, owner, ambiente, pontuação projetada e aprovação são derivados/protegidos no servidor. Admin não transforma projeção da Fábrica em campo comercial editável.
 
-6. Cadastro → lead já foi publicado, mas o aceite humano específico permanece pendente. Conferir o vínculo à identidade canônica e o rastro cadastro:<pessoaId>; identidade ainda não resolvida permanece inelegível. A liberação documental desta fase não substitui esse teste nem a sessão de construção/acessos do Evandro.
+6. Cadastro → lead e a antiga sessão de construção/acessos deixam de depender de teste humano. F2-T01 executa CADASTRO-LEAD-E2E e BASELINE-RESTORE com contas sintéticas e verifica acessos/ACL dos dois apps. Conferir identidade canônica, rastro cadastro:<pessoaId>, selo e idempotência; vínculo não resolvido permanece inelegível. Ausência de acesso fica registrada como impedimento técnico da prova; continuar tarefas independentes e consolidar eventual pedido somente no final.
 
 ## Critérios de aceite e TDD
 
@@ -32,21 +32,21 @@ Todos os critérios permanecem abertos. Construir RED → GREEN → regressão n
 | BASELINE-RESTORE | CA-2-001-01 | Exportar fixtures de cada TESTE, alterar uma, restaurar e comparar manifesto; executar assertion falsa e depois correta. | Contagens/hashes equivalentes por app; RED sai não zero; GREEN executa assertions. Zero HTTP cruzado/externo. |
 | ESTADOS-LEGADO | CA-2-001-02 | Migrar duas etapas legadas com histórico; tentar transição inválida, repetir comando e provocar conflito de revisão. | IDs/histórico anteriores preservados; transição válida uma vez; demais sem mudança indevida. |
 | COMERCIAL-ACL | CA-2-001-03 | Admin, operador A e B; acesso direto a contexto/timeline/filhos de outro dono e PATCH de owner/role. | Negação sem vazamento; operador próprio trabalha só campos autorizados; auditoria não editável. |
+| CADASTRO-LEAD-E2E | CA-2-001-04 | Criar empresa/pessoa sintéticas pela UI, gerar lead duas vezes, conferir selo e referência; tentar pessoa/empresa inválida e sessão alheia. | Um lead vinculado à identidade correta, rastro cadastro:<pessoaId> e selo visíveis; repetição não duplica; inválido/acesso alheio negados. Relatório de navegador + consulta ao próprio backend. |
 
 ## Execução, erro e recuperação
 
 Conferir backend/Git, backup e runner conforme regras comuns antes de migrar. Executar casos nomeados e negativos com usuário/ambiente autorizado; falha, acesso negado, ausência, concorrência e repetição devem deixar recibo/motivo verificável, sem apagar histórico. Pausar e restaurar somente fixtures da execução quando necessário; nenhuma correção pode liberar operação real. Versionar no repo certo e conferir aplicado/publicado.
 
-## Teste humano e evidência
+## Verificação automatizada pelo Maestro
 
-Demonstrar o resultado observável e os negativos da task na UI de TESTE para o sócio pertinente, pedir confirmação explícita e registrá-la. José valida regra/jornada; Evandro valida construção/acessos. Não atribuir card/prazo por inferência. Guardar manifesto e resultados em 06_notas/evidencias/fase-2/spec-2-001/ com versões dos dois apps e os CAs/casos abaixo; sem credenciais ou dados reais. Silêncio, build verde ou o pedido de liberar a fase não são aceite de produto.
+O Maestro implementa e executa os casos nomeados, incluindo o cenário de interface abaixo por navegador automatizado, com usuários e dados sintéticos. Usar assertions de elementos/estados, consultas ao próprio backend e resultados literais; salvar relatório, logs e capturas/trace como apoio. Executar rules/contrato/backend, teste E2E aplicável, lint e build; falha de assertion retorna saída não zero. Não exigir clique, demonstração, sessão ou confirmação do cliente para concluir a task. Guardar manifesto em 06_notas/evidencias/fase-2/spec-2-001/ com versões dos dois apps e resultado por CA. Teste não executado, screenshot isolado ou placeholder não contam como aprovação. Registrar dúvidas/decisões em [pendências finais](../../06_notas/pendencias-finais-fase-2.md), sem perguntar entre tarefas; seguir nas independentes e apresentar uma única lista ao encerrar a fase.
 
 ## Tarefas vinculadas
 
-| Chave local | Tarefa | Depende de prova e aceite | CA finais | Casos TDD |
+| Chave local | Tarefa | Depende de provas automatizadas aprovadas | CA finais | Casos TDD |
 |---|---|---|---|---|
-| F2-T01 | Conferir versões, testes e restauração dos dois aplicativos | Liberação; confirmar os dois TESTEs | 01 | BASELINE-RESTORE |
+| F2-T01 | Conferir versões, testes e restauração dos dois aplicativos | Liberação; confirmar os dois TESTEs | 01,04 | BASELINE-RESTORE; CADASTRO-LEAD-E2E |
 | F2-T02 | Organizar os estados e a linha do tempo do lead | F2-T01 | 02,03 | ESTADOS-LEGADO; COMERCIAL-ACL |
 
 As chaves F2-TNN são rastreabilidade; o portal atribui UUID aos novos cards. Status, responsável, prazo e UUID ficam na fonte da fase; não duplicar status na tabela.
-
