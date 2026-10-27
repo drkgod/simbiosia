@@ -1,18 +1,19 @@
-# Simbiosia — dois aplicativos separados e sincronizados
+# Simbiosia — fase 2 liberada para construção
 
-Pacote operacional privado em https://github.com/drkgod/simbiosia. Fase 1 revisada conforme escolha P9 de 14/10/2026.
+Atualizado em 27/10/2026. Fábrica de Listas e Funil MKT continuam aplicativos e backends separados.
 
-- Ler [fase atual](04_fase-atual/fase.md) e [sete SPECs/TDD](04_fase-atual/specs/00-INDICE.md): 22 tarefas com IDs do portal preservados, nenhuma implementação concluída.
-- Alvo ativo [Fábrica](07-sistemas/fabrica-listas): cadastro/base/listas/importação, produtos/réguas e pontuação.
-- Alvo ativo [Funil](07-sistemas/funil-mkt): operação comercial/cadências/conversas, atribuição/aprovações, primeira abordagem e bloqueios globais.
-- Maestro desenvolve nos dois repositórios durante o mesmo ciclo, por frentes elegíveis e contratos compatíveis. Fábrica não é apenas referência e não será incorporada ao Funil. Cada app mantém seu backend/login.
-- SPEC-1-007 fecha IDs globais, autoridade por campo, projeções, revisões, mapeamento e reconciliação. Contrato/fixtures locais nas fases 1 e 2, sem HTTP entre apps; conexão real F3 e mercado após a fase 5.
-- Pré-condições/provas/aceite liberam sucessoras; nenhuma configuração/aprovação é inventada. Este repo contém somente fase atual, entregas/notas e projetos de código, sem plano privado ou fases futuras.
+Começar por [fase atual](04_fase-atual/fase.md), [índice das sete SPECs](04_fase-atual/specs/00-INDICE.md), [regras comuns](04_fase-atual/specs/regras-comuns-fase-2.md) e [termo de liberação](05_entregas/liberacao-fase-2-2026-10-27.md). São 18 tarefas novas, todas a fazer; primeira elegível F2-T01. Publicação de planejamento não comprova implementação ou teste.
 
-## Clonar e trabalhar nos projetos
+A fase 2 entrega jornada comercial em TESTE: estados/histórico, políticas e cadências, aprovação por mensagem quando aplicável, fila simulada, resposta/bloqueio/passagem aos sócios, retorno comercial local à Fábrica e painel interno. Nenhum HTTP entre apps, fornecedor, canal, LLM ou contato de mercado. Fábrica mantém cadastro/listas/produtos/réguas/notas; Funil mantém operação comercial/primeira abordagem/proteção; projeções são somente leitura.
 
-```sh
-git clone --recurse-submodules https://github.com/drkgod/simbiosia.git
-```
+A expressão histórica “fase 2 encerrada” referia-se à SPEC-1-007 da fase 1, e foi reconciliada no termo. [Snapshot da fase 1](06_notas/historico/fase-1/fase.md) preserva 22 UUIDs e textos originais. Aceites de cadastro → lead e sessão técnica do Evandro permanecem pendentes até confirmação observável.
 
-Em clone existente: git submodule update --init --recursive. Fazer alterações dentro de cada submódulo; commitar/publicar cada projeto no seu remoto autorizado e depois atualizar as referências no repo operacional. Registrar SHA dos dois projetos nos testes; commit do pai não publica automaticamente o código dos filhos.
+## Repositórios e versões
+
+- Fábrica: https://github.com/evandromp70/f-brica-de-listas-de-leads-frios-simbiosia-new-ty9w50j9r
+- Funil: https://github.com/evandromp70/funil-mkt---vendas-simbiosia-dmbzn8jh9
+
+Os repos de código atuais são espelhos parciais de consulta; a versão executável registrada está no Skip. F2-T01 deve conferir implantação/Git e recuperar fontes/testes necessários; F2-T17 exige fonte reproduzível antes da demo. Não confundir SHA do pai com publicação dos filhos.
+
+Clonar com git clone --recurse-submodules https://github.com/drkgod/simbiosia.git. Em clone existente, git submodule update --init --recursive. Código de cada app permanece em seu repo; depois da publicação autorizada, atualizar os gitlinks. Toda task exige prova e teste humano antes da sucessora.
+

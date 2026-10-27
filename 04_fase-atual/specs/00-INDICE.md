@@ -1,21 +1,33 @@
-# SPECs — Fase 1: dois aplicativos separados
+# SPECs — Fase 2: jornada comercial em ambiente controlado
 
-Escopo v1.3/P9. Ambos os submódulos são alvos ativos; nenhuma implementação feita nesta revisão.
+Liberada em 27/10/2026. Sete SPECs e 18 tarefas; nenhuma implementação nova declarada. Ler [regras comuns](regras-comuns-fase-2.md), [tarefas](../fase.md) e [termo de liberação](../../05_entregas/liberacao-fase-2-2026-10-27.md).
 
-| SPEC | Entrega | Alvos | Arquivo |
+| SPEC | Entrega | Alvos | Documento |
 |---|---|---|---|
-| SPEC-1-001 | Ambiente de demonstração, acessos e controles | ambos | [SPEC](spec-fundacao-acessos-e-ambiente.md) |
-| SPEC-1-002 | Cadastro único de empresas e contatos | ambos | [SPEC](spec-cadastro-unico-e-protecao.md) |
-| SPEC-1-003 | Importação das bases próprias com prévia e relatório | Fábrica + projeção Funil | [SPEC](spec-importacao-das-bases.md) |
-| SPEC-1-004 | Produtos FAROL e critérios de pontuação editáveis | Fábrica + projeção Funil | [SPEC](spec-produtos-e-reguas-editaveis.md) |
-| SPEC-1-005 | Pontuação por produto com motivos e histórico | Fábrica + projeção Funil | [SPEC](spec-pontuacao-por-produto.md) |
-| SPEC-1-006 | Listas na Fábrica e visão comercial no Funil | ambos | [SPEC](spec-listas-unificadas-e-demonstracao.md) |
-| SPEC-1-007 | Identidade e projeções locais entre os dois aplicativos | ambos | [SPEC](spec-identidades-e-projecoes-entre-apps.md) |
+| SPEC-2-001 | Transição verificável e estados comerciais | Funil; contrato/baseline de ambos | [SPEC](spec-transicao-e-estados-comerciais.md) |
+| SPEC-2-002 | Cadências, aprovações e limites | Funil | [SPEC](spec-cadencias-aprovacoes-e-limites.md) |
+| SPEC-2-003 | Eventos de teste e infraestrutura do agente | Funil; contrato/baseline de ambos | [SPEC](spec-eventos-e-infraestrutura-do-agente.md) |
+| SPEC-2-004 | Respostas, bloqueios e passagem humana | Funil | [SPEC](spec-respostas-bloqueios-e-passagem.md) |
+| SPEC-2-005 | Retorno comercial local à Fábrica | Ambos | [SPEC](spec-retorno-comercial-local-a-fabrica.md) |
+| SPEC-2-006 | Painel interno e métricas de teste | Funil | [SPEC](spec-painel-interno-e-metricas-de-teste.md) |
+| SPEC-2-007 | Demonstração e encerramento da fase 2 | Ambos | [SPEC](spec-demonstracao-e-encerramento-da-fase-2.md) |
 
-## Ordem e trabalho coordenado
+## Ordem elegível
 
-Fundação/gates/ACL dos dois apps → primeira task SPEC-1-007 (contrato) → cadastro Fábrica/legado Funil → importação e catálogo em frentes locais → pontuação Fábrica → segunda/terceira tasks SPEC-1-007 (projeções/reconciliação) → listas/visões/demonstração dos dois apps. A ordem visual dos cards do portal não substitui pré-condições. Trabalho simultâneo nos repos usa contratos compatíveis e evidência/aceite antes de sucessoras; nenhuma task de código é executada nesta revisão.
+F2-T01 primeiro. Após sua prova/aceite, F2-T02 e o contrato F2-T07 ficam elegíveis. Políticas → cadência única → aprovação → fila simulada → contexto/resposta/bloqueio/passagem → retorno comercial local à Fábrica → painel. As dependências exatas constam das tarefas; a posição visual no quadro não as substitui. Regressão → publicação verificável → demonstração/aceite encerram a fase.
 
-## Fora desta fase
+## Critérios de fase
 
-HTTP entre apps, sincronização real de dados, fornecedores/canais/LLM, pagamento e mercado. Contratos/adaptadores/fixtures locais nas fases 1–2; conexão real a partir da F3 e operação após F5.
+| Critério aprovado | SPECs e prova exigida |
+|---|---|
+| F2-01 — Jornada completa com eventos TESTE | 001–005 e 007; DEMO-F2 |
+| F2-02 — Relacionamento aprova cada mensagem; fria dispensa lote | 002; POLITICA-COORTE e APROVACAO-VINCULADA |
+| F2-03 — Pausa/bloqueio/idempotência e negativos | 002–005; CADENCIA-UNICA, EVENTO-IDEMPOTENTE, RESPOSTA-PAUSA, SAIDA-GLOBAL e RETORNO-CONFLITO-ACL |
+| F2-04 — Papéis, teto e histórico | 001/004/006; COMERCIAL-ACL, PASSAGEM-TETO-ACL e PAINEL-FILTROS-ACL |
+| F2-05 — Modo real recusado; zero canal externo | 003/005/007; SEM-EXTERNO-F2 e retorno local |
+| F2-06 — Fixture não conta como mercado | 006; TESTE-NAO-MERCADO |
+
+## Referências herdadas
+
+[Contrato SPEC-1-007](spec-identidades-e-projecoes-entre-apps.md) continua normativo para identidade/autoridade/revisão. Os outros arquivos SPEC-1-* foram preservados como referência histórica; não são tarefas novas desta fase. [Snapshot completo da fase 1](../../06_notas/historico/fase-1/fase.md), com 22 UUIDs preservados. Nenhum plano privado ou detalhamento de fase futura faz parte deste pacote.
+

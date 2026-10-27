@@ -17,3 +17,10 @@ IDs PocketBase/usuários são locais; IDs globais e mapeamentos obedecem contrat
 ## Git
 
 Submódulos preservam seus remotos. Código de cada filho é commitado/publicado no repo correspondente quando autorizado; em seguida atualizar referências no pai. Não enviar código do filho ao pai como cópia, nem inferir que push do pai publicou os filhos. Manter fase-format:2, IDs/status/responsável/prazo/descrições/visibilidade; task concluída somente após prova e teste humano. Nenhum plano privado ou fase futura deve ser copiado para este repo.
+
+## Fase atual — liberação de 27/10/2026
+
+Fase 2 é a jornada comercial em ambiente controlado, não apenas SPEC-1-007. Ler 04_fase-atual/specs/00-INDICE.md, regras-comuns-fase-2.md e a SPEC da task. Sete SPECs, 18 tarefas novas; F2-T01 é primeira elegível. Provar acesso TESTE, baseline/Git/Skip, fontes/testes e restore dos dois apps antes de mudanças dependentes. F2-T07 fecha eventos antes de consumidores. Uma task elegível por vez, prova e aceite humano antes da sucessora.
+
+Snapshot da fase 1 conserva os 22 UUIDs em 06_notas/historico/fase-1/. Novas chaves F2-TNN são rastreabilidade, não UUID do portal; não inventar UUID, responsável ou prazo. Cadastro→lead e sessão técnica do Evandro continuam pendentes até confirmação observável. A liberação documental não é aceite nem execução da nova fase. Repos atuais são espelhos parciais; recuperar e publicar fontes/testes no repo correto, não no pai, antes do critério de reprodução.
+

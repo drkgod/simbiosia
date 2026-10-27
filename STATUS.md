@@ -1,15 +1,32 @@
 # Estado da construção
 
-Atualizado: 22/10/2026
-Fase atual: FASE 2 ENCERRADA — SPEC-1-007 COMPLETA (3/3 tasks com aceite humano). Pendências pós-fase ZERADAS.
+Atualizado: 27/10/2026
+Fase atual: 2 — LIBERADA PARA CONSTRUÇÃO EM AMBIENTE CONTROLADO.
+Execução da nova fase: 0/18 tarefas concluídas; sete SPECs publicadas; primeiro recorte elegível F2-T01.
 
-SPEC-1-007: 199009b0 (CONTRATO-V1) fechada com aceite 21/10; 0cda0d05 (PROJECAO-LOCAL) fechada com aceite 21/10 18:41; acc7d79f (CONTRATO-RECONCILIACAO) fechada com aceite 22/10 09:01 (14/14 Funil + 12/12 Fábrica). Provas: 06_notas/evidencias/fase-1/spec-1-007/.
+## Base da liberação
 
-Pós-fase (22/10):
-- LIMPEZA: Funil 4.777→0, Fábrica 249→0 (100% do dado era sintético; backup JSON em work/limpeza-pos-fase2/ + artifacts/; hooks temporários usados e removidos — rotas 401; guarda da régua liberada APENAS em ambiente teste). Versões: Funil v0.0.122, Fábrica v0.0.32.
-- CADASTRO→LEAD: hook POST /backend/v1/cadastro/gerar-lead + botão "Gerar lead" com seletor de empresa na UI (etapa lista; idempotente — repetição não duplica; pedido de saída bloqueia 403; rastro migracao_origem_id = cadastro:<pessoaId>). Prova automatizada 5/5 + prova de clique no navegador (aviso "Lead criado a partir do cadastro (etapa: lista)"). Funil v0.0.125/17075f0, produção publicada.
-- SELO "Do cadastro" (v0.0.126/c3c25ce): leads vindos do cadastro agora mostram o selo no cartão da lista de Leads — o rastro ficou visível para o humano (feedback do José: não identificava o rastro). Prova de clique + screenshot. Estado no ar: Ana Demo (selo Do cadastro) + Avancorp (lead manual do José, sem selo).
+Solicitação explícita do consultor em 27/10: analisar e liberar fase 2. [Termo e análise](05_entregas/liberacao-fase-2-2026-10-27.md), [tarefas](04_fase-atual/fase.md) e [SPECs](04_fase-atual/specs/00-INDICE.md).
 
-Histórico da Fase 1 (22/22): SPEC-1-001 a SPEC-1-006 completas com aceite. Task extra "edição de lead" fechada (16/10).
+O rótulo anterior “fase 2 encerrada” era usado para SPEC-1-007 (contrato/projeções/reconciliação locais), que integra a fase 1 no escopo aprovado. Seus aceites de 21–22/10 e o aceite DEMO-F1 de 21/10 estão preservados em 06_notas/historico/fase-1/ e nas evidências originais. Não equivalem à construção da jornada comercial F2.
 
-Repositório operacional privado: https://github.com/drkgod/simbiosia. Submódulos: funil-mkt (evandromp70/funil-mkt---vendas-simbiosia-dmbzn8jh9) e fabrica-listas (evandromp70/f-brica-de-listas-de-leads-frios-simbiosia-new-ty9w50j9r).
+## O que construir
+
+Estados/histórico comercial; políticas de coorte; uma cadência ativa por pessoa; aprovações por mensagem; fila e limites; eventos de teste/infraestrutura determinística do agente; pausa/bloqueio/passagem e continuidade humana; retorno comercial local à Fábrica; painel TESTE. Todas as capacidades ainda exigem execução/prova/aceite desta fase.
+
+## Próxima ação e pendências preservadas
+
+- F2-T01: confirmar TESTE/acessos nos dois projetos; comparar Skip aplicado/publicado e Git; recuperar fontes/testes necessários, provar runners e restauração separada. Espelhos parciais não bastam para reprodução.
+- Cadastro → lead: implementado/publicado segundo registro de 22/10, porém teste humano do José ainda pendente. Não declarar encerrado por “pendências zeradas”.
+- Sessão técnica/construção/acessos do Evandro: pendente no aceite F1, a reconfirmar no baseline.
+- F2-T07 fecha contrato/eventos antes de consumidores. Próxima task só após prova e aceite da dependência.
+- Responsáveis/prazos/UUIDs dos novos cards não foram inventados; sincronização do portal atribui os UUIDs.
+
+## Últimas versões registradas, a reconferir no baseline
+
+Funil: Git b9af31c97bb717c4421136faf34235be2035b07e; Skip 50182 v0.0.126/c3c25ce.
+Fábrica: Git 84d7829f15f2c682622ecf8fac747923a32d6114; Skip 50248 v0.0.32/d69cbcb.
+Gitlinks do pacote atualizados para esses HEADs Git. Isso não comprova sincronização integral com o Skip.
+
+Somente fixtures e adaptadores locais; zero HTTP entre apps, fornecedores/canais/LLM e contato real. Liberação documental não conclui tarefa nem libera operação comercial. Nenhum teste de produto foi reexecutado nesta publicação.
+

@@ -1,10 +1,11 @@
-# Sistemas ativos — Simbiosia
+# Sistemas ativos — fase 2
 
-| Submódulo | Repositório | Trabalho |
+| App | Repositório | Autoridade |
 |---|---|---|
-| fabrica-listas | https://github.com/evandromp70/f-brica-de-listas-de-leads-frios-simbiosia-new-ty9w50j9r | Cadastro/base/listas/importação, produtos/régua/pontuação |
-| funil-mkt | https://github.com/evandromp70/funil-mkt---vendas-simbiosia-dmbzn8jh9 | Comercial/cadências/conversas/aprovações, primeira abordagem e bloqueios globais |
+| fabrica-listas | https://github.com/evandromp70/f-brica-de-listas-de-leads-frios-simbiosia-new-ty9w50j9r | Cadastro/listas/produtos/régua/notas; recebe projeção comercial/proteção somente leitura |
+| funil-mkt | https://github.com/evandromp70/funil-mkt---vendas-simbiosia-dmbzn8jh9 | Estados/cadências/aprovações/mensagens/atribuição, primeira abordagem e bloqueios globais |
 
-Ambos são alvos ativos e permanecem apps/backends separados. Evoluir os dois no mesmo ciclo, respeitando dependências e contrato da SPEC-1-007. F1/2 somente fixture/adaptador local, zeroHTTPentreapps; F3 transporte real. Nenhum código foi modificado nesta preparação.
+Ambos são alvos ativos e continuam separados. Fase 2 usa contratos/fixtures e adaptação local sem HTTP entre backends. Ler fase atual e sete SPECs. O Git contém espelhos parciais de consulta do Skip: F2-T01 verifica/reconcilia fontes/testes e implantação; F2-T17 exige publicação reproduzível. Atualizar gitlinks não implanta apps nem torna o espelho completo.
 
-Os códigos continuam nos repositórios de origem. Para publicá-los, autorização para o remoto/branch de cada filho; depois atualizar gitlinks no pai. Clone completo exige --recurse-submodules.
+Fontes/testes de cada filho são publicados no respectivo repo autorizado; depois atualizar referências no pai. Não copiar código dos filhos para este pacote nem ligar enviar-funil legado.
+
