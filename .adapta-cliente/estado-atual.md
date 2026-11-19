@@ -1,18 +1,17 @@
 # Estado atual — Adapta Cliente
 
 - schema_version: adapta-cliente-state/v2
-- task_id: nenhuma — planejamento F2 publicado; F2-T01 primeira elegível, UUID pendente de sincronização
-- executor: Maestro, execução de produto ainda não iniciada por esta revisão
+- task_id: F3-T01 — primeira elegível; UUIDs das tasks da fase 3 pendentes de sincronização do portal
+- executor: Maestro
 - owner_informativo: José Aquino
-- etapa: fase 2 com aprovação técnica por testes automatizados, sem gate de teste humano
-- teste_humano: não obrigatório; cadastro→lead, acessos e jornada serão cobertos por E2E/backend/ACL/restore pelo Maestro
-- verificacao_automatica: política/specs revisadas; testes de produto ainda a implementar/executar por task
-- perguntas: registrar em 06_notas/pendencias-finais-fase-2.md e apresentar todas juntas no final, sem perguntar entre tasks
-- sistema: funil-mkt + fabrica-listas, backends separados
-- skip_projeto: 50182 + 50248, versões a reconferir em F2-T01
-- pendente_github: fontes/testes necessários devem ser reconciliados e publicados por recorte; Git atual é espelho parcial
-- ultima_acao: sete SPECs/18 tarefas revisadas para validação autônoma e lista final de dúvidas, sem implementação
-- proxima_acao: F2-T01 — confirmar TESTE/baseline/Git/Skip/fontes/testes/restore e executar CADASTRO-LEAD-E2E; após provas aprovadas seguir dependentes automaticamente
-- impedimentos: falha/prova não executada mantém apenas o recorte afetado aberto; seguir tarefas independentes e registrar pedido no lote final
-- limites: somente fixtures locais; zero HTTP entre apps/fornecedor/canal/LLM/mercado; não inventar valores reais
-- atualizado_em: 2026-10-27 (America/Sao_Paulo)
+- etapa: fase 3 liberada em 19/11/2026; fase 2 fechada 18/18 em 05/11
+- teste_humano: nenhum por task; aceite único na subtarefa "Validar com o cliente" (fim da F3-T23), cobrindo fases 2 e 3
+- verificacao_automatica: prova automática por task (regras/contrato, backend, navegador, lint/build), resultado na linha `>`
+- paradas: só acesso que o cliente tem ou primeiro envio real; registrar em 06_notas/pendencias-fase-3.md e seguir
+- sistema: funil-mkt + fabrica-listas, backends separados no Skip
+- pendente_github: provas F2-T02..T18, relatório F2-T18, código das telas nos repos dos apps, gitlinks (F3-T01/T02)
+- ultima_acao: liberação da fase 3 pelo consultor (sete SPECs, 23 tarefas)
+- proxima_acao: F3-T01 publicar provas e relatório final da fase 2; depois F3-T02, F3-T03 e sincronização F3-T04..T08
+- impedimentos: contas/chaves de fornecedor e canais ainda não entregues pela Simbiosia (não bloqueiam as tasks sem dependência externa)
+- limites: envio real só no modo piloto para destinatários autorizados; mercado desligado até a fase 5
+- atualizado_em: 2026-11-19 (America/Sao_Paulo)

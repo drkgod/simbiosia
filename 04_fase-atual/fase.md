@@ -1,49 +1,81 @@
-# Fase 2 — Operação comercial em ambiente controlado
+# Fase 3 — Tarefas
 
 <!-- fase-format:2 -->
 
-Liberada para construção em 27/10/2026 por solicitação do consultor. 18 tarefas novas, todas a fazer. Liberação de planejamento não é aceite de funcionalidades nem autorização de operação real.
+Cada linha é uma tarefa da Jornada de Execução. **Tudo que cabe num card cabe nesta linha** — se um
+campo não estiver aqui, ele não tem como ser preenchido, porque é este arquivo que cria a tarefa.
 
-As tarefas abaixo alimentam a Jornada de Execução. Os cards desta fase não usam o marcador interno. Os UUIDs serão atribuídos pela sincronização do portal: não inventar IDs, responsáveis ou prazos. Preservar os UUIDs quando retornarem. F2-TNN é chave de rastreabilidade, não UUID do portal. O primeiro recorte elegível é F2-T01; consumidores aguardam provas automatizadas das dependências. Cada conclusão exige provas automatizadas aprovadas, executadas pelo Maestro; não exige teste ou confirmação do cliente. Dúvidas são registradas durante a execução e perguntadas em um único lote no final da fase.
+```
+- [ ] Título da tarefa @responsável !30/09/2026 #projeto [interno]   <!-- id:… -->
+      > descrição da tarefa, uma ou mais linhas
+  - [ ] subtarefa (basta indentar 2 espaços)                         <!-- id:… -->
+    - [ ] sub-subtarefa (indente mais 2)                             <!-- id:… -->
+```
 
-A fase 1 foi preservada, com seus 22 UUIDs e marcadores originais, em [histórico](../06_notas/historico/fase-1/fase.md). Os registros de 21–22/10 que chamavam SPEC-1-007 de fase 2 foram reconciliados no [termo de liberação](../05_entregas/liberacao-fase-2-2026-10-27.md).
+| marcador | o que define | se você não escrever |
+|---|---|---|
+| `- [ ]` / `- [/]` / `- [x]` | a fazer / em andamento / concluída | a fazer |
+| `@nome` | responsável (`@"Nome Composto"` com aspas) | fica **sem responsável** |
+| `!dd/mm/aaaa` | prazo | fica **sem prazo** |
+| `#projeto` / `#aculturamento` | tipo | Projeto de IA |
+| `[interno]` | o cliente **não** vê esta tarefa | o cliente vê |
+| `> texto` na linha de baixo | descrição (aparece ao abrir o card) | sem descrição |
+| indentar 2 espaços | vira subtarefa da tarefa acima (vale em qualquer profundidade) | tarefa de topo |
 
-> **Estado em 05/11/2026:** **18 de 18 tarefas concluídas com prova registrada.** A F2-T17 foi fechada: código (48 migrações, 30 hooks) e as 13 suítes estão publicados e recuperáveis. Ressalva registrada na própria tarefa: os gitlinks do repositório do projeto ainda apontam para o SHA antigo do Funil. Nenhuma tarefa foi marcada sem evidência em `06_notas/evidencias/fase-2/`.
+Os marcadores só valem **no fim da linha** — `Revisar #3 do contrato` continua sendo um título.
+Um título que TERMINA na forma de um marcador sai escapado com `\\` (`Ligar para \\@joao`); a barra é
+só para o parser e nunca aparece no card. Você não precisa escrever isso à mão.
+Marque `[x]` para concluir e adicione linhas novas à vontade: elas entram no quadro na próxima
+sincronização e voltam aqui com o `<!-- id:… -->` preenchido. **Não apague o marcador de id** das
+tarefas que já têm um.
 
-- [x] Conferir versões, testes e restauração dos dois aplicativos #projeto
-  > Chave: F2-T01. SPEC: specs/spec-transicao-e-estados-comerciais.md (SPEC-2-001). CA-2-001: 01,04. TDD: BASELINE-RESTORE; CADASTRO-LEAD-E2E. Pré-condições: liberação documental; confirmar acesso TESTE de ambos antes de alterar backend. Conferir Git/Skip aplicado e publicado; recuperar fontes/testes necessários; provar restore separado e runner real. Substituir antigas sessões/testes humanos pelas provas automatizadas de cadastro→lead, acesso/ACL e restore; registrar impedimentos e seguir no trabalho independente. Guardar prova em 06_notas/evidencias/fase-2/spec-2-001/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Organizar os estados e a linha do tempo do lead #projeto
-  > Chave: F2-T02. SPEC: specs/spec-transicao-e-estados-comerciais.md (SPEC-2-001). CA-2-001: 02,03. TDD: ESTADOS-LEGADO; COMERCIAL-ACL. Pré-condições: F2-T01 com provas automatizadas aprovadas. Mapear etapas legadas e transições por contexto, preservando IDs/histórico, revisão e acesso por atribuição. Guardar prova em 06_notas/evidencias/fase-2/spec-2-001/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Configurar políticas de coorte, limites e pausa #projeto
-  > Chave: F2-T03. SPEC: specs/spec-cadencias-aprovacoes-e-limites.md (SPEC-2-002). CA-2-002: 01. TDD: POLITICA-COORTE. Pré-condições: F2-T02 com provas automatizadas aprovadas. Configuração de TESTE versionada; rede/cliente por mensagem, fria sem lote; ausência de aprovação mantém pendente; não inventar valores reais. Guardar prova em 06_notas/evidencias/fase-2/spec-2-002/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Garantir uma cadência ativa por pessoa #projeto
-  > Chave: F2-T04. SPEC: specs/spec-cadencias-aprovacoes-e-limites.md (SPEC-2-002). CA-2-002: 02. TDD: CADENCIA-UNICA. Pré-condições: F2-T03, F2-T07 com provas automatizadas aprovadas. Usar identidade efetiva/aliases e unicidade transacional entre produtos; escolha sem regra aprovada fica pendente. Guardar prova em 06_notas/evidencias/fase-2/spec-2-002/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Preparar a fila de toques e simular a execução #projeto
-  > Chave: F2-T05. SPEC: specs/spec-cadencias-aprovacoes-e-limites.md (SPEC-2-002). CA-2-002: 04. TDD: FILA-LIMITES. Pré-condições: F2-T04, F2-T06, F2-T07 com provas automatizadas aprovadas. Reservas, horários, limite, pausa, confirmação e retomada idempotentes; nenhum toque externo; abordagem só após confirmação simulada. Guardar prova em 06_notas/evidencias/fase-2/spec-2-002/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Aprovar cada mensagem de relacionamento #projeto
-  > Chave: F2-T06. SPEC: specs/spec-cadencias-aprovacoes-e-limites.md (SPEC-2-002). CA-2-002: 03. TDD: APROVACAO-VINCULADA; APROVACAO-UI-E2E. Pré-condições: F2-T03, F2-T04, F2-T07 com provas automatizadas aprovadas. Sócio autorizado aprova conteúdo/hash/versão; edição/revogação invalida; fria não ganha gate por lote. Guardar prova em 06_notas/evidencias/fase-2/spec-2-002/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Validar eventos e adaptadores locais de teste #projeto
-  > Chave: F2-T07. SPEC: specs/spec-eventos-e-infraestrutura-do-agente.md (SPEC-2-003). CA-2-003: 01,02,04. TDD: EVENTO-TESTE-AUTH; EVENTO-IDEMPOTENTE; SEM-EXTERNO-F2. Pré-condições: F2-T01 com provas automatizadas aprovadas. Contrato antes dos consumidores nos dois apps; autenticação, idempotência e falha transacional; modo real e qualquer rede cruzada/externa recusados. Guardar prova em 06_notas/evidencias/fase-2/spec-2-003/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Preparar o contexto e o registro de decisões do agente #projeto
-  > Chave: F2-T08. SPEC: specs/spec-eventos-e-infraestrutura-do-agente.md (SPEC-2-003). CA-2-003: 03. TDD: CONTEXTO-ACOES; CONTEXTO-UI-E2E. Pré-condições: F2-T02, F2-T07 com provas automatizadas aprovadas. Contexto mínimo por atribuição, allowlist e template determinístico; sem LLM ou resposta consultiva automática. Guardar prova em 06_notas/evidencias/fase-2/spec-2-003/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Pausar a cadência e registrar a resposta #projeto
-  > Chave: F2-T09. SPEC: specs/spec-respostas-bloqueios-e-passagem.md (SPEC-2-004). CA-2-004: 01. TDD: RESPOSTA-PAUSA. Pré-condições: F2-T05, F2-T07, F2-T08 com provas automatizadas aprovadas. Pergunta/conversa/desinteresse geram pausa e passagem única; nem evento repetido nem temporizador retomam. Guardar prova em 06_notas/evidencias/fase-2/spec-2-004/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Bloquear globalmente quem pedir saída #projeto
-  > Chave: F2-T10. SPEC: specs/spec-respostas-bloqueios-e-passagem.md (SPEC-2-004). CA-2-004: 02. TDD: SAIDA-GLOBAL. Pré-condições: F2-T07, F2-T09 com provas automatizadas aprovadas. Proteção por pessoa efetiva em todos os produtos/canais; preservar após reimportação e evento atrasado; desinteresse não vira saída. Guardar prova em 06_notas/evidencias/fase-2/spec-2-004/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Organizar a fila dos sócios e a continuidade humana #projeto
-  > Chave: F2-T11. SPEC: specs/spec-respostas-bloqueios-e-passagem.md (SPEC-2-004). CA-2-004: 03,04. TDD: PASSAGEM-TETO-ACL; RETOMADA-HUMANA; PASSAGEM-UI-E2E. Pré-condições: F2-T06, F2-T09, F2-T10 com provas automatizadas aprovadas. Dono mapeado, teto configurável e excedente visível; assumir/devolver/retomar só com ação humana autorizada e nova validação. Guardar prova em 06_notas/evidencias/fase-2/spec-2-004/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Mostrar a primeira abordagem de teste na Fábrica #projeto
-  > Chave: F2-T12. SPEC: specs/spec-retorno-comercial-local-a-fabrica.md (SPEC-2-005). CA-2-005: 01. TDD: RETORNO-ABORDAGEM; RETORNO-UI-E2E. Pré-condições: F2-T05, F2-T07 com provas automatizadas aprovadas. Funil emite estado comercial de confirmação simulada; aplicar fixture local na Fábrica sem HTTP e mostrar origem/revisão/data literal. Guardar prova em 06_notas/evidencias/fase-2/spec-2-005/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Preservar a proteção e reconciliar o retorno local #projeto
-  > Chave: F2-T13. SPEC: specs/spec-retorno-comercial-local-a-fabrica.md (SPEC-2-005). CA-2-005: 02,03. TDD: RETORNO-PROTECAO; RETORNO-CONFLITO-ACL. Pré-condições: F2-T10, F2-T12 com provas automatizadas aprovadas. Aplicar bloqueio/revisões por domínio; pendência retomável, conflito, alias e edição negada; não recalcular notas nem apagar cadastro. Guardar prova em 06_notas/evidencias/fase-2/spec-2-005/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Configurar a métrica de oportunidade e os custos de teste #projeto
-  > Chave: F2-T14. SPEC: specs/spec-painel-interno-e-metricas-de-teste.md (SPEC-2-006). CA-2-006: 01. TDD: METRICA-CONFIG. Pré-condições: F2-T02, F2-T07, F2-T08 com provas automatizadas aprovadas. Definição validável com José e fixtures explícitas; ausências não configuradas, denominador zero/custo ausente não produzem métrica fictícia. Guardar prova em 06_notas/evidencias/fase-2/spec-2-006/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Mostrar o painel interno com filtros e acesso por dono #projeto
-  > Chave: F2-T15. SPEC: specs/spec-painel-interno-e-metricas-de-teste.md (SPEC-2-006). CA-2-006: 02,03. TDD: PAINEL-FILTROS-ACL; TESTE-NAO-MERCADO; PAINEL-UI-E2E. Pré-condições: F2-T11, F2-T13, F2-T14 com provas automatizadas aprovadas. Contagens backend por produto/coorte/canal/dono; sem vazamento ou duplicata; TESTE nunca conta como mercado. Guardar prova em 06_notas/evidencias/fase-2/spec-2-006/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Provar a regressão e a recuperação da jornada #projeto
-  > Chave: F2-T16. SPEC: specs/spec-demonstracao-e-encerramento-da-fase-2.md (SPEC-2-007). CA-2-007: 01. TDD: REGRESSAO-F2. Pré-condições: F2-T02, F2-T03, F2-T04, F2-T05, F2-T06, F2-T07, F2-T08, F2-T09, F2-T10, F2-T11, F2-T12, F2-T13, F2-T14, F2-T15 com provas automatizadas aprovadas. Rodar casos e falhas/rollback em ambos os TESTEs, preservar histórico/IDs/bloqueios e provar zero despacho externo. Guardar prova em 06_notas/evidencias/fase-2/spec-2-007/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-- [x] Publicar fontes, testes e versões verificáveis #projeto
-  > Chave: F2-T17. SPEC: specs/spec-demonstracao-e-encerramento-da-fase-2.md (SPEC-2-007). CA-2-007: 02. TDD: FONTE-REPRODUZIVEL. Pré-condições: F2-T16 com provas automatizadas aprovadas. Publicar cada recorte no repo correto e conferir Skip aplicado/publicado, manifesto e gitlinks; ausência de fonte mantém critério aberto. Guardar prova em 06_notas/evidencias/fase-2/spec-2-007/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
-  > **Estado 05/11/2026 — CONCLUÍDA quanto à fonte.** Publicados: 18 migrações (0032–0048) e 13 hooks no repo do Funil; **13 de 13 suítes** em `evandromp70/simbiosia-testes` (183 testes recuperáveis), MANIFESTO reescrito. Sanitização: zero senha, zero e-mail de login, zero URL interna no fonte. **Pendência nomeada fora do escopo desta task:** os gitlinks de `drkgod/simbiosia` ainda apontam para o SHA antigo do Funil — exige `git push` do repo pai, que não há credencial neste ambiente. Evidência: `spec-2-007/F2-T17-publicacao-05-11.md`.
-- [x] Validar automaticamente a jornada e entregar o relatório final #projeto
-  > Chave: F2-T18. SPEC: specs/spec-demonstracao-e-encerramento-da-fase-2.md (SPEC-2-007). CA-2-007: 03,04. TDD: JORNADA-F2-E2E; RELATORIO-FINAL-COMPLETO. Pré-condições: F2-T17 com provas automatizadas aprovadas. Executar a jornada por navegador/backend com fixtures e assertions dos F2-01..06; emitir relatório de resultados e apresentar uma única lista deduplicada de dúvidas/decisões ao final. Guardar prova em 06_notas/evidencias/fase-2/spec-2-007/; registrar versões dos dois apps, resultado automático por critério. Manter aberta até aprovação de todos os testes exigidos; nenhuma operação real.
+Liberada em 19/11/2026 por pedido do consultor. Construir em sequência e seguir para a próxima assim que a prova automática passar; nenhuma task espera teste do cliente. Acesso que falta (chave, conta, domínio, número) fica `[/]` com o motivo e o Maestro segue. O aceite do cliente é só a subtarefa "Validar com o cliente" no fim. Regras: `specs/regras-comuns-fase-3.md`.
+
+- [ ] Publicar as provas e o relatório final da fase 2 #projeto
+  > Uma prova por tarefa F2-T02..T18, relatório final da F2-T18 e lista de dúvidas preenchida em 06_notas. Chave F3-T01 · SPEC-3-001 · CA-01/02 · PROVAS-F2-COMPLETAS.
+- [ ] Publicar o código vigente dos dois apps no GitHub #projeto
+  > Telas, hooks e migrações vigentes no repo de cada app e ponteiros dos submódulos atualizados. Chave F3-T02 · SPEC-3-001 · CA-03 · FONTE-VIGENTE.
+- [ ] Estabilizar o teste de restauração do ambiente #projeto
+  > Fixture própria e limpeza por teste; AMBIENTE-RESTORE passa 5 de 5. Chave F3-T03 · SPEC-3-001 · CA-04 · RESTORE-ESTAVEL.
+- [ ] Ligar o canal autenticado entre Fábrica e Funil #projeto
+  > Receptor com token de serviço nos dois backends, outbox/inbox e recibo; chamada sem token é recusada. Chave F3-T04 · SPEC-3-002 · CA-01 · SYNC-AUTH.
+- [ ] Enviar cadastro, régua e notas da Fábrica ao Funil #projeto
+  > Alteração na Fábrica aparece no Funil como projeção somente leitura, por ID global e hash. Chave F3-T05 · SPEC-3-002 · CA-02 · SYNC-IDA-VOLTA.
+- [ ] Devolver proteção e primeira abordagem do Funil à Fábrica #projeto
+  > Saída, bloqueio e primeira abordagem do Funil chegam à Fábrica. Chave F3-T06 · SPEC-3-002 · CA-02 · SYNC-IDA-VOLTA.
+- [ ] Reconciliar e retomar a sincronização sem duplicar #projeto
+  > Lado fora acumula pendência que entra uma vez ao voltar; divergência vira conflito para o admin. Chave F3-T07 · SPEC-3-002 · CA-03 · SYNC-RETOMADA.
+- [ ] Travar o contato quando a sincronização não estiver em dia #projeto
+  > Conflito, identidade/proteção pendente ou atraso impedem qualquer toque no Funil. Chave F3-T08 · SPEC-3-002 · CA-04 · SYNC-TRAVA-TOQUE.
+- [ ] Guardar as credenciais no cofre e listar os conectores #projeto
+  > Tela de conectores com status, custo e teto; chave só no Skip, nunca na tela, no Git ou em log. Chave F3-T09 · SPEC-3-003 · CA-01 · COFRE-SEM-VAZAMENTO.
+- [ ] Ligar o modo piloto só para destinatários autorizados #projeto
+  > Envio real só para a lista de piloto; fora dela é recusado e registrado. Chave F3-T10 · SPEC-3-003 · CA-02 · PILOTO-ALLOWLIST.
+- [ ] Monitorar a saúde dos canais e pausar na falha #projeto
+  > Erro, cota, teto de custo ou chave inválida pausam o conector com motivo, sem reenvio. Chave F3-T11 · SPEC-3-003 · CA-03 · SAUDE-PAUSA.
+- [ ] Montar formulários por produto #projeto
+  > Admin cria formulário por produto (ex.: Farol Free, Farol 2027) com campos-padrão e perguntas próprias. Chave F3-T12 · SPEC-3-004 · CA-01 · FORM-CONFIG.
+- [ ] Receber o formulário e criar o lead inbound #projeto
+  > Resposta cria/atualiza o cadastro na Fábrica e o lead inbound no Funil com opt-in por canal. Publicar em endereço público só com o texto de aviso real. Chave F3-T13 · SPEC-3-004 · CA-02 · FORM-INBOUND.
+- [ ] Recusar envios inválidos, repetidos ou em excesso #projeto
+  > Sem assinatura, malformado, repetido ou acima do limite: recusado sem efeito. Chave F3-T14 · SPEC-3-004 · CA-03 · FORM-RECUSA.
+- [ ] Completar empresas com os dados da Receita #projeto
+  > CNAE, abertura, porte, UF, situação e sócios por CNPJ, com fonte e data; inválido fica pendente. Chave F3-T15 · SPEC-3-005 · CA-01 · RECEITA-CNPJ.
+- [ ] Ligar o fornecedor de faturamento e decisor #projeto
+  > Mesmo adaptador com simulador; liga de verdade quando o fornecedor escolhido tiver chave e teto no cofre. Chave F3-T16 · SPEC-3-005 · CA-02 · FORNECEDOR-SIMULADOR.
+- [ ] Rodar um lote real controlado com fonte e custo #projeto
+  > Lote pequeno com cobertura, custo e retomada; contato conhecido fora da fria e saídas mantidas. Chave F3-T17 · SPEC-3-005 · CA-03 · LOTE-RETOMADA.
+- [ ] Preparar o adaptador comum dos canais com simulador #projeto
+  > Interface única de envio, status e resposta, provada contra simulador de sucesso, erro, 429, timeout e webhook duplicado. Chave F3-T18 · SPEC-3-006 · CA-01/03.
+- [ ] Ligar o e-mail com envio e captura de respostas #projeto
+  > Domínio de e-mail frio e ferramenta escolhida; envio de piloto e resposta na linha do tempo. Chave F3-T19 · SPEC-3-006 · CA-02/04 · CANAL-PILOTO-REAL.
+- [ ] Ligar o WhatsApp oficial e os números de prospecção #projeto
+  > Linha oficial da Meta no receptivo e números dedicados na fria; envio de piloto e resposta na linha do tempo. Chave F3-T20 · SPEC-3-006 · CA-02/04.
+- [ ] Ligar o LinkedIn com limites e intervalos #projeto
+  > Ferramenta escolhida com limite diário e intervalo; ação de piloto e resposta na linha do tempo. Chave F3-T21 · SPEC-3-006 · CA-02/04 · CANAL-PILOTO-REAL.
+- [ ] Provar a regressão das fases 1 a 3 #projeto
+  > Suítes das fases 1 a 3 verdes, incluindo saída que sobrevive à reimportação. Chave F3-T22 · SPEC-3-007 · CA-01 · REGRESSAO-F1-F3.
+- [ ] Rodar a jornada piloto e entregar o relatório da fase #projeto
+  > Formulário/lote → sincronização → cadência piloto → resposta → pausa ou saída; relatório com aguardando acesso e dúvidas. Chave F3-T23 · SPEC-3-007 · CA-02/03.
+  - [ ] Validar com o cliente #projeto
+    > José e Evandro veem a fase 2 e a fase 3 funcionando no roteiro da SPEC-3-007 e dão o aceite. Não segura nenhuma outra task.

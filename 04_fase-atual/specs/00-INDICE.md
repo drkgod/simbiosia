@@ -1,37 +1,39 @@
-# SPECs — Fase 2: jornada comercial em ambiente controlado
+# SPECs — Fase 3: sincronização real e integrações externas em piloto
 
-Liberada em 27/10/2026. Sete SPECs e 18 tarefas; nenhuma implementação nova declarada. Ler [regras comuns](regras-comuns-fase-2.md), [tarefas](../fase.md) e [termo de liberação](../../05_entregas/liberacao-fase-2-2026-10-27.md).
+Liberada em 19/11/2026. Sete SPECs e 23 tarefas (mais a subtarefa única "Validar com o cliente"). Ler primeiro as [regras comuns](regras-comuns-fase-3.md) e a emenda abaixo.
 
-| SPEC | Entrega | Alvos | Documento |
-|---|---|---|---|
-| SPEC-2-001 | Transição verificável e estados comerciais | Funil; contrato/baseline de ambos | [SPEC](spec-transicao-e-estados-comerciais.md) |
-| SPEC-2-002 | Cadências, aprovações e limites | Funil | [SPEC](spec-cadencias-aprovacoes-e-limites.md) |
-| SPEC-2-003 | Eventos de teste e infraestrutura do agente | Funil; contrato/baseline de ambos | [SPEC](spec-eventos-e-infraestrutura-do-agente.md) |
-| SPEC-2-004 | Respostas, bloqueios e passagem humana | Funil | [SPEC](spec-respostas-bloqueios-e-passagem.md) |
-| SPEC-2-005 | Retorno comercial local à Fábrica | Ambos | [SPEC](spec-retorno-comercial-local-a-fabrica.md) |
-| SPEC-2-006 | Painel interno e métricas de teste | Funil | [SPEC](spec-painel-interno-e-metricas-de-teste.md) |
-| SPEC-2-007 | Validação automatizada e encerramento da fase 2 | Ambos | [SPEC](spec-demonstracao-e-encerramento-da-fase-2.md) |
+| SPEC | Entrega | Alvos | Depende do cliente? | Documento |
+|---|---|---|---|---|
+| SPEC-3-001 | Fechamento da fase 2 (provas, relatório, código no GitHub, restore estável) | Ambos | não | [SPEC](spec-fechamento-da-fase-2.md) |
+| SPEC-3-002 | Sincronização real Fábrica ↔ Funil | Ambos | não | [SPEC](spec-sincronizacao-real-entre-os-apps.md) |
+| SPEC-3-003 | Conectores, cofre de credenciais, modo piloto e freios | Ambos | não para construir | [SPEC](spec-conectores-cofre-e-freios.md) |
+| SPEC-3-004 | Formulários Farol por produto com entrada no inbound | Funil (+ cadastro na Fábrica) | texto de consentimento para publicar | [SPEC](spec-formularios-farol.md) |
+| SPEC-3-005 | Captação e enriquecimento com fonte e custo | Fábrica | fornecedor e chave para a parte paga | [SPEC](spec-captacao-e-enriquecimento.md) |
+| SPEC-3-006 | Canais reais em piloto: e-mail, WhatsApp, LinkedIn | Funil | contas e chaves de cada canal | [SPEC](spec-canais-email-whatsapp-linkedin.md) |
+| SPEC-3-007 | Validação automática e encerramento da fase 3 | Ambos | só a validação única no fim | [SPEC](spec-validacao-e-encerramento-da-fase-3.md) |
 
-## Ordem elegível
+## Ordem
 
-F2-T01 primeiro. Após sua provas automatizadas, F2-T02 e o contrato F2-T07 ficam elegíveis. Políticas → cadência única → aprovação → fila simulada → contexto/resposta/bloqueio/passagem → retorno comercial local à Fábrica → painel. As dependências exatas constam das tarefas; a posição visual no quadro não as substitui. Regressão → publicação verificável → jornada E2E/relatório final encerram a fase.
+F3-T01 a F3-T03 (fechamento da fase 2) → sincronização F3-T04 a F3-T08 (vem antes de qualquer consumidor) → cofre/piloto/saúde F3-T09 a F3-T11 → formulários F3-T12 a F3-T14 → captação F3-T15 a F3-T17 → canais F3-T18 a F3-T21 → regressão e jornada F3-T22 e F3-T23. A ligação real de fornecedor ou canal sem chave fica `[/]` com o motivo registrado e o Maestro segue para a próxima task.
 
-## Critérios de fase
+## Critérios da fase
 
-| Critério aprovado | SPECs e prova exigida |
+| Critério | SPECs e prova |
 |---|---|
-| F2-01 — Jornada completa com eventos TESTE | 001–005 e 007; JORNADA-F2-E2E |
-| F2-02 — Relacionamento aprova cada mensagem; fria dispensa lote | 002; POLITICA-COORTE e APROVACAO-VINCULADA |
-| F2-03 — Pausa/bloqueio/idempotência e negativos | 002–005; CADENCIA-UNICA, EVENTO-IDEMPOTENTE, RESPOSTA-PAUSA, SAIDA-GLOBAL e RETORNO-CONFLITO-ACL |
-| F2-04 — Papéis, teto e histórico | 001/004/006; COMERCIAL-ACL, PASSAGEM-TETO-ACL e PAINEL-FILTROS-ACL |
-| F2-05 — Modo real recusado; zero canal externo | 003/005/007; SEM-EXTERNO-F2 e retorno local |
-| F2-06 — Fixture não conta como mercado | 006; TESTE-NAO-MERCADO |
+| F3-01 — lote real controlado com fonte, custo e retomada | 005; LOTE-RETOMADA |
+| F3-02 — envio/resposta de teste de cada canal com correlação | 006; CANAL-PILOTO-REAL |
+| F3-03 — evento inválido/duplicado não altera nem reenvia | 002/006; SYNC-RETOMADA, WEBHOOK-ASSINATURA |
+| F3-04 — pausa/limite/credencial inválida deixam pendência rastreável | 003/006; SAUDE-PAUSA, CANAL-PENDENCIA |
+| F3-05 — contato conhecido fora da fria; saída sobrevive à reimportação | 005/007; LOTE-RETOMADA, REGRESSAO-F1-F3 |
+| F3-06 — formulário autenticado entra no inbound; chamada inválida recusada | 004; FORM-INBOUND, FORM-RECUSA |
+| F3-07 — sincronização bidirecional por autoridade; pendência impede toque | 002; SYNC-IDA-VOLTA, SYNC-TRAVA-TOQUE |
 
-## Referências herdadas
+## Emenda do consultor — 19/11/2026: sem teste humano que trava
 
-[Contrato SPEC-1-007](spec-identidades-e-projecoes-entre-apps.md) continua normativo para identidade/autoridade/revisão. Os outros arquivos SPEC-1-* foram preservados como referência histórica; não são tarefas novas desta fase. [Snapshot completo da fase 1](../../06_notas/historico/fase-1/fase.md), com 22 UUIDs preservados. Nenhum plano privado ou detalhamento de fase futura faz parte deste pacote.
+Pedido do Rodrigo em 19/11/2026. Vale para as sete SPECs, `fase.md` e `AGENTS.md`, e prevalece sobre texto herdado das fases 1 e 2. Não muda escopo nem critérios técnicos.
 
-
-## Execução sem perguntas intermediárias
-
-O Maestro escreve/executa os testes automatizados, incluindo navegador E2E; aprovação dos CAs libera a próxima tarefa sem teste humano obrigatório. Questões vão para [pendências finais](../../06_notas/pendencias-finais-fase-2.md), apresentadas em lote único no final. A regra vale também ao consultar instruções herdadas. Nenhum comportamento de aprovação comercial/retomada do produto foi removido.
+1. **Nenhuma task espera teste, aprovação ou avaliação do cliente.** O Maestro marca `[x]` quando a prova automática da SPEC passa e registra na linha `>` a data, as versões e o resultado.
+2. **O aceite do cliente é um só:** a subtarefa "Validar com o cliente", no fim da fase (F3-T23), cobrindo a fase 2 e a fase 3. Ela não segura nenhuma outra task.
+3. **Paradas reais (as únicas):** acesso que só o cliente tem (chave, conta, domínio, número, teto de custo) e primeira gravação/envio real em sistema externo. Nesses casos o Maestro constrói com o simulador, registra o motivo e o passo exato em `06_notas/pendencias-fase-3.md`, deixa a task `[/]` e segue para a próxima.
+4. **Aprovação de mensagem de relacionamento e retomada humana continuam** como funcionalidades do produto, testadas com atores sintéticos. Não são teste do cliente.
+5. **Dúvidas** vão para `06_notas/pendencias-fase-3.md` e são apresentadas juntas no relatório final (F3-T23).

@@ -1,5 +1,9 @@
 # Histórico da construção
 
+## 19/11/2026 — Fase 3 liberada; teste humano sai da fila
+
+Pedido do consultor. Fase 2 (18/18, 05/11) arquivada em `05_entregas/fase-2/`. Publicadas sete SPECs e 23 tarefas da fase 3: fechamento da fase 2, sincronização real Fábrica↔Funil, cofre/piloto/saúde dos conectores, formulários Farol por produto, captação/enriquecimento, canais e-mail/WhatsApp/LinkedIn em piloto e validação final. Emenda de 19/11 no índice, nas SPECs e no AGENTS.md: nenhuma task espera teste do cliente; aceite único no fim da fase (fases 2 e 3); paradas só por acesso do cliente ou primeiro envio real, com registro em `06_notas/pendencias-fase-3.md`. Termo: `05_entregas/liberacao-fase-3-2026-11-19.md`.
+
 ## 27/10/2026 — Maestro testa e avança; perguntas somente no final
 
 Direção explícita do consultor: remover teste humano obrigatório da construção F2. Sete SPECs/18 tarefas, AGENTS e regras comuns agora aprovam tarefas por testes automatizados executados pelo Maestro (regras/contrato/backend, navegador E2E, negativos, regressão, lint/build). Cadastro→lead e acessos passam a provas automatizadas; F2-T18 gera jornada E2E/relatório final. Dúvidas/decisões são acumuladas e apresentadas em uma única lista final; tarefas independentes seguem. Aprovações comerciais continuam como comportamento do produto testado por atores sintéticos. Histórico F1 preservado; nenhuma implementação/teste de produto executado por esta revisão.
