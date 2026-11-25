@@ -1,0 +1,127 @@
+{
+ "data": "2026-10-29T19:05:18.822Z",
+ "passos": 24,
+ "falhas": 0,
+ "log": [
+  {
+   "estado": "PASSA",
+   "nome": "LIMITE: Fábrica não aceita cadastro por POST direto (403)",
+   "detalhe": "documentado, não é falha"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "LIMITE: pessoa também só entra por importação/lista na Fábrica",
+   "detalhe": "documentado"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "mesma pessoa no Funil com o MESMO sync_global_id",
+   "detalhe": "G-JORNADA-1793300710268636570"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "cadastro → lead pela rota real",
+   "detalhe": "lead 45h4msajlaptf24"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "repetir cadastro→lead NÃO duplica",
+   "detalhe": "leads da pessoa: 1"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "política avalia e decide",
+   "detalhe": "decisão: ? · coorte: ?"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "produto criado (nasce inativo, como a regra exige)",
+   "detalhe": "m6few6u4ddc5h6k · ativo=false"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "cadência da pessoa×produto ativada",
+   "detalhe": "estado: ativa"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "toque enfileirado (pendente, aguardando reserva)",
+   "detalhe": "toque 3xsrdydebhd43ia"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "reserva feita com lease",
+   "detalhe": "75luz657i5q8fbm"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "confirmação simulada do toque",
+   "detalhe": "estado: cancelado_pausa"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "primeira abordagem registrada",
+   "detalhe": "data 2026-10-29T13:00:00"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "evento de resposta aceito",
+   "detalhe": "acao: aplicado"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "evento repetido não duplica",
+   "detalhe": "duplicado"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "resposta virou passagem na fila humana",
+   "detalhe": "status aguardando"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "operador alheio não vê a passagem de outro",
+   "detalhe": "nenhuma linha vazada"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "passagem encerrada com motivo humano",
+   "detalhe": "resolvida"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "fixture exportada",
+   "detalhe": "1 evento(s)"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "Fábrica projeta a abordagem (somente leitura)",
+   "detalhe": "data 2026-10-29 13:00:00 · rev 1"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "edição direta do fato projetado é negada",
+   "detalhe": "403"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "painel responde com o ambiente do SERVIDOR",
+   "detalhe": "ambiente: teste · natureza: teste_nao_mercado"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "oportunidade calculada pela definição aprovada",
+   "detalhe": "estado: configurada · valor: 4"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "contagens coerentes com a jornada",
+   "detalhe": "leads 5 · respostas 4 · passagens 4"
+  },
+  {
+   "estado": "PASSA",
+   "nome": "querystring NÃO troca o ambiente para real",
+   "detalhe": "continua teste"
+  }
+ ]
+}
