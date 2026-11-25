@@ -4,7 +4,7 @@ Liberada em 19/11/2026. Vale para as sete SPECs da fase 3 e para `fase.md`. Junt
 
 ## Autoridade e ambiente
 
-- Fábrica de Listas é a fonte de verdade de empresa, pessoa, contexto, fontes, listas, produtos, réguas e notas. Funil MKT é a fonte de verdade de estado comercial, atribuição, cadências, mensagens, aprovações, primeira abordagem e bloqueios globais.
+- Fábrica de Listas é a fonte de verdade de empresa, contexto, fontes, listas, produtos, réguas e notas. **O cadastro único de PESSOA vive no Funil MKT** (emenda de 25/11/2026, decisão do José: a Fábrica não tem coleção de pessoa e seu modelo, `empresas` exige `lista`, pensa em empresa e não em pessoa). Funil MKT é também a fonte de verdade de estado comercial, atribuição, cadências, mensagens, aprovações, primeira abordagem e bloqueios globais.
 - Os dois apps continuam com backends PocketBase próprios no Skip. Não copiar código de um app para o outro, não trocar de backend e não criar serviço externo novo para hospedar lógica.
 - O contrato v1 da fase 1 (envelope, ID global, autoridade, ambiente, revisão por domínio, hash canônico, alias e revogação) continua valendo. ID PocketBase é sempre local; nunca gravar por ID do outro app nem criar lead sem dono.
 - A partir desta fase existe HTTP entre os dois apps e com fornecedores, só pelos adaptadores descritos nas SPECs. Credencial fica no armazenamento de segredos do Skip/backend, nunca no frontend, no Git, na SPEC, em log ou em evidência.
@@ -14,9 +14,10 @@ Liberada em 19/11/2026. Vale para as sete SPECs da fase 3 e para `fase.md`. Junt
 
 1. Ler `fase.md`, este arquivo, o índice e a SPEC da task. Construir as tasks em sequência, uma em construção por vez, e seguir para a próxima assim que as provas automáticas da atual passarem. Não pedir autorização, demonstração ou teste ao cliente entre tasks.
 2. Uma task recebe `[x]` quando os casos da SPEC ligados a ela passam (testes de regras/contrato, backend e, quando houver tela, navegador automatizado), com lint/build verdes. Registrar na linha `>` da task, embaixo da descrição: data, versões aplicadas nos dois apps e resultado (ex.: `> 19/11: 24/24 passam; Funil v0.0.230, Fábrica v0.0.40`).
-3. Antes de migrar, comparar schema/hooks/migrações implantados com o Git, usar o próximo ordinal livre e não sobrescrever migração aplicada. Publicar fonte e testes no repositório de cada app.
+3. Antes de migrar, comparar schema/hooks/migrações implantados com o Git, usar o próximo ordinal livre e não sobrescrever migração aplicada. Publicar fonte e testes no repositório de cada app. **Não reportar como feito o que não foi aplicado e conferido no ambiente**: consultar o valor depois da gravação e citar a consulta junto do número.
 4. Decisão técnica reversível o Maestro toma sozinho e documenta. Valor de negócio que ainda não chegou (limite, texto de consentimento, teto de custo, destinatários de piloto) usa configuração TESTE identificada, para provar os dois caminhos (configurado/ausente), sem virar política real.
 5. Dúvidas e impedimentos vão para `06_notas/pendencias-fase-3.md` (contexto, impacto, recomendação, tasks afetadas). Não perguntar entre tasks.
+6. **Campo `json` do Skip não é objeto JS no hook.** Ele chega como array de bytes (`[]uint8`); acesso por ponto devolve `undefined` e `JSON.stringify` devolve `"{}"`. Para dado que o hook precisa **ler e decidir**, guardar em campo de **texto** e usar `JSON.parse`. Campo `json` serve para o que sai por `e.json` e para a tela.
 
 ## Paradas reais (as únicas)
 
