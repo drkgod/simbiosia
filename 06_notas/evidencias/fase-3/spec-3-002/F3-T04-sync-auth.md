@@ -1,45 +1,62 @@
-# F3-T04 — SYNC-AUTH (CA-3-002-01)
+# F3-T04 — SYNC-AUTH (CA-3-002-01) · CONCLUÍDA
 
-**Data:** 25/11/2026 · **Funil:** v0.0.225/a0ccabc · **Fábrica:** v0.0.35/530b704
+**Data:** 25/11/2026 · **Funil:** v0.0.229/f375e24 · **Fábrica:** v0.0.40/174274a
 
 ## O que foi construído
 
-Um receptor autenticado em **cada** backend (`POST /backend/v1/sync/receber`), com token de serviço no segredo `SYNC_TOKEN_INTERAPP` do Skip — o mesmo valor nos dois projetos. Mais `GET /backend/v1/sync/saude` (só admin) em cada lado.
+Receptor autenticado em **cada** backend (`POST /backend/v1/sync/receber`), com token de serviço no segredo `SYNC_TOKEN_INTERAPP` do Skip — o mesmo valor nos dois projetos. Mais `GET /backend/v1/sync/saude` (só admin) em cada lado.
 
 Cada receptor aceita **só a origem do outro**: o do Funil aceita `origem=fabrica`, o da Fábrica aceita `origem=funil`. Chamada cruzada recebe 403 com motivo `autoridade`.
 
-## Resultado no Funil — 5 de 5 caminhos
+## Resultado — os dois lados
 
-| Caminho | Resposta |
-|---|---|
-| sem token | `401` · `token de serviço ausente` (`sem_token`) |
-| token errado | `401` · `token de serviço inválido` (`token_invalido`) |
-| origem errada (funil no receptor do Funil) | `403` · `origem não autorizada neste receptor` (`autoridade`) |
-| token correto | `200` · `acao: recebido` + `recibo_id` gravado |
-| repetido (mesmo hash) | `200` · `acao: duplicado`, mesmo recibo, nada alterado |
-| mesmo evento_id com hash diferente | `409` · `acao: conflito`, `hash_anterior`, sem sobrescrever |
+| Caminho | Funil | Fábrica |
+|---|---|---|
+| sem token | `401` `sem_token` | `401` `sem_token` |
+| token errado | `401` `token_invalido` | `401` `token_invalido` |
+| origem trocada | `403` `autoridade` | `403` `autoridade` |
+| ambiente `real` | `400` `ambiente_real` | `400` `ambiente_real` |
+| token válido | `200` `recebido` + recibo | `200` `recebido` + recibo |
+| repetido (mesmo hash) | `200` `duplicado`, mesmo recibo | `200` `duplicado`, mesmo recibo |
+| mesmo evento, hash diferente | `409` `conflito`, sem sobrescrever | `409` `conflito` |
 
-**CA-3-002-01 atendido no lado do Funil.**
+**CA-3-002-01 atendido nos dois sentidos.**
 
-## A Fábrica não respondeu — pendência
+Saúde dos canais depois da prova: Funil `token_configurado: true`, 0 eventos de teste (limpos); Fábrica `token_configurado: true`, 49 recibos históricos da fase 2 e 1 pendente.
 
-As três chamadas ao receptor da Fábrica devolveram **`Not Found`**, inclusive com token válido. O apply foi verde nos dois (setup, staticAnalysis, build, integrations e test todos ok). Três hipóteses, na ordem em que eu investigaria:
+## O que me custou tempo — e o que aprendi
 
-1. **rota não registrada até um publish** — é o padrão conhecido do Skip: hook novo pode não subir até um `skip_project_publish`, e a versão publicada pode ser anterior ao apply;
-2. **URL errada** — a que eu usei é a do backend interno; vale conferir com `skip_cloud_get_backend_url` do projeto 50248;
-3. **falha silenciosa de deploy** — o apply pode reportar sucesso com o hook fora do ar no processo que atende.
+### 1. O 404 na Fábrica era **URL errada**, não falta de publish
 
-O que falta, exatamente: rodar `skip_project_publish` no 50248 e repetir as três chamadas. Se continuar `Not Found`, conferir a URL e a lista de hooks registrados.
+Eu estava usando um host que não existe. O backend real é o de `shrd03`, obtido com `skip_cloud_get_backend_url`. **Lição:** antes de diagnosticar "rota não registrada", conferir a URL do backend pela fonte oficial. A hipótese do publish estava errada e teria me feito publicar sem necessidade.
 
-**Por isso a F3-T04 fica `[/]`, não `[x]`:** o critério CA-3-002-01 pede recusa nos dois sentidos, e só um lado está provado.
+### 2. `countRecords` não conta nesta VM do Skip
 
-## Detalhes de implementação que valem registro
+A rota `/saude` devolvia `eventos_recebidos: 0` com os recibos gravados no banco. Primeiro achei que fosse filtro vazio; troquei por `id != ''` e continuou 0. O que funciona é **contar pelo tamanho da lista** (`findRecordsByFilter(...).length`).
 
-- **Comparação em tempo constante** no token (`length` + XOR por caractere), não `===`. Errado por diferença de tempo é o suficiente para descobrir token por tentativa.
-- **Falha fechada sem segredo**: sem `SYNC_TOKEN_INTERAPP` o canal devolve `503` em vez de abrir sem proteção.
-- **`X-Sync-Token` não chegou** em nenhum teste pelo proxy interno; `Authorization: Bearer` funcionou. O código aceita os dois, mas na prática só o Bearer passou. Registrado para quem for integrar de verdade.
-- **`estado` do recibo**: o select de `sync_inbox` aceita `aplicado, duplicado, atrasado, pendente, conflito, rejeitado` — **não** `recebido`. A primeira versão usou `recebido` e deu `Invalid value`; corrigida para `pendente`, que significa "recibo gravado, projeção ainda não aplicada" e é o que a F3-T05 vai consumir.
+Isso é perigoso: **um painel de saúde que sempre diz zero é pior que não ter painel** — dá sensação de monitoramento sem monitorar nada. Foi a conferência cruzada com a API de registros que expôs (o banco tinha 50, o painel dizia 0).
+
+### 3. `estado: 'recebido'` não existe no select
+
+O select de `sync_inbox` aceita `aplicado, duplicado, atrasado, pendente, conflito, rejeitado`. A primeira versão gravava `recebido` e o save falhava com `Invalid value`. Corrigido para **`pendente`**, que é exatamente o significado certo: recibo gravado, projeção ainda não aplicada — o que a F3-T05 vai consumir.
+
+### 4. `X-Sync-Token` não atravessa o proxy interno
+
+O código aceita `X-Sync-Token` ou `Authorization: Bearer`. Na prática só o **Bearer** chegou. Quem for integrar de verdade deve usar Bearer.
+
+## Limpeza
+
+`sync_inbox` tem `deleteRule: null`: a API de registros nega até admin (403 "Only superusers"). Usei uma **rota temporária** (`/backend/v1/sync/limpar-provas`) que apagava só os `evento_id` de prova. Executada e conferida: Funil com 0, Fábrica sem nenhum resíduo meu.
+
+A rota foi **neutralizada** e responde **410** nos dois backends — conferido. Mantida no repositório, não apagada, porque apagar arquivo de hook pode quebrar o apply (lição das fases 1 e 2).
 
 ## Segurança
 
-O token **não** está no Git, em tela, em log ou nesta evidência. Vive só nos segredos do Skip dos dois projetos. Rotação: trocar o segredo nos dois projetos e reaplicar.
+O token não está no Git, em tela, em log ou nesta evidência. Vive só nos segredos do Skip dos dois projetos. Comparação em tempo constante (length + XOR), não `===`. Sem segredo configurado, a rota devolve `503` em vez de abrir sem proteção.
+
+**Rotação:** trocar `SYNC_TOKEN_INTERAPP` nos dois projetos e reaplicar. Não há valor antigo em lugar nenhum.
+
+## Arquivos
+
+- `pocketbase/hooks/sync_receptor.js` — publicado nos dois repositórios
+- `pocketbase/hooks/zz_sync_limpeza_tmp.js` — rota neutralizada (410)
