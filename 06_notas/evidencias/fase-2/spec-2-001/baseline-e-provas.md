@@ -1,7 +1,6 @@
-// F2-T01 (2026-10-27): evidência de baseline.
-// Este arquivo registra o estado medido no início da fase 2.
-
 # Baseline — F2-T01
+
+> Estado medido no início da fase 2 (27/10/2026).
 
 | Item | Funil (50182) | Fábrica (50248) |
 |---|---|---|

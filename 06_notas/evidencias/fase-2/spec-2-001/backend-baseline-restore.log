@@ -1,0 +1,32 @@
+✔ AMBIENTE-RESTORE: sistema_config existe com ambiente de teste e controles bloqueados (2398.162591ms)
+✖ SEM-EXTERNO: rotas instrumentadas não despacham com pausa ativa (contador por correlação = 0) (76.505675ms)
+✔ SEM-EXTERNO (controle positivo interceptado): tentativa deliberada registra contador 1 sem rede (72.464631ms)
+✔ AMBIENTE-RESTORE: backup restaura as mesmas contagens (manifesto) (1771.266839ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4505.640795
+
+✖ failing tests:
+
+test at tests/backend.test.mjs:72:1
+✖ SEM-EXTERNO: rotas instrumentadas não despacham com pausa ativa (contador por correlação = 0) (76.505675ms)
+  AssertionError [ERR_ASSERTION]: nenhuma tentativa deveria ser registrada com o portão ativo
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///home/ethos/.assistant/workspace/work/simbiosia/07-sistemas/funil-mkt/tests/backend.test.mjs:99:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:6) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
