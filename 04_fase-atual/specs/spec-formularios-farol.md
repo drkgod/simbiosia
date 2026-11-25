@@ -8,13 +8,13 @@
 ## Contexto e decisões fechadas
 
 - **Estado atual:** cadastro→lead existe (fase 1/2) para entrada manual; não há formulário público nem endpoint para o Raio-X.
-- **Estado desejado:** o admin monta, por produto (ex.: Farol Free, Farol 2027), um formulário a partir de campos-padrão (nome, empresa, CNPJ, cargo, e-mail, WhatsApp, opt-in por canal, aceite do aviso) mais perguntas do produto. A resposta entra por endpoint autenticado, cria ou atualiza o cadastro único na Fábrica pela sincronização e vira lead inbound no Funil, pontuado na entrada.
+- **Estado desejado:** o admin monta, por produto (ex.: Farol Free, Farol 2027), um formulário a partir de campos-padrão (nome, empresa, CNPJ, cargo, e-mail, WhatsApp, opt-in por canal, aceite do aviso) mais perguntas do produto. A resposta entra por endpoint autenticado, cria ou atualiza o **cadastro único de pessoa no próprio Funil** (ver emenda de 25/11) e vira lead inbound, pontuado na entrada.
 - **Decisões já fechadas:** lead de formulário entra na coorte inbound; se estava em cadência fria, ela para; o opt-in é por canal; o Raio-X continua app separado e só envia respostas a este endpoint com assinatura. Primeiro contato do inbound e qualquer resposta seguem as regras da fase 2 (resposta → humano).
-- **Bloqueios:** nenhum para construir. O texto real de aviso/consentimento vem do responsável de dados da Simbiosia; até chegar, usar texto TESTE marcado.
+- **Bloqueios:** nenhum para construir. O texto real de aviso/consentimento vem do responsável de dados da Simbiosia; até chegar, usar texto TESTE marcado. **Recebido em 25/11** e aplicado (`aviso_versao: real-v1`).
 
 ## Resultado observável
 
-Tela "Formulários" no Funil: criar formulário por produto, ver o link, ver as respostas. Enviar o formulário de teste cria a pessoa na Fábrica e o lead inbound no Funil com produto, opt-in e origem; reenviar a mesma resposta não duplica.
+Tela "Formulários" no Funil: criar formulário por produto, ver o link, ver as respostas. Enviar o formulário de teste cria a pessoa no cadastro do Funil e o lead inbound com produto, opt-in e origem; reenviar a mesma resposta não duplica.
 
 ## Limites e dependências
 
@@ -29,7 +29,7 @@ Tela "Formulários" no Funil: criar formulário por produto, ver o link, ver as 
 
 | Origem/destino | Fonte de verdade | Contrato | Autenticação | Idempotência | Erro |
 |---|---|---|---|---|---|
-| Página do formulário → Funil | Funil (recebe) / Fábrica (cadastro) | campos-padrão + perguntas do produto, versão do aviso | token do formulário + limite por origem | chave de envio única | 4xx com mensagem simples, nada gravado |
+| Página do formulário → Funil | Funil (recebe e cadastra) | campos-padrão + perguntas do produto, versão do aviso | token do formulário + limite por origem | chave de envio única | 4xx com mensagem simples, nada gravado |
 | Raio-X → Funil | idem | mesmo contrato | HMAC com segredo no Skip | idem | 401 sem efeito |
 
 | Regra | Condição | Resultado | Exceção |
@@ -43,7 +43,7 @@ Tela "Formulários" no Funil: criar formulário por produto, ver o link, ver as 
 
 1. **Ler antes de alterar:** esta SPEC, regras comuns, SPEC-3-002, fluxo cadastro→lead existente.
 2. **Alterar somente:** coleções, hooks e telas de formulário no Funil; evento de cadastro na Fábrica.
-3. **Não alterar:** autoridade do cadastro (continua na Fábrica), regras de coorte da fase 2.
+3. **Não alterar:** autoridade de **empresa** (continua na Fábrica; o cadastro de PESSOA é do Funil, emenda de 25/11), regras de coorte da fase 2.
 4. **Executar nesta ordem:** F3-T12 → F3-T13 → F3-T14.
 5. **Parar e pedir validação quando:** publicar o formulário num endereço público divulgável é primeira exposição real. Construir e provar com link de teste não divulgado; se o texto real de consentimento ainda não chegou, registrar em `pendencias-fase-3.md` e seguir para a próxima task.
 6. **Estado válido ao parar:** formulários em rascunho ou só com link de teste.
@@ -52,7 +52,7 @@ Tela "Formulários" no Funil: criar formulário por produto, ver o link, ver as 
 ## Critérios de aceite
 
 - [ ] **CA-3-004-01:** admin cria formulário por produto com campos-padrão e perguntas próprias; vendedor não cria.
-- [ ] **CA-3-004-02:** resposta válida cria/atualiza o cadastro na Fábrica e o lead inbound no Funil com produto, opt-in e versão do aviso (F3-06).
+- [ ] **CA-3-004-02:** resposta válida cria/atualiza o **cadastro de pessoa no Funil** e o lead inbound com produto, opt-in e versão do aviso (F3-06) — emenda de 25/11: cadastro de pessoa não fica na Fábrica.
 - [ ] **CA-3-004-03:** chamada sem assinatura/token, malformada, repetida ou acima do limite é recusada sem efeito.
 
 ## TDD da SPEC
@@ -86,3 +86,22 @@ Tela "Formulários" no Funil: criar formulário por produto, ver o link, ver as 
 | Data | Origem do sinal | Micro-spec/task | Motivo |
 |---|---|---|---|
 | 19/11/2026 | Pedido do consultor | Emenda sem teste humano que trava (ver índice) | Nenhuma task espera teste do cliente; o aceite é a subtarefa única "Validar com o cliente" no fim da fase |
+| 25/11/2026 | Decisão do José | Onde vive o cadastro único de pessoa | F3-T13, T15, T16, T23 — a Fábrica não tem coleção de pessoa |
+
+### Emenda de 25/11/2026 — o cadastro de pessoa vive no Funil
+
+**Decisão do José:** opção B, com emenda escrita.
+
+**Por que:** a Fábrica de Listas não tem coleção de pessoa. Ela tem `listas` e `empresas`, e `empresas` exige `lista` (relation obrigatória) — o modelo dela pensa em empresa, não em pessoa. Criar `pessoas` lá nasceria como coleção sem uso próprio, só para cumprir a letra da SPEC. O Funil já tem `pessoas` com identidade, conflito e fusão funcionando desde a fase 1, e é onde o `cadastro→lead` vive.
+
+**O que muda:**
+
+| Antes | Depois |
+|---|---|
+| Resposta cria cadastro na Fábrica e sincroniza | Resposta cria/atualiza pessoa **no Funil** |
+| Fábrica = autoridade de pessoa | Fábrica = autoridade de **empresa, lista e catálogo** |
+| Sincronização leva pessoa Fábrica→Funil | Sincronização leva **empresa** Fábrica→Funil e **estado comercial/proteção** Funil→Fábrica |
+
+**O que não muda:** o contrato v1, o `sync_global_id`, a idempotência por hash, o pausar-sem-sincronizar, e a regra de que ausência de evento nunca desbloqueia.
+
+**Alcance:** a regra comum da fase 3 (`regras-comuns-fase-3.md`, seção Autoridade) precisa da mesma correção — feita junto com esta emenda.
