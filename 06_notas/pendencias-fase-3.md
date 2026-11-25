@@ -2,7 +2,18 @@
 
 Registro contínuo, não interrompe a fila. Cada item tem o passo exato que falta e quem pode desbloquear.
 
-**Última atualização:** 25/11/2026 · **Fechadas:** F3-T01, F3-T03, F3-T04, F3-T05 · **Em andamento:** F3-T02
+**Última atualização:** 25/11/2026 · **Fechadas:** F3-T01, F3-T03, F3-T04, F3-T05, F3-T06, F3-T07, F3-T08 · **Em andamento:** F3-T02
+
+## SPEC-3-002 fechada (25/11/2026)
+
+Sincronização completa entre os apps: canal autenticado, ida, volta, retomada/reconciliação e
+travamento do toque. **50 casos de prova passando.** Os quatro critérios de aceite estão cobertos
+(CA-01 auth, CA-02 ida e volta, CA-03 retomada sem duplicar, CA-04 pendência impede toque).
+
+Estado do terreno ao fechar: Funil `em_dia: true`, outbox zerado. A Fábrica mostra `em_dia: false`
+por causa de **5 recibos de 29/10** (`G-F13-*`, provas da fase 2): 1 pendente e 4 conflitos.
+Não são do trabalho desta fase e não foram apagados — apagar histórico de prova de outra fase sem
+decisão seria pior. Se quiserem o painel totalmente verde, é uma limpeza de dados, não de código.
 
 ## Acesso que só vocês têm
 
@@ -29,24 +40,24 @@ Consequência: o canal `fabrica → funil` para `catalogo_aprovado` e `pontuacao
 construído, provado e sem fonte de dados do lado da Fábrica. Hoje esses dois tipos só podem ser
 emitidos com informação que já está no Funil, o que anula o sentido da autoridade.
 
-**Task afetada:** F3-T05 fechou com o recorte que existe (cadastro de empresa e pessoa), e a
-prova de catálogo e nota foi feita com envelope injetado direto no receptor, que é o que prova
-o contrato. **Decisão necessária do José:** a Fábrica ganha catálogo e notas (duplicando a
-autoridade que hoje está no Funil), ou o catálogo e as notas *saem* do escopo da Fábrica e a
-autoridade da SPEC-3-002 muda para o Funil nesses dois tipos?
+**Decisão necessária do José:** a Fábrica ganha catálogo e notas (duplicando a autoridade que hoje
+está no Funil), ou catálogo e notas *saem* do escopo da Fábrica e a autoridade da SPEC-3-002 muda
+para o Funil nesses dois tipos?
 
-Recomendação: **o catálogo e as notas ficam no Funil** e a Fábrica cuida de cadastro, listas e
-régua de ICP. Motivo: o Funil já tem o catálogo operante com régua, pontuação e simulador
-provados em produção interna; replicar isso na Fábrica cria duas fontes de verdade para o mesmo
-fato, que é exatamente o problema que a sincronização existe para evitar. A SPEC-3-002 diz
-"Fábrica é autoridade de cadastro, régua e notas" — se "notas" ali significava nota de ICP, o
-texto precisa ser corrigido antes da F3-T22 (regressão).
+Recomendação: **catálogo e notas ficam no Funil** e a Fábrica cuida de cadastro, listas e régua de
+ICP. O Funil já tem catálogo operante com régua, pontuação e simulador. Replicar na Fábrica cria
+duas fontes de verdade para o mesmo fato, que é exatamente o problema que a sincronização existe
+para evitar. Se "notas" na SPEC-3-002 era nota de ICP, o texto precisa ser corrigido antes da F3-T22.
 
 ## Volume em aberto na F3-T02
 
-Repo do Funil completo: **49 migrações, 40 hooks, 17 telas, 6 componentes de produto, 11 serviços, MCP com 23 ferramentas**. Falta o código da **Fábrica de Listas** (sem commit desde 22/10 — o Skip 50248 tem a versão viva). É o que impede o CA-3-001-03 de fechar.
+Repo do Funil publicado até a v0.0.226. **Ficaram só no Skip** (a publicar no lote):
+`sync_outbox_funil.js`, `sync_reconciliacao.js`, `sync_trava_toque.js`, `sync_trava_toque`,
+`migration 0050_sync_outbox`, `zz_*` de limpeza. Na Fábrica: `sync_outbox_fabrica.js`,
+`migration 0011_sync_outbox`, `sync_reconciliacao.js`, e todo o código vivø do app (sem commit
+desde 22/10). É o que impede o CA-3-001-03 de fechar.
 
-## Correções feitas na rodada (F3-T04 e F3-T05)
+## Correções feitas na rodada (F3-T04 a F3-T08)
 
 - **Migration 0049 no repo errado**: eu a havia publicado em `drkgod/simbiosia/pocketbase/migrations/`. Pertence ao repo do Funil. Removida de lá, publicada no lugar certo.
 - **Senha literal em teste**: o caso do vendedor tinha a senha como fallback no código, e o repo é público. Removida; sem credencial no ambiente, o caso pula.
@@ -54,6 +65,8 @@ Repo do Funil completo: **49 migrações, 40 hooks, 17 telas, 6 componentes de p
 - **`JSON.stringify` em campo `json` do Skip**: a string volta como `[]uint8` (array de bytes). Cinco despachos perdidos até achar. Campo `json` recebe o objeto, nunca a string.
 - **Recibo `rejeitado` respondia `duplicado`**: o evento ficava preso para sempre num recibo sem efeito nenhum. Reenvio sobre `rejeitado` agora entra.
 - **Empresa existente com o mesmo CNPJ**: a projeção dava 500 no índice único. Agora adota o registro existente e escreve o `sync_global_id` nele.
+- **`fase.md` sobrescrito por push de fragmento** (25/11): publiquei uma linha só e apaguei as outras 22 tasks. Recuperado do commit `c4971b41` pelo `ref`. **Lição:** o conector substitui o arquivo inteiro; ler, editar o texto completo e publicar inteiro.
+- **`bloqueios_contato` nega DELETE até para admin** (`deleteRule: null`). Terceiro caso igual na fase (junto com `sync_inbox` e `sync_outbox`): limpar exige rota temporária com `$app.delete` neutralizada em 410.
 
 ## Decisões pendentes herdadas da fase 2
 
@@ -66,5 +79,6 @@ Repo do Funil completo: **49 migrações, 40 hooks, 17 telas, 6 componentes de p
 
 - **MCP do Funil**: provado em 25/11 (chave, `tools/list` com 14 ferramentas, `leads_listar`, revogação). `06_notas/evidencias/fase-3/spec-3-001-MCP/prova-mcp.md`.
 - **Provas da fase 2**: 17 de 17, relatório final e dúvidas fechados.
-- **Restore**: 5 de 5 rodadas, resíduo 0. `06_notas/evidencias/fase-3/spec-3-001/F3-T03-restore-estavel.md`.
+- **Restore**: 5 de 5 rodadas, resíduo 0.
+- **Sincronização (SPEC-3-002)**: fechada, 50 casos. Detalhe por task em `06_notas/evidencias/fase-3/spec-3-002/`.
 - **FAROL 2027**: SPEC-3-004. **WhatsApp**: SPEC-3-006.
