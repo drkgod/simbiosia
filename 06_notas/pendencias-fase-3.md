@@ -2,16 +2,16 @@
 
 Registro contínuo, não interrompe a fila. Cada item tem o passo exato que falta e quem pode desbloquear.
 
-**Última atualização:** 25/11/2026 · **Fechadas nesta rodada:** F3-T01, F3-T03 · **Em andamento:** F3-T02
+**Última atualização:** 25/11/2026 · **Fechadas:** F3-T01, F3-T03 · **Em andamento:** F3-T02, F3-T04
 
 ## Acesso que só vocês têm
 
 | ID | O que falta | Para quê | Tarefa | Estado |
 |---|---|---|---|---|
-| A1 | Credencial de git para o repositório pai (`drkgod/simbiosia`) | Atualizar os gitlinks `07-sistemas/funil-mkt` e `07-sistemas/fabrica-listas` para os SHAs publicados. Sem isso, quem clona o projeto pega o código de 27/10. | F3-T02 | **BLOQUEADO** — todo o resto foi feito pelo conector, arquivo por arquivo; `git push` responde `could not read Username`, `gh` sem login, nenhum token em env. |
-| A2 | Credencial atual da conta de vendedor (`vendedor@simbiosia.com.br`) | Um caso da suíte de backend (`SEM-EXTERNO: flags negadas a não-admin`) fica em **skip** sem ela. Não bloqueia nenhum critério. | F3-T03 | **ABERTO** — a senha padrão que eu tinha não serve mais (`Failed to authenticate`, 400). Com a senha atual eu configuro `TEST_VENDEDOR_EMAIL`/`TEST_VENDEDOR_PASSWORD`. |
+| A1 | Credencial de git para o repositório pai (`drkgod/simbiosia`) | Atualizar os gitlinks `07-sistemas/funil-mkt` e `07-sistemas/fabrica-listas`. Sem isso, quem clona pega o código de 27/10. | F3-T02 | **BLOQUEADO** — tudo foi publicado pelo conector, arquivo por arquivo; `git push` dá `could not read Username`, `gh` sem login, nenhum token em env. |
+| A2 | Senha atual de `vendedor@simbiosia.com.br` | Um caso da suíte de backend fica em **skip** sem ela. Não bloqueia critério nenhum. | F3-T03 | **ABERTO** — a senha padrão que eu tinha não serve (`Failed to authenticate`, 400). |
 
-**Passo exato para o Evandro (A1):** de uma máquina com acesso ao repositório,
+**Passo do Evandro (A1):**
 ```bash
 cd drkgod/simbiosia
 git submodule update --remote 07-sistemas/funil-mkt 07-sistemas/fabrica-listas
@@ -20,30 +20,34 @@ git commit -m "Atualiza gitlinks para os SHAs publicados em 25/11"
 git push origin main
 ```
 
-## O que continua em aberto dentro da F3-T02 (volume, não acesso)
+## Bloqueio técnico aberto — F3-T04
 
-O repo do Funil já tem o núcleo completo: **49 migrações, 40 hooks, 17 telas, 6 componentes de produto, 11 serviços, MCP com 23 ferramentas**.
+O receptor autenticado funciona no **Funil** (5 caminhos provados) mas responde **`Not Found`** na **Fábrica**, inclusive com token válido. O apply foi verde nos dois (v0.0.35/530b704 no 50248).
 
-| Item | Onde | Por que ainda não |
-|---|---|---|
-| **Todo o código da Fábrica de Listas** | repo `evandromp70/f-brica-de-listas-...` | sem commit desde 22/10; o Skip 50248 tem a versão viva. É o que falta para fechar o CA-3-001-03. |
+**Próximo passo exato:** rodar `skip_project_publish` no projeto 50248 e repetir as chamadas a `POST /backend/v1/sync/receber`. É o padrão conhecido: hook novo pode não subir até um publish, e a versão publicada pode ser anterior ao apply. Se continuar 404, conferir a URL do backend e a lista de hooks registrados.
 
-## Correções feitas nesta rodada
+Por isso a F3-T04 está `[/]`: o CA-3-002-01 exige recusa **nos dois sentidos**, e só um lado está provado.
 
-- **Migration 0049 no repo errado.** Eu havia publicado `0049_api_keys_mcp.js` em `drkgod/simbiosia/pocketbase/migrations/`. Ela pertence ao repo do **Funil** (é lá que o Skip 50182 a aplicou em 23/11). Removida do repo do projeto e publicada no repo certo.
-- **Senha literal no teste.** O caso do vendedor tinha `Vendedor@2026` como fallback no código, e o repositório é público. Removida; sem a credencial no ambiente, o caso pula.
+## Volume em aberto na F3-T02
+
+Repo do Funil completo: **49 migrações, 40 hooks, 17 telas, 6 componentes de produto, 11 serviços, MCP com 23 ferramentas**. Falta o código da **Fábrica de Listas** (sem commit desde 22/10 — o Skip 50248 tem a versão viva). É o que impede o CA-3-001-03 de fechar.
+
+## Correções feitas na rodada
+
+- **Migration 0049 no repo errado**: eu a havia publicado em `drkgod/simbiosia/pocketbase/migrations/`. Pertence ao repo do Funil. Removida de lá, publicada no lugar certo.
+- **Senha literal em teste**: o caso do vendedor tinha a senha como fallback no código, e o repo é público. Removida; sem credencial no ambiente, o caso pula.
+- **`estado` do recibo**: o select de `sync_inbox` aceita `aplicado, duplicado, atrasado, pendente, conflito, rejeitado` — não `recebido`. Corrigido para `pendente`.
 
 ## Decisões pendentes herdadas da fase 2
 
 | ID | Decisão | Recomendação | Situação |
 |---|---|---|---|
-| D1 | Regra de prioridade quando a pessoa se encaixa em dois produtos (`regra_prioridade_produto`) | `ordem_catalogo` — define a hierarquia uma vez em `produtos.ordem` | ABERTA — decisão do José. Sem ela o sistema responde `pendente`, que é o comportamento correto |
-| D2 | Sentido da seta em `aliases_identidade`: simétrico (mesma pessoa) ou direcional | Manter simétrico, como está | ABERTA — confirmação do Evandro; nenhuma prova depende disso |
+| D1 | Regra de prioridade quando a pessoa se encaixa em dois produtos | `ordem_catalogo` — hierarquia definida uma vez em `produtos.ordem` | ABERTA — decisão do José. Sem ela o sistema responde `pendente`, que é o correto |
+| D2 | Sentido da seta em `aliases_identidade`: simétrico ou direcional | Manter simétrico, como está | ABERTA — confirmação do Evandro |
 
 ## O que não é pendência
 
-- **MCP do Funil**: construído pelo consultor da ADAPTA no Skip. **Provado em 25/11**: chave criada, `tools/list` com 14 ferramentas no escopo `leitura`, `leads_listar` respondendo, chave revogada no fim. Evidência em `06_notas/evidencias/fase-3/spec-3-001-MCP/prova-mcp.md`.
-- **Provas da fase 2**: 17 de 17 publicadas, relatório final e lista de dúvidas fechados.
-- **Restore do ambiente**: 5 de 5 rodadas, resíduo 0. Evidência em `06_notas/evidencias/fase-3/spec-3-001/F3-T03-restore-estavel.md`.
-- **FAROL 2027**: entra na SPEC-3-004 (formulários), na vez dela.
-- **WhatsApp**: entra na SPEC-3-006 (canais), na vez dele.
+- **MCP do Funil**: provado em 25/11 (chave, `tools/list` com 14 ferramentas, `leads_listar`, revogação). `06_notas/evidencias/fase-3/spec-3-001-MCP/prova-mcp.md`.
+- **Provas da fase 2**: 17 de 17, relatório final e dúvidas fechados.
+- **Restore**: 5 de 5 rodadas, resíduo 0. `06_notas/evidencias/fase-3/spec-3-001/F3-T03-restore-estavel.md`.
+- **FAROL 2027**: SPEC-3-004. **WhatsApp**: SPEC-3-006.
